@@ -1,0 +1,472 @@
+DEBUG - 2025-11-10 00:30:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-10 00:30:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:30:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-10 00:30:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 00:30:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:30:36 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-10 00:30:36 --> mysqli_sql_exception: Table 'urus_rekod.tbl_nama_sistem' doesn't exist in D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 D:\laragonBaru\laragon\www\codeigniter463_rekod\app\Models\Model_ChangeReq.php(346): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...', Array)
+#4 D:\laragonBaru\laragon\www\codeigniter463_rekod\app\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('6', '23', '8', 'AS')
+#5 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\CodeIgniter.php(933): App\Controllers\Home->index()
+#6 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 D:\laragonBaru\laragon\www\codeigniter463_rekod\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\laragonBaru\laragon\www\codeigniter463_rekod\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-10 00:30:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'urus_rekod.tbl_nama_sistem' doesn't exist
+[Method: GET, Route: admin]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Models\Model_ChangeReq.php(346): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 2 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('6', '23', '8', 'AS')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-10 00:30:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'urus_rekod.tbl_nama_sistem' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 APPPATH\Models\Model_ChangeReq.php(346): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 4 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('6', '23', '8', 'AS')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-10 00:30:36 --> [Caused by] mysqli_sql_exception: Table 'urus_rekod.tbl_nama_sistem' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = \'23\' AND id_seksyen = \'AS\'  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 4 APPPATH\Models\Model_ChangeReq.php(346): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'4\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_pptm = ? AND id_seksyen = ?  AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 5 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('6', '23', '8', 'AS')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-10 00:31:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:31:11 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 00:31:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_ChangeReq is deprecated in APPPATH\Controllers\Senaraicr.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Sistem is deprecated in APPPATH\Controllers\Senaraicr.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_User is deprecated in APPPATH\Controllers\Senaraicr.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Bahagian is deprecated in APPPATH\Controllers\Senaraicr.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:31:18 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 00:31:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_ChangeReq is deprecated in APPPATH\Controllers\Senaraicr.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Sistem is deprecated in APPPATH\Controllers\Senaraicr.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_User is deprecated in APPPATH\Controllers\Senaraicr.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Bahagian is deprecated in APPPATH\Controllers\Senaraicr.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:31:26 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 00:31:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_User is deprecated in APPPATH\Controllers\Admin.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Bahagian is deprecated in APPPATH\Controllers\Admin.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Seksyen is deprecated in APPPATH\Controllers\Admin.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Level is deprecated in APPPATH\Controllers\Admin.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:31:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 00:31:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_ChangeReq is deprecated in APPPATH\Controllers\Senaraicr.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Sistem is deprecated in APPPATH\Controllers\Senaraicr.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_User is deprecated in APPPATH\Controllers\Senaraicr.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Bahagian is deprecated in APPPATH\Controllers\Senaraicr.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 00:31:44 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-10 03:16:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 03:16:13 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-10 03:16:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 03:16:14 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-10 03:16:15 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-10 03:16:15 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-10 03:16:15 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-10 03:16:15 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.

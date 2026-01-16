@@ -1,0 +1,1130 @@
+WARNING - 2026-01-14 07:31:07 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:31:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:31:12 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:31:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-14 07:31:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:31:13 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-14 07:31:13 --> mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist in D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...', Array)
+#4 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', NULL)
+#5 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(933): App\Controllers\Home->index()
+#6 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\laragonBaru\laragon\www\codeigniter463_kuarters\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-14 07:31:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+[Method: GET, Route: home]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 2 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:31:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 4 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:31:13 --> [Caused by] mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 4 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 5 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:31:23 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:31:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:31:25 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:31:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-14 07:31:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:31:25 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-14 07:31:25 --> mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist in D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...', Array)
+#4 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', NULL)
+#5 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(933): App\Controllers\Home->index()
+#6 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\laragonBaru\laragon\www\codeigniter463_kuarters\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-14 07:31:25 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+[Method: GET, Route: home]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 2 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:31:25 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 4 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:31:25 --> [Caused by] mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 4 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 5 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:32:18 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:32:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:32:21 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:32:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-14 07:32:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:32:21 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-14 07:32:21 --> mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist in D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...', Array)
+#4 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', NULL)
+#5 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(933): App\Controllers\Home->index()
+#6 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\laragonBaru\laragon\www\codeigniter463_kuarters\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-14 07:32:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+[Method: GET, Route: home]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 2 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:32:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 4 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:32:21 --> [Caused by] mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 4 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 5 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:32:24 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:32:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:32:26 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:32:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:32:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:32:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-14 07:32:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:32:30 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-01-14 07:32:30 --> mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist in D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT \r\n      ...', 0)
+#1 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...', Array)
+#4 D:\laragonBaru\laragon\www\codeigniter463_kuarters\app\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', NULL)
+#5 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(933): App\Controllers\Home->index()
+#6 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#9 D:\laragonBaru\laragon\www\codeigniter463_kuarters\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\laragonBaru\laragon\www\codeigniter463_kuarters\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2026-01-14 07:32:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+[Method: GET, Route: home]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 2 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:32:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 4 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-01-14 07:32:30 --> [Caused by] mysqli_sql_exception: Table 'kuarters.change_req' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = NULL AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr')
+ 4 APPPATH\Models\Model_ChangeReq.php(430): CodeIgniter\Database\BaseConnection->query('SELECT 
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'7\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS baru,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'4\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS dalam_tindakan,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'3\'
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS tutup,
+
+                        (SELECT COUNT(DISTINCT id_cr) 
+                        FROM change_req 
+                        JOIN tbl_nama_sistem USING(id_nama_sistem) 
+                        WHERE id_seksyen = ? AND status_cr = \'5\' 
+                        AND YEAR(tarikh_mohon) = YEAR(CURDATE())) AS lulus_cr', [...])
+ 5 APPPATH\Controllers\Home.php(34): App\Models\Model_ChangeReq->getSummaryByLevel('0', '1', '0', null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:33:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:33:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_User is deprecated in APPPATH\Controllers\Admin.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:33:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Bahagian is deprecated in APPPATH\Controllers\Admin.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:33:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Seksyen is deprecated in APPPATH\Controllers\Admin.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:33:29 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Level is deprecated in APPPATH\Controllers\Admin.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:33:45 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:33:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:33:45 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:33:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:34:56 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:34:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:34:58 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-14 07:34:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-14 07:34:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-14 07:34:59 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_User is deprecated in APPPATH\Controllers\Admin.php on line 18.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:34:59 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Bahagian is deprecated in APPPATH\Controllers\Admin.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:34:59 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Seksyen is deprecated in APPPATH\Controllers\Admin.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-14 07:34:59 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Level is deprecated in APPPATH\Controllers\Admin.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

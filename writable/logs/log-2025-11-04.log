@@ -1,0 +1,622 @@
+DEBUG - 2025-11-04 13:34:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:34:20 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:34:21 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:34:22 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:34:22 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:34:22 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:34:22 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+CRITICAL - 2025-11-04 13:51:29 --> ParseError: syntax error, unexpected single-quoted string "csrf", expecting "]"
+[Method: GET, Route: auth/login]
+in APPPATH\Config\Filters.php on line 70.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('D:\\laragonBaru\\laragon\\www\\codeigniter463_ecr2\\app\\Config\\Filters.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('Config\\Filters')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('Config\\Filters')
+ 4 SYSTEMPATH\Config\Factories.php(298): class_exists('Config\\Filters')
+ 5 SYSTEMPATH\Config\Factories.php(217): CodeIgniter\Config\Factories::locateClass([...], 'Config\\Filters')
+ 6 SYSTEMPATH\Config\Factories.php(160): CodeIgniter\Config\Factories::getDefinedInstance([...], 'Config\\Filters', [])
+ 7 SYSTEMPATH\Config\Factories.php(189): CodeIgniter\Config\Factories::__callStatic('config', [])
+ 8 SYSTEMPATH\Common.php(208): CodeIgniter\Config\Factories::get('config', 'Config\\Filters')
+ 9 SYSTEMPATH\Config\Services.php(295): config('Config\\Filters')
+10 SYSTEMPATH\Config\BaseService.php(312): CodeIgniter\Config\Services::filters(null, false)
+11 SYSTEMPATH\Config\BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic('filters', [...])
+12 SYSTEMPATH\Config\Services.php(292): CodeIgniter\Config\BaseService::getSharedInstance('filters', null)
+13 SYSTEMPATH\Config\BaseService.php(321): CodeIgniter\Config\Services::filters()
+14 SYSTEMPATH\CodeIgniter.php(345): CodeIgniter\Config\BaseService::__callStatic('filters', [])
+15 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+17 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:52:02 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:03 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:05 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:19 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:28 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:29 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:44 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:45 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:52:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:52:53 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:53:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:53:17 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:53:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:53:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:53:20 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:54:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:54:08 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:54:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-04 13:54:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:54:11 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:54:12 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:54:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:54:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:54:57 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:55:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Creation of dynamic property App\Controllers\Web::$Model_Auth is deprecated in APPPATH\Controllers\Web.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Web->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:55:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:06 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Auth::$Model_Auth is deprecated in APPPATH\Controllers\Auth.php on line 14.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Auth->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-11-04 13:55:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-04 13:55:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_User is deprecated in APPPATH\Controllers\Admin.php on line 33.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Level is deprecated in APPPATH\Controllers\Admin.php on line 34.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Negeri is deprecated in APPPATH\Controllers\Admin.php on line 35.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Surat_Masuk is deprecated in APPPATH\Controllers\Admin.php on line 36.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Rayuan_Baru is deprecated in APPPATH\Controllers\Admin.php on line 37.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Maklumbalas is deprecated in APPPATH\Controllers\Admin.php on line 38.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Kategori_Surat is deprecated in APPPATH\Controllers\Admin.php on line 39.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Kategori_Pemohon is deprecated in APPPATH\Controllers\Admin.php on line 40.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Jenis_Pas is deprecated in APPPATH\Controllers\Admin.php on line 41.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Perakuan is deprecated in APPPATH\Controllers\Admin.php on line 42.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Penyemak is deprecated in APPPATH\Controllers\Admin.php on line 43.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Pengesah is deprecated in APPPATH\Controllers\Admin.php on line 44.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Menteri is deprecated in APPPATH\Controllers\Admin.php on line 45.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Bahagian is deprecated in APPPATH\Controllers\Admin.php on line 46.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Seksyen is deprecated in APPPATH\Controllers\Admin.php on line 47.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_Ksu is deprecated in APPPATH\Controllers\Admin.php on line 48.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:16 --> [DEPRECATED] Creation of dynamic property App\Controllers\Admin::$Model_ChangeReq is deprecated in APPPATH\Controllers\Admin.php on line 49.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Admin->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:17 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-04 13:55:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:23 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-04 13:55:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_ChangeReq is deprecated in APPPATH\Controllers\Senaraicr.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Sistem is deprecated in APPPATH\Controllers\Senaraicr.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_User is deprecated in APPPATH\Controllers\Senaraicr.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Creation of dynamic property App\Controllers\Senaraicr::$Model_Bahagian is deprecated in APPPATH\Controllers\Senaraicr.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Senaraicr->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:35 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.
+DEBUG - 2025-11-04 13:55:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Creation of dynamic property App\Controllers\Home::$Model_ChangeReq is deprecated in APPPATH\Controllers\Home.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\Home->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Parser\Parser::__construct(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 75.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Parser\Parser::setCallerClass(): Implicitly marking parameter $caller as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Parser\Parser.php on line 86.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Value::addRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 65.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Value::replaceRepresentation(): Implicitly marking parameter $pos as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 84.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Value::blank(): Implicitly marking parameter $access_path as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Value.php on line 237.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Representation\Representation::__construct(): Implicitly marking parameter $name as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\Representation.php on line 39.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\BlobValue::substr(): Implicitly marking parameter $length as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\BlobValue.php on line 144.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::getColor(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 214.
+WARNING - 2025-11-04 13:55:53 --> [DEPRECATED] Kint\Zval\Representation\ColorRepresentation::hasAlpha(): Implicitly marking parameter $variant as nullable is deprecated, the explicit nullable type must be used instead in VENDORPATH\kint-php\kint\src\Zval\Representation\ColorRepresentation.php on line 278.

@@ -7,7 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Utama</h1>
+      <h1>Utama </h1>
       <nav>
 
       </nav>
@@ -90,7 +90,7 @@
     <div class="row">
         <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h4 class="fw-bold">Dashboard: Utama/h4>
+                    <h4 class="fw-bold">Dashboard: Utama</h4>
                     
                 </div>
                 <button class="btn btn-danger" onclick="window.location.href = 'report_jan2026_agensi.html'"><i class="bi bi-plus-circle me-2"></i>Kemas Kini Januari 2026</button>

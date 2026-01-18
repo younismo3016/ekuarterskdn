@@ -76,7 +76,7 @@
 <?php } ?><!-- KPSU-->
 <?php if (session()->get('level') == 2) { ?>
 
-  <a class="nav-link collapsed" href="<?= site_url('admin')?>">
+  <a class="nav-link collapsed" href="<?= site_url('agensi')?>">
       <i class="bi bi-grid"></i>
       <span>Utama</span>
     </a>
@@ -86,19 +86,15 @@
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+      <i class="bi bi-journal-text"></i><span>Statistik</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
     <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
         <li>
-          <a href="<?= site_url('admin/senarai_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Senarai Rekod</span>
+          <a href="<?= site_url('agensi/agensi_statistik_list') ?>">
+            <i class="bi bi-circle"></i><span>Statistik Bulanan</span>
           </a>
         </li>
-         <li>
-          <a href="<?= site_url('admin/add_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Tambah Rekod</span>
-          </a>
-        </li>
+        
         
 
       </ul>

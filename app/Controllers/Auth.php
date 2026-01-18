@@ -136,7 +136,7 @@ class Auth extends BaseController
             if ($check['level'] == 1) {
                 return redirect()->to(site_url('admin/list_user'));
             } elseif ($check['level'] == 2) {
-                return redirect()->to(site_url('admin/list_user'));
+                return redirect()->to(site_url('agensi/'));
             }elseif ($check['level'] == 3) {
                 return redirect()->to(site_url('admin/senarai_rekod'));
             }elseif ($check['level'] == 4) {

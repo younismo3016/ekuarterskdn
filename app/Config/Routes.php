@@ -38,6 +38,17 @@ $routes->get('/', 'Web::index');
 $routes->post('auth/check_login', 'Auth::check_login');
 $routes->get('auth/login', 'Web::index', ['as' => 'pemohon.logout']);
 $routes->get('/admin', 'Utama::utama', ['as' => 'utama.dashboard']);
+$routes->get('agensi/agensi_statistik_kemaskini/(:num)/(:num)', 'Agensi::agensi_statistik_kemaskini/$1/$2');
+$routes->post('agensi/simpan_kemaskini', 'Agensi::simpan_kemaskini');
+$routes->get('agensi/kemaskini_individu/(:num)/(:num)/(:num)', 'Agensi::kemaskini_individu/$1/$2/$3');
+$routes->post('agensi/simpan_individu', 'Agensi::simpan_individu');
+
+//agensi
+//$routes->get('statistik-agensi', 'StatistikAgensi::index');
+//$routes->get('/agensi', 'Agensi::agensi', ['as' => 'agensi.dashboard']);
+
+// Pastikan nama Controller 'Agensi' dan fungsi 'tambah_baru' adalah tepat
+$routes->get('agensi/tambah_baru', 'Agensi::tambah_baru');
 
 
 $routes->get('/admin', 'Home::index', ['as' => 'dashboard.utama']);

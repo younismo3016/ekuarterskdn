@@ -245,7 +245,7 @@ public function kemaskini_individu($id_kuarters, $bulan, $tahun) {
     // 2. Ambil data kategori dari jadual yang betul
     $kategori_isu = $db->table('ref_issue_category')->get()->getResultArray();
 
-    // 3. Susun data mengikut style yang anda mahukan
+   
     $data = [
         'title'        => 'Kemaskini Statistik Individu', // Tambahan tajuk jika perlu
         'isi'          => 'agensi/kemaskini_individu_view', // Fail view individu anda

@@ -65,9 +65,9 @@ class Admin extends BaseController
 		$data = [
 			'title' => 'Halaman Admin Pengguna',
 			'isi' => 'admin/v_list_user',
-			///'list_bahagian' => $this->Model_Bahagian->get_all_data(),
+			'list_bahagian' => $this->Model_Bahagian->get_all_data(),
 			//'list_seksyen' => $this->Model_Seksyen->get_all_data(),
-			//'list_level' => $this->Model_Level->get_all_data(),
+			'list_level' => $this->Model_Level->get_all_data(),
 
 			'pengguna' => $this->Model_User->carian_pengguna($nama_penuh, $email),
 			//'pengguna' => $this->Model_User->get_all_data(),
@@ -101,14 +101,14 @@ class Admin extends BaseController
 			'email' => $this->request->getPost('email'),
 			'no_tel' => $this->request->getPost('no_tel'),
 			'id_bahagian' => $this->request->getPost('id_bahagian'),
-			'id_seksyen' => $this->request->getPost('id_seksyen'),
+			//'id_seksyen' => $this->request->getPost('id_seksyen'),
 			//'password' =>md5($this->request->getPost('password')),
 			'level' => $this->request->getPost('level'),
 
 		];
 		$this->Model_User->update_user($data, $id_user);
 		session()->setFlashdata('pesan', 'Data Berjaya Diedit');
-		return redirect()->to(base_url('Admin/list_user'));
+		return redirect()->to(site_url('Admin/list_user'));
 	}
 
 	public function edit_password($id_user)
@@ -121,7 +121,8 @@ class Admin extends BaseController
 		];
 		$this->Model_User->update_user($data, $id_user);
 		session()->setFlashdata('pesan', 'Data Berjaya Diedit');
-		return redirect()->to(base_url('Admin/list_user'));
+		return redirect()->to(site_url('Admin/list_user'));
+		
 	}
 
 	public function edit_pengguna($id_user)

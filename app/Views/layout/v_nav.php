@@ -73,7 +73,7 @@
 </aside><!-- End Sidebar-->
 
 
-<?php } ?><!-- KPSU-->
+<?php } ?><!-- Urusetia JIM-->
 <?php if (session()->get('level') == 2) { ?>
 
   <a class="nav-link collapsed" href="<?= site_url('admin')?>">
@@ -113,7 +113,7 @@
 
 </aside>
 
-<?php } ?>
+<?php } ?><!-- Urusetia PDRM-->
 <?php if (session()->get('level') == 3) { ?>
 
 

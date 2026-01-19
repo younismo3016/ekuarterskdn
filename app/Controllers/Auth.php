@@ -134,15 +134,15 @@ class Auth extends BaseController
 
              // Arahkan ikut level
             if ($check['level'] == 1) {
-                return redirect()->to(site_url('admin/list_user'));
+                return redirect()->to(site_url('admin'));
             } elseif ($check['level'] == 2) {
-                return redirect()->to(site_url('admin/list_user'));
+                return redirect()->to(site_url('admin'));
             }elseif ($check['level'] == 3) {
-                return redirect()->to(site_url('admin/senarai_rekod'));
+                return redirect()->to(site_url('admin'));
             }elseif ($check['level'] == 4) {
-                return redirect()->to(site_url('admin/senarai_rekod'));
+                return redirect()->to(site_url('admin'));
             }elseif ($check['level'] == 5) {
-                return redirect()->to(site_url('admin/senarai_rekod'));
+                return redirect()->to(site_url('admin'));
             }elseif ($check['level'] == 6) {
                 return redirect()->to(site_url('admin'));
                

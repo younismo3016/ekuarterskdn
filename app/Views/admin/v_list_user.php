@@ -203,7 +203,12 @@
                   <label for="floatingLevel">Bahagian</label>
                   <select id="id_bahagian" name="id_bahagian" class="form-control " style="width: 100%;">
                     <option value="">--sila pilih--</option>
-                    <!--  -->
+                    <?php foreach ($list_bahagian as $bahagian): ?>
+                      <option value="<?= $bahagian['id_bahagian'] ?>"
+                        <?= ($row['id_bahagian'] == $bahagian['id_bahagian']) ? 'selected' : '' ?>>
+                        <?= $bahagian['nama_bahagian'] ?>
+                      </option>
+                    <?php endforeach; ?>
 
                   </select>
 
@@ -215,7 +220,12 @@
                 <div class="form-floating mb-3">
                   <select id="level" name="level" class="form-control" style="width: 100%;">
                     <option value="">--sila pilih--</option>
-                    
+                    <?php foreach ($list_level as $level): ?>
+                      <option value="<?= $level['id_peranan'] ?>"
+                        <?= ($row['level'] == $level['id_peranan']) ? 'selected' : '' ?>>
+                        <?= $level['peranan'] ?>
+                      </option>
+                    <?php endforeach; ?>
 
                   </select>
                   <label for="floatingLevel">Peranan</label>
@@ -277,8 +287,12 @@
               <!-- Bahagian (Role) dropdown -->
               <div class="form-floating mb-3">
                 <select id="id_bahagian" name="id_bahagian" class="form-control select2" style="width: 100%;">
-                  <option value="">--Sila Pilih--</option>
                   
+                  <option value="">--sila pilih--</option>
+                    <?php foreach ($list_bahagian as $row): ?>
+                    <option value="<?= $row['id_bahagian']  ?>"><?= $row['nama_bahagian'] ?></option>
+
+                  <?php endforeach; ?>
 
                 </select>
                 <label for="floatingLevel">Bahagian</label>
@@ -290,6 +304,10 @@
               <div class="form-floating mb-3">
                 <select id="floatingLevel" name="level" id="level" class="form-select">
                   <option value="">--Sila Pilih--</option>
+                  <?php foreach ($list_level as $row): ?>
+                    <option value="<?= $row['id_peranan']  ?>"><?= $row['peranan'] ?></option>
+
+                  <?php endforeach; ?>
                  
                 </select>
                 <label for="floatingLevel">Peranan</label>

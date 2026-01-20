@@ -1,6 +1,6 @@
 <!-- ======= Sidebar 951120045400 ======= -->
 <aside id="sidebar" class="sidebar">
-<h4><?= session()->get('level') ?></h4>
+
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">

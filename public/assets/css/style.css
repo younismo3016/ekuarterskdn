@@ -385,8 +385,8 @@ h6 {
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2); 
   
   /* DIUBAH: Menggunakan Linear Gradient Biru */
-  background-image: linear-gradient(to right, #411592, #b8d9e2); 
-  background-color: #4b837b; /* Fallback color */
+  background-image: linear-gradient(to right, #00418C, #00418C); 
+  background-color: #00418C; /* Fallback color */
   
   padding-left: 20px;
 }

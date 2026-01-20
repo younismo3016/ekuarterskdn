@@ -1,57 +1,24 @@
 <!-- ======= Sidebar 951120045400 ======= -->
 <aside id="sidebar" class="sidebar">
-
+<?= get_agensi(session()->get('id_agensi')) ?>
   <ul class="sidebar-nav" id="sidebar-nav">
-
+  <span> </span>
     <li class="nav-item">
 
       <?php if (session()->get('level') == 1) { ?>
 
         <a class="nav-link collapsed" href="<?= site_url('admin') ?>">
           <i class="bi bi-grid"></i>
-          <span>Utama</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-link collapsed" href="<?= site_url('admin') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Statistik Bulanan</span>
         </a>
     </li><!-- End Dashboard Nav -->
 
 
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Pengurusan Kuarters</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="<?= site_url('admin/senarai_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Senarai Aset</span>
-          </a>
-        </li>
-         <li>
-          <a href="<?= site_url('admin/add_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Tambah Aset</span>
-          </a>
-        </li>
-        
-
-      </ul>
-
-      <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#forms-nav1" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Permohonan Kuarters</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="forms-nav1" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="<?= site_url('admin/senarai_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Senarai Permohonan</span>
-          </a>
-        </li>
-         <li>
-          <a href="<?= site_url('admin/add_rekod') ?>">
-            <i class="bi bi-circle"></i><span>Senarai Aduan Kerosakan</span>
-          </a>
-        </li>
-        
-
-      </ul>
+      
     </li>
     </li><!-- End Forms Nav -->
 
@@ -62,7 +29,7 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="<?= site_url('admin/list_user') ?>">
         <i class="bi bi-person"></i>
-        <span>Pengguna</span>
+        <span>Senarai Pengguna</span>
       </a>
     </li><!-- End Profile Page Nav -->
 
@@ -76,29 +43,20 @@
 <?php } ?><!-- Urusetia JIM-->
 <?php if (session()->get('level') == 2) { ?>
 
-  <a class="nav-link collapsed" href="<?= site_url('agensi')?>">
-      <i class="bi bi-grid"></i>
-      <span>Utama</span>
-    </a>
-  </li><!-- End Dashboard Nav -->
+  
+    <a class="nav-link collapsed" href="<?= site_url('agensi') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+        <a class="nav-link collapsed" href="<?= site_url('admin') ?>">
+          <i class="bi bi-grid"></i>
+          <span>Statistik Bulanan</span>
+        </a>
+  <!-- End Dashboard Nav -->
 
   
 
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Statistik</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="<?= site_url('agensi/agensi_statistik_list') ?>">
-            <i class="bi bi-circle"></i><span>Statistik Bulanan</span>
-          </a>
-        </li>
-        
-        
-
-      </ul>
-  </li>
+ 
   <!-- End Forms Nav -->
 
   

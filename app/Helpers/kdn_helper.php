@@ -103,6 +103,25 @@ function get_field_error($key, $label = null) {
             }
     }
 
+    if (!function_exists('get_agensi')) {
+        function get_agensi($value)
+            {
+                $db = \Config\Database::connect(); // Get the database connection
+                    
+                    $query = $db->table('table_main_agency')
+                                ->select('nama_agensi_induk')
+                                ->where('id_agensi_induk', $value)
+                                ->get();
+                    
+                    if ($query->getNumRows() > 0) {
+                                $row = $query->getRow();
+                                return $row->nama_agensi_induk;
+                        }
+                    
+                            return null; // Return null if no results are found
+            }
+    }
+
     if (!function_exists('get_random_ticket')) {
     function get_random_ticket($length = 5)
     {

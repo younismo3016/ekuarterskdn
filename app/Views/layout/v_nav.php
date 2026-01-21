@@ -1,6 +1,6 @@
 <!-- ======= Sidebar 951120045400 ======= -->
 <aside id="sidebar" class="sidebar">
-<?= get_agensi(session()->get('id_agensi')) ?>
+<?= get_agensi(session()->get('id_agensi_induk')) ?>
   <ul class="sidebar-nav" id="sidebar-nav">
   <span> </span>
     <li class="nav-item">

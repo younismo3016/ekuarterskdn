@@ -127,7 +127,7 @@ class Auth extends BaseController
             session()->set('email', $check['email']);
             session()->set('level', $check['level']);
             session()->set('id_bahagian', $check['id_bahagian']);
-            session()->set('id_agensi', $check['id_agensi']);
+            session()->set('id_agensi_induk', $check['id_agensi_induk']);
             session()->set('id_user', $check['id_user']);
             session()->set('photo_user', $check['photo_user']);
             session()->setFlashdata('pesan', 'Login Berjaya !!, Selamat Datang Ke sistem');

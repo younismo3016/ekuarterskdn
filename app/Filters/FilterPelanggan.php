@@ -13,7 +13,7 @@ class FilterPelanggan implements FilterInterface
         // Do something here
         if (session()->get('level') == "") {
             session()->setFlashdata('pesan', 'Anda Belum Login !!, Sila Login Dulu');
-            return redirect()->to(base_url('auth/login'));
+            return redirect()->to(site_url('auth/login'));
         }
     }
 

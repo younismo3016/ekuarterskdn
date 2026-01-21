@@ -91,7 +91,7 @@ class Admin extends BaseController
 		];
 		$this->Model_User->add_user($data);
 		session()->setFlashdata('pesan', 'Data Berjaya Ditambahsssss');
-		return redirect()->to(base_url('Admin/list_user'));
+		return redirect()->to(site_url('Admin/list_user'));
 	}
 
 	public function edit_user($id_user)
@@ -144,7 +144,7 @@ class Admin extends BaseController
 	{
 		$this->Model_User->delete_user($id_user);
 		session()->setFlashdata('hapus', 'Data Berjaya Hapus');
-		return redirect()->to(base_url('Admin/list_user'));
+		return redirect()->to(site_url('Admin/list_user'));
 	}
 
 	

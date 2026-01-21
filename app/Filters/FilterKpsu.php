@@ -13,7 +13,7 @@ class FilterKpsu implements FilterInterface
         // Do something here
         if (session()->get('level') == "") {
             session()->setFlashdata('pesan', 'Sila Login Semula');
-            return redirect()->to(base_url('auth/login'));
+            return redirect()->to(site_url('auth/login'));
         }
     }
 

@@ -17,55 +17,48 @@
       <div class="row">
 
         <div class="col-lg-10">
+  <div class="card">
+    <form name="carian" action="<?= site_url() ?>/admin/senarai_rekod" method="post">
+      <div class="card-body">
 
-          <div class="card">
-            <form name="carian" action="<?= site_url() ?>/admin/senarai_rekod" method="post">
-              <div class="card-body">
-                <!-- Add margin-top to create spacing between the form and the card border -->
-                <div class="row mt-4">
-                  <!-- Name input with form-floating -->
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingName" name="no_fail" placeholder="Nombor Fail">
-                      <label for="floatingName">Jabatan</label>
-                    </div>
-                  </div>
-
-                  <!-- No HP input with form-floating -->
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingperkara" name="perkara" placeholder="Perkara/Tajuk">
-                      <label for="floatingperkara">Tahun</label>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="row mt-4">
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatinglokasi" name="lokasi" placeholder="Lokasi">
-                      <label for="floatinglokasi">Bulan</label>
-                    </div>
-                  </div>
-                  
-
-
-
-
-
-                  <!-- Button positioned at the bottom -->
-                  <div class="row">
-                    <div class="col-md-12 text-end">
-                      <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-search me-1"></i>Hantar
-                      </button>
-                    </div>
-                  </div>
-
-
-                </div>
-              </div>
+        <!-- ROW: 3 input sebaris -->
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingJabatan" name="no_fail" placeholder="Jabatan">
+              <label for="floatingJabatan">Jabatan</label>
+            </div>
           </div>
+
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingTahun" name="perkara" placeholder="Tahun">
+              <label for="floatingTahun">Tahun</label>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingBulan" name="lokasi" placeholder="Bulan">
+              <label for="floatingBulan">Bulan</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW: Button -->
+        <div class="row mt-3">
+          <div class="col-md-12 text-end">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-search me-1"></i>Hantar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
     </section>
 
     </form>

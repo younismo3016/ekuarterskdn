@@ -9,6 +9,9 @@ use App\Models\Model_User;
 use App\Models\Model_Bahagian;
 use App\Models\Model_Seksyen;
 use App\Models\Model_Level;
+use App\Models\Model_Agensi;
+use App\Models\Model_Sub_Agensi;
+use App\Models\SubAgensiModel;
 
 class Admin extends BaseController
 {
@@ -19,6 +22,9 @@ class Admin extends BaseController
 		$this->Model_Bahagian = new Model_Bahagian();
 		$this->Model_Seksyen = new Model_Seksyen();
 		$this->Model_Level = new Model_Level();
+		$this->Model_Agensi = new Model_Agensi();
+		$this->Model_Sub_Agensi = new Model_Sub_Agensi();
+		$this->SubAgensiModel = new SubAgensiModel();
 
 		
 	}
@@ -65,8 +71,8 @@ class Admin extends BaseController
 		$data = [
 			'title' => 'Halaman Admin Pengguna',
 			'isi' => 'admin/v_list_user',
-			'list_bahagian' => $this->Model_Bahagian->get_all_data(),
-			//'list_seksyen' => $this->Model_Seksyen->get_all_data(),
+			'list_agensi' => $this->Model_Agensi->get_all_data(),
+			'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
 			'list_level' => $this->Model_Level->get_all_data(),
 
 			'pengguna' => $this->Model_User->carian_pengguna($nama_penuh, $email),
@@ -77,13 +83,23 @@ class Admin extends BaseController
 		//return view('admin/v_list_user',$data);
 	}
 
+		public function get_sub_agensi()
+	{
+		$id_agensi = $this->request->getPost('id_agensi_induk');
+		$subAgensiModel = new \App\Models\SubAgensiModel();
+		$subAgensi = $subAgensiModel->where('id_agensi_induk', $id_agensi)->findAll();
+
+		return $this->response->setJSON($subAgensi);
+	}
+
 	public function add_user()
 	{
 		$data = [
 			'nama_penuh' => $this->request->getPost('nama_penuh'),
 			'email' => $this->request->getPost('email'),
 			'no_tel' => $this->request->getPost('no_tel'),
-			'id_bahagian' => $this->request->getPost('id_bahagian'),
+			'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
+			'id_sub_agensi' => $this->request->getPost('id_sub_agensi'),
 			//'id_seksyen' => $this->request->getPost('id_seksyen'),
 			'password' =>md5($this->request->getPost('password')),
 			'level' => $this->request->getPost('level'),

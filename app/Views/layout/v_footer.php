@@ -208,5 +208,35 @@ function printModalContent(modalId) {
 
 
 </script>
+<script>
+$(document).ready(function() {
+    $('#id_agensi_induk').on('change', function() {
+        var agensiId = $(this).val();
+
+        if(agensiId) {
+            $.ajax({
+                url: '<?= site_url("admin/get_sub_agensi") ?>', // endpoint untuk fetch sub agensi
+                type: 'POST',
+                data: { id_agensi_induk: agensiId },
+                dataType: 'json',
+                success: function(data) {
+                    $('#id_sub_agensi').empty();
+                    $('#id_sub_agensi').append('<option value="">--sila pilih--</option>');
+
+                    $.each(data, function(key, value) {
+                        $('#id_sub_agensi').append('<option value="'+ value.id_sub_agensi +'">'+ value.nama_sub_agensi +'</option>');
+                    });
+
+                    $('#id_sub_agensi').trigger('change'); // update select2 jika guna
+                }
+            });
+        } else {
+            $('#id_sub_agensi').empty();
+            $('#id_sub_agensi').append('<option value="">--sila pilih--</option>');
+        }
+    });
+});
+
+</script>
 
 </html>

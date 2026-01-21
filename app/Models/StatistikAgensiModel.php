@@ -12,7 +12,7 @@ class StatistikAgensiModel extends Model
 
   public function getStatistikByAgensi()
 {
-    $id_agensi = session()->get('id_agensi');
+    $id_agensi = session()->get('id_agensi_induk');
 
     // Jika session kosong, kita akan tahu segera
     if (!$id_agensi) {

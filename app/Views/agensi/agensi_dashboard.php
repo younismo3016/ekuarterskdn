@@ -6,48 +6,64 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-       <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h4 class="fw-bold">Dashboard: Jabatan Penjara</h4>
-                    
-                </div>
+   <div class="pagetitle">
+    <h4 class="fw-bold text-uppercase">
+        Dashboard: <?= $agency['nama_agensi_induk'] ?? 'Agensi Tidak Dikenali' ?>
+    </h4>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?= base_url('agensi') ?>">Utama</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </nav>
+</div>
 
-                
-                
-    </div><!-- End Page Title -->
 
     <section class="section">
       <div class="row">
         <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card card-stats p-3 shadow-sm">
-                        <span class="text-muted small fw-bold">TOTAL UNIT (T)</span>
-                        <h3 class="fw-bold text-dark">2,158</h3>
+                        <span class="text-muted small fw-bold">TOTAL UNIT</span>
+                        <h3 class="fw-bold text-dark"><?= number_format($stats['total_unit']) ?></h3>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card card-stats p-3 shadow-sm border-success" style="border-left-color: #198754;">
-                        <span class="text-muted small fw-bold">UNIT DIHUNI (G)</span>
-                        <h3 class="fw-bold text-success">1,475</h3>
+                        <span class="text-muted small fw-bold">UNIT DIHUNI</span>
+                        <h3 class="fw-bold text-success"><?= number_format($stats['total_dihuni']) ?></h3>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card card-stats p-3 shadow-sm border-danger" style="border-left-color: #dc3545;">
-                        <span class="text-muted small fw-bold">UNIT ROSAK (I)</span>
-                        <h3 class="fw-bold text-danger">683</h3>
+                        <span class="text-muted small fw-bold">UNIT KOSONG</span>
+                        <h3 class="fw-bold text-danger"><?= number_format($stats['total_kosong']) ?></h3>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card card-stats p-3 shadow-sm border-warning" style="border-left-color: #ffc107;">
-                        <span class="text-muted small fw-bold">BUDGET DIPERLUKAN (Y)</span>
-                        <h3 class="fw-bold text-dark">RM 4.3M</h3>
-                    </div>
-                </div>
+               
             </div>
+
+            
+
         <div class="col-lg-10">
 
-        
+      <?php if($latestDate): ?>
+<div class="d-flex align-items-center mb-4">
+    <div class="badge bg-white text-primary border shadow-sm px-3 py-2 rounded-3 d-flex align-items-center">
+        <div class="bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
+            <i class="bi bi-calendar-check" style="font-size: 14px;"></i>
+        </div>
+        <span class="text-muted small fw-bold me-1">Data Setakat:</span> 
+        <span class="fw-bold text-dark">
+            <?= strtoupper($bulan_melayu[(int)$latestDate['bulan']]) ?> <?= $latestDate['tahun'] ?>
+        </span>
+    </div>
+</div>
+<?php endif; ?>
+
+
+
+
     </section>
 
     </form>

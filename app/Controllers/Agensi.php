@@ -24,15 +24,66 @@ class Agensi extends BaseController
 		
 	}
 
-	public function index()
-	{
-		$data = [
+public function index()
+{
+    $id_agensi = session()->get('id_agensi_induk');
+    $db = \Config\Database::connect();
 
-			'isi' => 'agensi/agensi_dashboard',
-		
-		];
-		return view('layout/v_wrapper', $data);
-	}
+    // 1. Ambil maklumat agensi
+    $agency = $db->table('table_main_agency')
+                ->where('id_agensi_induk', $id_agensi)
+                ->get()
+                ->getRowArray();
+
+    // 2. Dapatkan bulan dan tahun TERKINI (status_hantar = 1)
+    $latestDate = $db->table('table_report r')
+                ->select('r.bulan, r.tahun')
+                ->join('table_quarters_profile tqp', 'tqp.id_kuarters = r.id_kuarters')
+                ->where('tqp.id_agensi_induk', $id_agensi)
+                ->where('r.status_hantar', 1)
+                ->orderBy('r.tahun', 'DESC')
+                ->orderBy('r.bulan', 'DESC')
+                ->limit(1)
+                ->get()
+                ->getRowArray();
+
+    // 3. Kira statistik menggunakan formula: Total = Dihuni + Kosong
+    if ($latestDate) {
+        $stats = $db->table('table_report r')
+                    ->selectSum('r.unit_dihuni', 'total_dihuni')
+                    ->selectSum('r.unit_tidak_dihuni', 'total_kosong')
+                    // Kita ambil hasil tambah G + J sebagai total_unit
+                    ->select('(SUM(r.unit_dihuni) + SUM(r.unit_tidak_dihuni)) as total_unit')
+                    ->join('table_quarters_profile tqp', 'tqp.id_kuarters = r.id_kuarters')
+                    ->where([
+                        'tqp.id_agensi_induk' => $id_agensi,
+                        'r.status_hantar'     => 1,
+                        'r.bulan'             => $latestDate['bulan'],
+                        'r.tahun'             => $latestDate['tahun']
+                    ])
+                    ->get()
+                    ->getRowArray();
+    } else {
+        $stats = ['total_unit' => 0, 'total_dihuni' => 0, 'total_kosong' => 0];
+    }
+
+    $bulan_melayu = [
+        1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April',
+        5 => 'Mei', 6 => 'Jun', 7 => 'Julai', 8 => 'Ogos',
+        9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Disember'
+    ];
+
+    $data = [
+        'title'      => 'Dashboard Agensi',
+        'agency'     => $agency,
+        'stats'      => $stats,
+        'latestDate' => $latestDate,
+        'bulan_melayu' => $bulan_melayu,
+        'isi'        => 'agensi/agensi_dashboard',
+    ];
+
+    return view('layout/v_wrapper', $data);
+}
 
 	public function agensi_statistik_list()
 	{
@@ -56,7 +107,7 @@ class Agensi extends BaseController
 
         $model = new StatistikAgensiModel();
         $db = \Config\Database::connect();
-        $id_agensi = session()->get('id_agensi');
+        $id_agensi = session()->get('id_agensi_induk');
 
         // Ambil senarai kategori isu untuk dropdown
         $kategori_isu = $db->table('ref_issue_category')
@@ -114,8 +165,14 @@ public function simpan_kemaskini()
             return redirect()->back()->with('error', 'Gagal kemaskini batch. Sila cuba lagi.');
         } else {
             $db->transCommit();
-            return redirect()->to(base_url('index.php/agensi/agensi_statistik_list'))
-                             ->with('success', 'Semua rekod berjaya dikemaskini secara batch.');
+
+            // Ambil bulan dan tahun dari form untuk tujuan redirect
+            $bulan = $this->request->getPost('bulan');
+            $tahun = $this->request->getPost('tahun');
+
+            // Redirect balik ke halaman kemaskini mengikut bulan dan tahun tadi
+            return redirect()->to(base_url('index.php/agensi/agensi_statistik_kemaskini/' . $bulan . '/' . $tahun))
+                             ->with('success', 'Semua rekod berjaya dikemaskini.');
         }
     } catch (\Exception $e) {
         $db->transRollback();
@@ -131,10 +188,12 @@ public function simpan_kemaskini()
     ];
     return $bulan[(int)$m];
 }
+
+
 public function tambah_baru()
 {
     $db = \Config\Database::connect();
-    $id_agensi = session()->get('id_agensi');
+    $id_agensi = session()->get('id_agensi_induk');
     
     $bulan_ini = (int)date('m');
     $tahun_ini = (int)date('Y');
@@ -314,18 +373,24 @@ public function agensi_statistik_papar($bulan, $tahun)
     $model = new \App\Models\StatistikAgensiModel();
     $db = \Config\Database::connect();
     
-    $id_agensi = session()->get('id_agensi');
+    $id_agensi = session()->get('id_agensi_induk');
 
-    // Ambil rujukan kategori isu daripada jadual yang betul
-    $kategori_isu = $db->table('ref_issue_category')->get()->getResultArray();
+    // Tambah pemetaan nama bulan
+    $senarai_bulan = [
+        1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April',
+        5 => 'Mei', 6 => 'Jun', 7 => 'Julai', 8 => 'Ogos',
+        9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Disember'
+    ];
 
     $data = [
         'title'        => 'Paparan Statistik Kuarters',
         'isi'          => 'agensi/agensi_statistik_papar', 
         'reports'      => $model->getDetailedReportView($bulan, $tahun, $id_agensi),
-        'kategori_isu' => $kategori_isu,
+        'kategori_isu' => $db->table('ref_issue_category')->get()->getResultArray(),
         'bulan'        => $bulan,
-        'tahun'        => $tahun
+        'tahun'        => $tahun,
+        // Tambah baris ini:
+        'nama_bulan'   => $senarai_bulan[(int)$bulan] ?? 'Statistik' 
     ];
 
     return view('layout/v_wrapper', $data);
@@ -333,7 +398,7 @@ public function agensi_statistik_papar($bulan, $tahun)
 
 public function hantar_ke_kdn($bulan, $tahun)
 {
-    $id_agensi = session()->get('id_agensi'); 
+    $id_agensi = session()->get('id_agensi_induk'); 
     $model = new \App\Models\StatistikAgensiModel();
     
     $data_update = [
@@ -350,6 +415,46 @@ public function hantar_ke_kdn($bulan, $tahun)
 
     return redirect()->to(base_url('index.php/agensi/agensi_statistik_list'));
 }
+
+
+public function papar_individu($id_kuarters, $bulan, $tahun) {
+    // 1. Sambungan pangkalan data secara terus
+    $db = \Config\Database::connect();
+    
+    // 2. Ambil data laporan join dengan profil kuarters (Satu baris sahaja)
+    $row = $db->table('table_report')
+        ->select('table_report.*, table_quarters_profile.kod_kuarters, table_quarters_profile.nama_kuarters, table_quarters_profile.jenis_kuarters')
+        ->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters')
+        ->where([
+            'table_report.id_kuarters' => $id_kuarters,
+            'table_report.bulan'       => $bulan,
+            'table_report.tahun'       => $tahun
+        ])
+        ->get()->getRowArray();
+
+    // 3. Jika rekod tidak wujud, kembali ke senarai
+    if (!$row) {
+        return redirect()->back()->with('error', 'Rekod tidak dijumpai.');
+    }
+
+    // 4. Ambil data rujukan kategori (Contoh: untuk paparan nama kategori di view)
+    $kategori_isu = $db->table('ref_issue_category')->get()->getResultArray();
+
+    // 5. Susun data untuk dihantar ke View
+    $data = [
+        'title'        => 'Paparan Statistik Individu',
+        'isi'          => 'agensi/papar_individu_view', // Nama fail view anda
+        'row'          => $row,
+        'kategori_isu' => $kategori_isu,
+        'bulan'        => $bulan,
+        'tahun'        => $tahun
+    ];
+
+    // 6. Hantar ke wrapper layout
+    return view('layout/v_wrapper', $data);
+}
+
+
 
 	} //lastclose
 

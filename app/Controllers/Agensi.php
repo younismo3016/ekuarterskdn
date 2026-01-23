@@ -52,7 +52,6 @@ public function index()
         $stats = $db->table('table_report r')
                     ->selectSum('r.unit_dihuni', 'total_dihuni')
                     ->selectSum('r.unit_tidak_dihuni', 'total_kosong')
-                    // Kita ambil hasil tambah G + J sebagai total_unit
                     ->select('(SUM(r.unit_dihuni) + SUM(r.unit_tidak_dihuni)) as total_unit')
                     ->join('table_quarters_profile tqp', 'tqp.id_kuarters = r.id_kuarters')
                     ->where([
@@ -63,8 +62,31 @@ public function index()
                     ])
                     ->get()
                     ->getRowArray();
+
+        // 4. Ambil senarai mengikut NEGERI (adm_state)
+        $laporanNegeri = $db->table('table_quarters_profile tqp')
+                    ->select('
+                        s.state_description, 
+                        SUM(r.unit_dihuni) as total_dihuni, 
+                        SUM(r.unit_tidak_dihuni) as total_kosong,
+                        (SUM(r.unit_dihuni) + SUM(r.unit_tidak_dihuni)) as jumlah_kuarters
+                    ')
+                    ->join('table_report r', 'r.id_kuarters = tqp.id_kuarters')
+                    ->join('adm_state s', 's.id_adm_state = tqp.id_negeri')
+                    ->where([
+                        'tqp.id_agensi_induk' => $id_agensi,
+                        'r.status_hantar'     => 1,
+                        'r.bulan'             => $latestDate['bulan'],
+                        'r.tahun'             => $latestDate['tahun']
+                    ])
+                    ->groupBy('s.state_description')
+                    ->orderBy('s.state_description', 'ASC')
+                    ->get()
+                    ->getResultArray();
+
     } else {
         $stats = ['total_unit' => 0, 'total_dihuni' => 0, 'total_kosong' => 0];
+        $laporanNegeri = [];
     }
 
     $bulan_melayu = [
@@ -74,17 +96,17 @@ public function index()
     ];
 
     $data = [
-        'title'      => 'Dashboard Agensi',
-        'agency'     => $agency,
-        'stats'      => $stats,
-        'latestDate' => $latestDate,
-        'bulan_melayu' => $bulan_melayu,
-        'isi'        => 'agensi/agensi_dashboard',
+        'title'         => 'Dashboard Agensi',
+        'agency'        => $agency,
+        'stats'         => $stats,
+        'latestDate'    => $latestDate,
+        'laporanNegeri' => $laporanNegeri, // Tambah variabel ini
+        'bulan_melayu'  => $bulan_melayu,
+        'isi'           => 'agensi/agensi_dashboard',
     ];
 
     return view('layout/v_wrapper', $data);
 }
-
 	public function agensi_statistik_list()
 	{
 

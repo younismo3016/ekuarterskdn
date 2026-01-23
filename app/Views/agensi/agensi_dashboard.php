@@ -21,20 +21,20 @@
 
     <section class="section">
       <div class="row">
-        <div class="row mb-4">
-                <div class="col-md-3">
+        <div class="row mb-12">
+                <div class="col-md-4">
                     <div class="card card-stats p-3 shadow-sm">
                         <span class="text-muted small fw-bold">TOTAL UNIT</span>
                         <h3 class="fw-bold text-dark"><?= number_format($stats['total_unit']) ?></h3>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card card-stats p-3 shadow-sm border-success" style="border-left-color: #198754;">
                         <span class="text-muted small fw-bold">UNIT DIHUNI</span>
                         <h3 class="fw-bold text-success"><?= number_format($stats['total_dihuni']) ?></h3>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card card-stats p-3 shadow-sm border-danger" style="border-left-color: #dc3545;">
                         <span class="text-muted small fw-bold">UNIT KOSONG</span>
                         <h3 class="fw-bold text-danger"><?= number_format($stats['total_kosong']) ?></h3>
@@ -47,19 +47,7 @@
 
         <div class="col-lg-10">
 
-      <?php if($latestDate): ?>
-<div class="d-flex align-items-center mb-4">
-    <div class="badge bg-white text-primary border shadow-sm px-3 py-2 rounded-3 d-flex align-items-center">
-        <div class="bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
-            <i class="bi bi-calendar-check" style="font-size: 14px;"></i>
-        </div>
-        <span class="text-muted small fw-bold me-1">Data Setakat:</span> 
-        <span class="fw-bold text-dark">
-            <?= strtoupper($bulan_melayu[(int)$latestDate['bulan']]) ?> <?= $latestDate['tahun'] ?>
-        </span>
-    </div>
-</div>
-<?php endif; ?>
+   
 
 
 
@@ -87,74 +75,98 @@
 <div class="container-fluid">
     <div class="row">
        
-
+<?php if($latestDate): ?>
+<div class="card border shadow-sm rounded-4 mb-4">
+    <div class="card-body p-2">
+        <div class="d-flex align-items-center justify-content-between">
             
-
-            <div class="table-responsive shadow-sm">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0">Senarai Kuarters & Status Semasa</h5>
-                    <input type="text" class="form-control form-control-sm w-25" placeholder="Cari kod atau lokasi...">
+            <div class="d-flex align-items-center">
+                <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                    <i class="bi bi-calendar3" style="font-size: 24px;"></i>
                 </div>
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>KOD</th>
-                            <th>NAMA KUARTERS (B)</th>
-                            <th>DAERAH</th>
-                            <th class="text-center">DIHUNI (G)</th>
-                            <th class="text-center">ROSAK (I)</th>
-                            <th class="text-center">VALIDITY</th>
-                            <th>KOS RM (Y)</th>
-                            <th class="text-center">TINDAKAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="fw-bold">KDN76</td>
-                            <td>Penjara Sungai Udang</td>
-                            <td>Sg Udang</td>
-                            <td class="text-center">454</td>
-                            <td class="text-center text-danger">0</td>
-                            <td class="text-center text-success fw-bold">TRUE</td>
-                            <td class="fw-bold">500,000.00</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold text-maroon">KDN83</td>
-                            <td>Penjara Simpang Renggam</td>
-                            <td>Simpang Renggam</td>
-                            <td class="text-center">380</td>
-                            <td class="text-center text-danger">317</td>
-                            <td class="text-center text-danger fw-bold">FALSE</td>
-                            <td class="fw-bold">1,000,000.00</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">KDN88</td>
-                            <td>Pusat Koreksional Perlis</td>
-                            <td>Kangar</td>
-                            <td class="text-center">133</td>
-                            <td class="text-center text-danger">0</td>
-                            <td class="text-center text-success fw-bold">TRUE</td>
-                            <td class="fw-bold text-muted">0.00</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mt-3 p-2 bg-light rounded border border-info">
-                    <i class="bi bi-info-circle-fill text-info me-2"></i>
-                    <small class="text-muted">Nota: Data KDN83 menunjukkan status <strong>FALSE</strong> pada lajur Validity kerana perbezaan data fizikal dan hunian.</small>
+                <div>
+                    <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 11px;">Status Laporan Terkini</div>
+                    <div class="fs-5 fw-bold text-dark">
+                        <?= strtoupper($bulan_melayu[(int)$latestDate['bulan']]) ?> <span class="text-primary"><?= $latestDate['tahun'] ?></span>
+                    </div>
+                </div>
+                <div class="ms-4 border-start ps-4 d-none d-md-block">
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
+                        <i class="bi bi-check-circle-fill me-1"></i> LAPORAN TELAH DISAHKAN
+                    </span>
                 </div>
             </div>
+
+            <div class="me-2" style="width: 300px;">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0 rounded-start-pill">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control border-start-0 rounded-end-pill" placeholder="Cari negeri...">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+            
+
+           <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>NEGERI</th>
+                <th class="text-center">DIHUNI</th>
+                <th class="text-center">KOSONG</th>
+                <th class="text-center">JUMLAH KUARTERS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($laporanNegeri)): ?>
+                <?php foreach ($laporanNegeri as $row): ?>
+                <tr>
+                    <td class="fw-bold text-uppercase">
+                        <?= $row['state_description'] ?>
+                    </td>
+                    <td class="text-center">
+                        <?= number_format($row['total_dihuni']) ?>
+                    </td>
+                    <td class="text-center text-danger">
+                        <?= number_format($row['total_kosong']) ?>
+                    </td>
+                    <td class="text-center fw-bold text-primary">
+                        <?= number_format($row['jumlah_kuarters']) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-muted">
+                        Tiada data bagi bulan <?= $bulan_melayu[$latestDate['bulan']] ?> <?= $latestDate['tahun'] ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+        
+        <?php if (!empty($laporanNegeri)): ?>
+        <tfoot class="table-light fw-bold border-top border-dark">
+            <tr>
+                <td class="text-end">JUMLAH KESELURUHAN:</td>
+                <td class="text-center">
+                    <?= number_format($stats['total_dihuni']) ?>
+                </td>
+                <td class="text-center text-danger">
+                    <?= number_format($stats['total_kosong']) ?>
+                </td>
+                <td class="text-center text-primary" style="font-size: 1.1rem;">
+                    <?= number_format($stats['total_unit']) ?>
+                </td>
+            </tr>
+        </tfoot>
+        <?php endif; ?>
+    </table>
+</div>
 
         
     </div>
@@ -168,27 +180,20 @@
       </div>
     </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-    <!-- tutup modal -->
-
-
-
-
-
   </main>
+
+  <script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    let filter = this.value.toUpperCase();
+    let rows = document.querySelector("table tbody").rows;
+
+    for (let i = 0; i < rows.length; i++) {
+        let firstCol = rows[i].cells[0].textContent.toUpperCase();
+        if (firstCol.indexOf(filter) > -1) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }      
+    }
+});
+</script>

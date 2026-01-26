@@ -143,7 +143,11 @@
             <?php else: ?>
                 <tr>
                     <td colspan="4" class="text-center py-4 text-muted">
-                        Tiada data bagi bulan <?= $bulan_melayu[$latestDate['bulan']] ?> <?= $latestDate['tahun'] ?>
+                        <?php 
+                            $nama_bulan = $bulan_melayu[(int)($latestDate['bulan'] ?? 0)] ?? 'Pilihan';
+                            $tahun = $latestDate['tahun'] ?? date('Y');
+                        ?>
+                        Tiada data bagi bulan <?= $nama_bulan ?> <?= $tahun ?>
                     </td>
                 </tr>
             <?php endif; ?>

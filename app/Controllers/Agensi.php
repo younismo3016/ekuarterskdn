@@ -84,10 +84,18 @@ public function index()
                     ->get()
                     ->getResultArray();
 
-    } else {
-        $stats = ['total_unit' => 0, 'total_dihuni' => 0, 'total_kosong' => 0];
-        $laporanNegeri = [];
-    }
+  } else {
+    // --- LETAK DI SINI (BAHAGIAN ELSE) ---
+    // Jika tiada data status_hantar = 1, kita bagi nilai kosong supaya View tak error
+    $stats = ['total_unit' => 0, 'total_dihuni' => 0, 'total_kosong' => 0];
+    $laporanNegeri = [];
+    
+    // Kita set bulan & tahun semasa sebagai "dummy" data supaya $bulan_melayu tidak error
+    $latestDate = [
+        'bulan' => (int)date('n'), 
+        'tahun' => (int)date('Y')
+    ]; 
+}
 
     $bulan_melayu = [
         1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April',
@@ -132,7 +140,7 @@ public function index()
         $id_agensi = session()->get('id_agensi_induk');
 
         // Ambil senarai kategori isu untuk dropdown
-        $kategori_isu = $db->table('ref_issue_category')
+        $kategori_isu = $db->table('adm_issue_category')
                        ->select('id_kategori_isu, keterangan_kategori')
                        ->get()
                        ->getResultArray();
@@ -161,45 +169,72 @@ public function simpan_kemaskini()
         return redirect()->back()->with('error', 'Tiada data dikesan.');
     }
 
-    // --- PROSES DATA UNTUK NULL VALUES ---
-    // Kita "sanitize" data supaya string kosong ditukar kepada NULL
-    foreach ($reports as $key => $val) {
-        if (isset($val['id_kategori_isu']) && $val['id_kategori_isu'] === "") {
-            $reports[$key]['id_kategori_isu'] = null;
-        }
-        
-        // Anda juga boleh buat perkara sama untuk tarikh atau medan lain yang nullable
-        if (isset($val['jangkaan_pelaksanaan']) && $val['jangkaan_pelaksanaan'] === "") {
-            $reports[$key]['jangkaan_pelaksanaan'] = null;
-        }
-    }
-
     $db->transBegin();
 
     try {
-        $builder = $db->table('table_report');
-        
-        // updateBatch akan menjana query UPDATE ... CASE ... THEN yang sangat pantas
-        $builder->updateBatch($reports, 'id_report');
+        $builderReport = $db->table('table_report');
+        $builderIssue = $db->table('table_issue');
+
+        $dataBatchReport = [];
+
+        foreach ($reports as $report) {
+            $id_report = $report['id_report'];
+
+            // 1. Asingkan data id_kategori_isu (ini adalah array dari Tom Select)
+            $selectedIssues = $report['id_kategori_isu'] ?? [];
+
+            // 2. Sediakan data untuk updateBatch table_report (buang id_kategori_isu dari array utama)
+            unset($report['id_kategori_isu']);
+            
+            // Sanitize field lain (contoh: tarikh)
+            if (isset($report['jangkaan_pelaksanaan']) && $report['jangkaan_pelaksanaan'] === "") {
+                $report['jangkaan_pelaksanaan'] = null;
+            }
+            
+            $dataBatchReport[] = $report;
+
+            // 3. PROSES TABLE_ISSUE (Multiple Selection)
+            // Langkah A: Padam isu lama untuk report ini supaya tidak bertindih
+            $builderIssue->where('id_report', $id_report)->delete();
+
+            // Langkah B: Insert isu baru jika ada yang dipilih
+            if (!empty($selectedIssues) && is_array($selectedIssues)) {
+                $dataIssues = [];
+                foreach ($selectedIssues as $id_isu) {
+                    if (!empty($id_isu)) {
+                        $dataIssues[] = [
+                            'id_report'       => $id_report,
+                            'id_kategori_isu' => $id_isu
+                        ];
+                    }
+                }
+                
+                if (!empty($dataIssues)) {
+                    $builderIssue->insertBatch($dataIssues);
+                }
+            }
+        }
+
+        // 4. Update maklumat utama dalam table_report secara batch
+        if (!empty($dataBatchReport)) {
+            $builderReport->updateBatch($dataBatchReport, 'id_report');
+        }
 
         if ($db->transStatus() === FALSE) {
             $db->transRollback();
-            return redirect()->back()->with('error', 'Gagal kemaskini batch. Sila cuba lagi.');
+            return redirect()->back()->with('error', 'Gagal kemaskini. Sila cuba lagi.');
         } else {
             $db->transCommit();
-
-            // Ambil bulan dan tahun dari form untuk tujuan redirect
             $bulan = $this->request->getPost('bulan');
             $tahun = $this->request->getPost('tahun');
 
-            // Redirect balik ke halaman kemaskini mengikut bulan dan tahun tadi
             return redirect()->to(base_url('index.php/agensi/agensi_statistik_kemaskini/' . $bulan . '/' . $tahun))
-                             ->with('success', 'Semua rekod berjaya dikemaskini.');
+                             ->with('success', 'Rekod dan Kategori Isu berjaya dikemaskini.');
         }
+
     } catch (\Exception $e) {
         $db->transRollback();
-        // Paparkan ralat mesra pengguna atau log ralat
-        return redirect()->back()->with('error', 'Ralat Sistem: Sila pastikan semua input adalah sah.');
+        return redirect()->back()->with('error', 'Ralat Sistem: ' . $e->getMessage());
     }
 }
     // Fungsi bantuan untuk nama bulan
@@ -212,7 +247,7 @@ public function simpan_kemaskini()
 }
 
 
-public function tambah_baru()
+public function tambah_baru_bck()
 {
     $db = \Config\Database::connect();
     $id_agensi = session()->get('id_agensi_induk');
@@ -281,7 +316,7 @@ public function tambah_baru()
                 'rosak_roboh'             => $row['rosak_roboh'],
                 'ket_rosak_roboh'         => $row['ket_rosak_roboh'],
                 'total_unit_kuarters'     => $row['total_unit_kuarters'],
-                'id_kategori_isu'         => $row['id_kategori_isu'],
+                
                 'keterangan_isu'          => $row['keterangan_isu'],
                 'status_tindakan'         => $row['status_tindakan'],
                 'senarai_kerja'           => $row['senarai_kerja'],
@@ -309,27 +344,156 @@ public function tambah_baru()
 }
 
 
+
+
+
+public function tambah_baru()
+{
+    $db = \Config\Database::connect();
+    $id_agensi = session()->get('id_agensi_induk');
+    
+    $bulan_ini = (int)date('m');
+    $tahun_ini = (int)date('Y');
+
+    // 1. Semak jika rekod bulan semasa sudah wujud
+    $exists = $db->table('table_report')
+        ->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters')
+        ->where('table_quarters_profile.id_agensi_induk', $id_agensi)
+        ->where('table_report.bulan', $bulan_ini)
+        ->where('table_report.tahun', $tahun_ini)
+        ->countAllResults();
+
+    if ($exists > 0) {
+        return redirect()->to(base_url('index.php/agensi/statistik'))->with('error', 'Rekod bagi bulan semasa sudah wujud.');
+    }
+
+    // 2. Ambil data laporan terakhir
+    $last_report = $db->table('table_report')
+        ->select('table_report.*')
+        ->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters')
+        ->where('table_quarters_profile.id_agensi_induk', $id_agensi)
+        ->orderBy('table_report.tahun', 'DESC')
+        ->orderBy('table_report.bulan', 'DESC')
+        ->get()
+        ->getResultArray();
+
+    if (empty($last_report)) {
+        return redirect()->back()->with('error', 'Tiada rekod lama untuk disalin.');
+    }
+
+    // Gunakan Transaction untuk pastikan integriti data antara table_report & table_issue
+    $db->transStart();
+
+    $seen_kuarters = [];
+
+    foreach ($last_report as $row) {
+        if (!in_array($row['id_kuarters'], $seen_kuarters)) {
+            
+            // Simpan data laporan baru
+            $data_report_baru = [
+                'id_kuarters'             => $row['id_kuarters'],
+                'status_hantar'           => 0, // Set semula sebagai draft (Belum Hantar)
+                'bulan'                   => $bulan_ini,
+                'tahun'                   => $tahun_ini,
+                'jumlah_permohonan'       => $row['jumlah_permohonan'],
+                'unit_dihuni'             => $row['unit_dihuni'],
+                'dihuni_baik'             => $row['dihuni_baik'],
+                'dihuni_rosak'            => $row['dihuni_rosak'],
+                'unit_tidak_dihuni'       => $row['unit_tidak_dihuni'],
+                'baik_diduduki'           => $row['baik_diduduki'],
+                'baik_guna_sama'          => $row['baik_guna_sama'],
+                'ket_baik_guna_sama'      => $row['ket_baik_guna_sama'],
+                'baik_tukar_fungsi'       => $row['baik_tukar_fungsi'],
+                'ket_baik_tukar_fungsi'   => $row['ket_baik_tukar_fungsi'],
+                'baik_sewaan'             => $row['baik_sewaan'],
+                'ket_baik_sewaan'         => $row['ket_baik_sewaan'],
+                'rosak_baik_pulih'        => $row['rosak_baik_pulih'],
+                'ket_rosak_baik_pulih'    => $row['ket_rosak_baik_pulih'],
+                'rosak_guna_sama'         => $row['rosak_guna_sama'],
+                'ket_rosak_guna_sama'     => $row['ket_rosak_guna_sama'],
+                'rosak_tukar_fungsi'      => $row['rosak_tukar_fungsi'],
+                'ket_rosak_tukar_fungsi'  => $row['ket_rosak_tukar_fungsi'],
+                'rosak_sewaan'            => $row['rosak_sewaan'],
+                'ket_rosak_sewaan'        => $row['ket_rosak_sewaan'],
+                'rosak_roboh'             => $row['rosak_roboh'],
+                'ket_rosak_roboh'         => $row['ket_rosak_roboh'],
+                'total_unit_kuarters'     => $row['total_unit_kuarters'],
+                
+                'keterangan_isu'          => $row['keterangan_isu'],
+                'status_tindakan'         => $row['status_tindakan'],
+                'senarai_kerja'           => $row['senarai_kerja'],
+                'kos_rm'                  => $row['kos_rm'],
+                'jangkaan_pelaksanaan'    => $row['jangkaan_pelaksanaan'],
+                'catatan'                 => $row['catatan']
+            ];
+
+            $db->table('table_report')->insert($data_report_baru);
+            $new_report_id = $db->insertID(); // ID unik untuk table_issue
+
+            // 3. PROSES SALIN ISU (table_issue)
+            // Ambil semua isu yang berkaitan dengan laporan lama (id_report asal)
+            $old_issues = $db->table('table_issue')
+                ->where('id_report', $row['id_report'])
+                ->get()
+                ->getResultArray();
+
+            if (!empty($old_issues)) {
+                $data_issue_baru = [];
+                foreach ($old_issues as $issue) {
+                    $data_issue_baru[] = [
+                        'id_report'       => $new_report_id, // Guna ID report yang baru
+                        'id_kategori_isu' => $issue['id_kategori_isu'],
+                        // Tambah field lain jika ada dalam table_issue (cth: catatan_isu)
+                    ];
+                }
+                // Masukkan semua isu untuk report ini secara batch
+                $db->table('table_issue')->insertBatch($data_issue_baru);
+            }
+            
+            $seen_kuarters[] = $row['id_kuarters'];
+        }
+    }
+
+    $db->transComplete();
+
+    if ($db->transStatus() === FALSE) {
+        return redirect()->back()->with('error', 'Gagal menyalin data. Sila cuba lagi.');
+    }
+
+    return redirect()->to(base_url('index.php/agensi/agensi_statistik_list'))->with('success', 'Rekod laporan dan isu berjaya disalin ke bulan semasa.');
+}
+
+
 public function kemaskini_individu($id_kuarters, $bulan, $tahun) {
     $db = \Config\Database::connect();
     
-    // 1. Ambil data laporan join dengan profil (Individu)
+    // 1. Ambil data laporan join dengan profil DAN join table_issue untuk dapatkan senarai isu
+    // Kita gunakan GROUP_CONCAT untuk kumpulkan semua id_kategori_isu dalam satu string
     $row = $db->table('table_report')
-        ->select('table_report.*, table_quarters_profile.kod_kuarters, table_quarters_profile.nama_kuarters, table_quarters_profile.jenis_kuarters')
+        ->select('
+            table_report.*, 
+            table_quarters_profile.kod_kuarters, 
+            table_quarters_profile.nama_kuarters, 
+            table_quarters_profile.jenis_kuarters,
+            GROUP_CONCAT(table_issue.id_kategori_isu) as selected_issues
+        ')
         ->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters')
+        ->join('table_issue', 'table_issue.id_report = table_report.id_report', 'left') // Join table_issue
         ->where([
             'table_report.id_kuarters' => $id_kuarters,
             'table_report.bulan' => $bulan,
             'table_report.tahun' => $tahun
         ])
+        ->groupBy('table_report.id_report') // Wajib ada jika guna GROUP_CONCAT
         ->get()->getRowArray();
 
-    // 2. Ambil data kategori dari jadual yang betul
-    $kategori_isu = $db->table('ref_issue_category')->get()->getResultArray();
+    // 2. Ambil data kategori dari jadual rujukan untuk dropdown
+    $kategori_isu = $db->table('adm_issue_category')->get()->getResultArray();
 
-   
+    // 3. Susun data untuk dihantar ke view
     $data = [
-        'title'        => 'Kemaskini Statistik Individu', // Tambahan tajuk jika perlu
-        'isi'          => 'agensi/kemaskini_individu_view', // Fail view individu anda
+        'title'        => 'Kemaskini Statistik Individu',
+        'isi'          => 'agensi/kemaskini_individu_view', 
         'row'          => $row,
         'kategori_isu' => $kategori_isu,
         'bulan'        => $bulan,
@@ -340,20 +504,22 @@ public function kemaskini_individu($id_kuarters, $bulan, $tahun) {
     return view('layout/v_wrapper', $data);
 }
 
-public function simpan_individu() {
-    $db = \Config\Database::connect();
-    
-    // Ambil data dari post
-    $id_report = $this->request->getPost('id_report');
-    $bulan     = $this->request->getPost('bulan'); // Pastikan ada input hidden 'bulan' dalam view
-    $tahun     = $this->request->getPost('tahun'); // Pastikan ada input hidden 'tahun' dalam view
 
-    $data = [
+
+
+public function simpan_kemaskini_individu() {
+    $db = \Config\Database::connect();
+    $id_report = $this->request->getPost('id_report');
+    $isu_array = $this->request->getPost('id_kategori_isu'); // Data dari Tom-Select (Array)
+
+    // ---------------------------------------------------------
+    // BAHAGIAN 1: KEMASKINI table_report
+    // ---------------------------------------------------------
+    $data_report = [
         'jumlah_permohonan'      => $this->request->getPost('jumlah_permohonan'),
         'unit_dihuni'            => $this->request->getPost('unit_dihuni'),
         'dihuni_baik'            => $this->request->getPost('dihuni_baik'),
         'dihuni_rosak'           => $this->request->getPost('dihuni_rosak'),
-        'unit_tidak_dihuni'      => $this->request->getPost('unit_tidak_dihuni'),
         'baik_diduduki'          => $this->request->getPost('baik_diduduki'),
         'baik_guna_sama'         => $this->request->getPost('baik_guna_sama'),
         'ket_baik_guna_sama'     => $this->request->getPost('ket_baik_guna_sama'),
@@ -371,23 +537,47 @@ public function simpan_individu() {
         'ket_rosak_sewaan'       => $this->request->getPost('ket_rosak_sewaan'),
         'rosak_roboh'            => $this->request->getPost('rosak_roboh'),
         'ket_rosak_roboh'        => $this->request->getPost('ket_rosak_roboh'),
+        'unit_tidak_dihuni'      => $this->request->getPost('unit_tidak_dihuni'),
         'total_unit_kuarters'    => $this->request->getPost('total_unit_kuarters'),
-        'id_kategori_isu'        => $this->request->getPost('id_kategori_isu'),
         'keterangan_isu'         => $this->request->getPost('keterangan_isu'),
         'status_tindakan'        => $this->request->getPost('status_tindakan'),
         'senarai_kerja'          => $this->request->getPost('senarai_kerja'),
         'kos_rm'                 => $this->request->getPost('kos_rm'),
         'jangkaan_pelaksanaan'   => $this->request->getPost('jangkaan_pelaksanaan'),
-        'catatan'                => $this->request->getPost('catatan'),
+        'catatan'                => $this->request->getPost('catatan')
     ];
 
-    $db->table('table_report')->where('id_report', $id_report)->update($data);
+    $db->transStart(); // Guna Transaction untuk integriti data
 
+    // Update table utama
+    $db->table('table_report')->where('id_report', $id_report)->update($data_report);
+
+    // ---------------------------------------------------------
+    // BAHAGIAN 2: KEMASKINI table_issue (Relationship 1-to-Many)
+    // ---------------------------------------------------------
     
+    // A. Buang isu lama untuk id_report ini
+    $db->table('table_issue')->where('id_report', $id_report)->delete();
 
-    // Redirect ke halaman kemaskini pukal mengikut bulan & tahun
-    return redirect()->to(base_url('index.php/agensi/agensi_statistik_kemaskini/' . $bulan . '/' . $tahun))
-                     ->with('success', 'Data bagi kuarters tersebut berjaya dikemaskini.');
+    // B. Masukkan isu baru jika ada pilihan dibuat
+    if (!empty($isu_array)) {
+        $data_issue = [];
+        foreach ($isu_array as $id_kat) {
+            $data_issue[] = [
+                'id_report'       => $id_report,
+                'id_kategori_isu' => $id_kat
+            ];
+        }
+        $db->table('table_issue')->insertBatch($data_issue);
+    }
+
+    $db->transComplete(); // Selesai Transaction
+
+    if ($db->transStatus() === FALSE) {
+        return redirect()->back()->with('error', 'Gagal mengemaskini data.');
+    } else {
+        return redirect()->back()->with('success', 'Rekod dan Isu berjaya dikemaskini!');
+    }
 }
 
 public function agensi_statistik_papar($bulan, $tahun)
@@ -408,7 +598,7 @@ public function agensi_statistik_papar($bulan, $tahun)
         'title'        => 'Paparan Statistik Kuarters',
         'isi'          => 'agensi/agensi_statistik_papar', 
         'reports'      => $model->getDetailedReportView($bulan, $tahun, $id_agensi),
-        'kategori_isu' => $db->table('ref_issue_category')->get()->getResultArray(),
+        'kategori_isu' => $db->table('adm_issue_category')->get()->getResultArray(),
         'bulan'        => $bulan,
         'tahun'        => $tahun,
         // Tambah baris ini:
@@ -440,10 +630,8 @@ public function hantar_ke_kdn($bulan, $tahun)
 
 
 public function papar_individu($id_kuarters, $bulan, $tahun) {
-    // 1. Sambungan pangkalan data secara terus
     $db = \Config\Database::connect();
     
-    // 2. Ambil data laporan join dengan profil kuarters (Satu baris sahaja)
     $row = $db->table('table_report')
         ->select('table_report.*, table_quarters_profile.kod_kuarters, table_quarters_profile.nama_kuarters, table_quarters_profile.jenis_kuarters')
         ->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters')
@@ -454,25 +642,28 @@ public function papar_individu($id_kuarters, $bulan, $tahun) {
         ])
         ->get()->getRowArray();
 
-    // 3. Jika rekod tidak wujud, kembali ke senarai
     if (!$row) {
         return redirect()->back()->with('error', 'Rekod tidak dijumpai.');
     }
 
-    // 4. Ambil data rujukan kategori (Contoh: untuk paparan nama kategori di view)
-    $kategori_isu = $db->table('ref_issue_category')->get()->getResultArray();
+    
 
-    // 5. Susun data untuk dihantar ke View
+ $senarai_isu = $db->table('table_issue')
+    // Gunakan 'AS' untuk menukar nama kolum secara sementara
+    ->select('table_issue.*, adm_issue_category.keterangan_kategori AS nama_kategori_isu')
+    ->join('adm_issue_category', 'adm_issue_category.id_kategori_isu = table_issue.id_kategori_isu')
+    ->where('table_issue.id_report', $row['id_report'])
+    ->get()->getResultArray();
+
     $data = [
         'title'        => 'Paparan Statistik Individu',
-        'isi'          => 'agensi/papar_individu_view', // Nama fail view anda
-        'row'          => $row,
-        'kategori_isu' => $kategori_isu,
+        'isi'          => 'agensi/papar_individu_view', 
+        'data'         => $row,          // Kita guna 'data' supaya view anda tidak perlu diubah
+        'senarai_isu'  => $senarai_isu,
         'bulan'        => $bulan,
         'tahun'        => $tahun
     ];
 
-    // 6. Hantar ke wrapper layout
     return view('layout/v_wrapper', $data);
 }
 

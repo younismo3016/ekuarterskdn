@@ -74,7 +74,11 @@ class StatistikAgensiModel extends Model
 public function getDetailedReport($bulan, $tahun, $id_agensi)
 {
     return $this->db->table('table_report tr')
-        ->select('tr.*, tqp.kod_kuarters, tqp.nama_kuarters, tqp.jenis_kuarters') // Pastikan ada tqp.jenis_kuarters
+        ->select('tr.*, tqp.kod_kuarters, tqp.nama_kuarters, tqp.jenis_kuarters')
+        // Tambah sub-query di bawah untuk mendapatkan string ID kategori isu
+        ->select('(SELECT GROUP_CONCAT(ti.id_kategori_isu) 
+                  FROM table_issue ti 
+                  WHERE ti.id_report = tr.id_report) as id_kategori_isu')
         ->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters')
         ->where('tqp.id_agensi_induk', $id_agensi)
         ->where('tr.bulan', $bulan)
@@ -82,24 +86,26 @@ public function getDetailedReport($bulan, $tahun, $id_agensi)
         ->get()
         ->getResultArray();
 }
+
+
 public function getDetailedReportView($bulan, $tahun, $id_agensi)
 {
-    return $this->db->table($this->table_report)
+    return $this->db->table("{$this->table_report} tr")
         ->select("
-            {$this->table_report}.*, 
+            tr.*, 
             tqp.kod_kuarters, 
             tqp.nama_kuarters, 
-            tqp.jenis_kuarters, 
-            ric.keterangan_kategori
+            tqp.jenis_kuarters,
+            (SELECT GROUP_CONCAT(aic.keterangan_kategori SEPARATOR ', ') 
+             FROM table_issue ti 
+             JOIN adm_issue_category aic ON aic.id_kategori_isu = ti.id_kategori_isu 
+             WHERE ti.id_report = tr.id_report) as nama_kategori_isu
         ")
-        ->join("{$this->table} as tqp", "tqp.id_kuarters = {$this->table_report}.id_kuarters")
-        ->join('ref_issue_category as ric', "ric.id_kategori_isu = {$this->table_report}.id_kategori_isu", 'left')
-        
-        // KEMASKINI: Menggunakan id_agensi_induk seperti dalam pangkalan data anda
+        ->join("{$this->table} as tqp", "tqp.id_kuarters = tr.id_kuarters")
+        // Padam join lama dengan ref_issue_category jika ia tidak lagi digunakan
         ->where('tqp.id_agensi_induk', $id_agensi) 
-        
-        ->where("{$this->table_report}.bulan", $bulan)
-        ->where("{$this->table_report}.tahun", $tahun)
+        ->where("tr.bulan", $bulan)
+        ->where("tr.tahun", $tahun)
         ->get()
         ->getResultArray();
 }

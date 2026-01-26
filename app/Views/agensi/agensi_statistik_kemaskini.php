@@ -1,3 +1,7 @@
+
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+
 <style>
     /* 1. Bekas utama untuk membolehkan scrollbar muncul */
     .table-container {
@@ -58,6 +62,12 @@
     .table-container::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+    .search-area:hover {
+    background-color: #f0f0f0 !important; /* Warna kelabu cair bila mouse lalu */
+    cursor: pointer;
+    transition: 0.2s;
+}
 </style>
 
   <?php 
@@ -173,16 +183,18 @@
                  <tbody>
                         <?php foreach ($reports as $index => $row): ?>
                         <tr>
-                            <td class="search-area bg-light">
-                                <input type="hidden" name="report[<?= $index ?>][id_report]" value="<?= $row['id_report'] ?>">
-                                <input type="hidden" name="report[<?= $index ?>][id_kuarters]" value="<?= $row['id_kuarters'] ?>">
-                                
-                                <a href="<?= base_url('index.php/agensi/kemaskini_individu/'.$row['id_kuarters'].'/'.$bulan.'/'.$tahun) ?>" class="fw-bold text-decoration-none">
-                                    <?= $row['kod_kuarters'] ?>
-                                </a><br>
-                                <span class="text-uppercase small fw-semibold"><?= $row['nama_kuarters'] ?></span><br>
-                                <span class="badge bg-secondary" style="font-size: 9px;"><?= $row['jenis_kuarters'] ?></span>
-                            </td>
+                           <td class="search-area bg-light position-relative">
+                            <input type="hidden" name="report[<?= $index ?>][id_report]" value="<?= $row['id_report'] ?>">
+                            <input type="hidden" name="report[<?= $index ?>][id_kuarters]" value="<?= $row['id_kuarters'] ?>">
+                            
+                            <a href="<?= base_url('index.php/agensi/kemaskini_individu/'.$row['id_kuarters'].'/'.$bulan.'/'.$tahun) ?>" 
+                            class="fw-bold text-decoration-none stretched-link">
+                                <?= $row['kod_kuarters'] ?>
+                            </a><br>
+                            
+                            <span class="text-uppercase small fw-semibold"><?= $row['nama_kuarters'] ?></span><br>
+                            <span class="badge bg-secondary" style="font-size: 9px;"><?= $row['jenis_kuarters'] ?></span>
+</td>
 
                           <td>
                             <input type="number" 
@@ -496,17 +508,37 @@
                                 readonly>
                         </td>
                            
-                            <td>
-                                <select name="report[<?= $index ?>][id_kategori_isu]" class="form-select form-select-sm wide-input">
-                                    <option value="">Pilih...</option>
-                                    <?php foreach ($kategori_isu as $isu): ?>
-                                        <option value="<?= $isu['id_kategori_isu'] ?>" <?= ($row['id_kategori_isu'] == $isu['id_kategori_isu']) ? 'selected' : '' ?>>
-                                            <?= $isu['keterangan_kategori'] ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </td>
+                        <td style="width: 200px; min-width: 150px;"> 
+    <select name="report[<?= $index ?>][id_kategori_isu][]" 
+            class="tom-select custom-tom-size" 
+            multiple 
+            placeholder="Pilih...">
+        <?php 
+        $selected_values = explode(',', $row['id_kategori_isu'] ?? ''); 
+        ?>
+        <?php foreach ($kategori_isu as $isu): ?>
+            <option value="<?= $isu['id_kategori_isu'] ?>" 
+                <?= (in_array($isu['id_kategori_isu'], $selected_values)) ? 'selected' : '' ?>>
+                <?= $isu['keterangan_kategori'] ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</td>
 
+<style>
+/* Mengecilkan saiz fon input dan item yang dipilih */
+.custom-tom-size + .ts-wrapper .ts-control,
+.custom-tom-size + .ts-wrapper .ts-dropdown {
+    font-size: 12px !important; /* Laraskan saiz fon di sini */
+    min-height: 30px !important; /* Memendekkan ketinggian kotak */
+}
+
+/* Mengecilkan saiz 'pills' (item yang sudah dipilih) */
+.custom-tom-size + .ts-wrapper .ts-control .item {
+    font-size: 11px !important;
+    padding: 2px 5px !important;
+}
+</style>
                              <td><textarea name="report[<?= $index ?>][keterangan_isu]" class="form-control form-control-sm wide-input" rows="1"><?= $row['keterangan_isu'] ?></textarea></td>
                            
                           <td class="wide-input">
@@ -652,4 +684,14 @@ function semakTally(element) {
         }
     }
 }
+</script>
+
+<script>
+document.querySelectorAll('.tom-select').forEach((el) => {
+    new TomSelect(el, {
+        plugins: ['remove_button'],
+        create: false,
+        persist: false
+    });
+});
 </script>

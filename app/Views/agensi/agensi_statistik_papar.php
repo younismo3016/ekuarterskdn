@@ -96,8 +96,22 @@
     #mainTable tbody tr:hover td {
         background-color: #f1f8ff !important;
     }
-</style>
 
+    
+</style>
+<style>
+    /* Kesan warna latar bila tetikus berada di atas sel */
+    .search-area:hover {
+        background-color: #f0f7ff !important; /* Biru cair */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    /* Memastikan teks tetap nampak kemas */
+    .search-area a.stretched-link {
+        color: inherit;
+    }
+</style>
 <section class="content">
     <main id="main" class="main">
 
@@ -182,11 +196,24 @@
                 <tbody>
                     <?php if(!empty($reports)): foreach ($reports as $row): ?>
                     <tr class="report-row">
-                        <td class="search-area">
-                            <span class="fw-bold text-primary"><?= $row['kod_kuarters'] ?></span><br>
-                            <span class="text-uppercase small fw-semibold"><?= $row['nama_kuarters'] ?></span><br>
-                            <span class="badge bg-secondary" style="font-size: 9px;"><?= $row['jenis_kuarters'] ?></span>
-                        </td>
+                       <td class="search-area position-relative p-0"> 
+                        <div class="p-3"> <a href="<?= site_url("agensi/papar_individu/{$row['id_kuarters']}/{$row['bulan']}/{$row['tahun']}") ?>" 
+                            class="text-decoration-none stretched-link">
+                                
+                                <span class="fw-bold text-primary">
+                                    <i class="bi bi-search small me-1"></i><?= $row['kod_kuarters'] ?>
+                                </span><br>
+                                
+                                <span class="text-uppercase small fw-semibold text-dark">
+                                    <?= $row['nama_kuarters'] ?>
+                                </span><br>
+                                
+                                <span class="badge bg-secondary" style="font-size: 9px;">
+                                    <?= $row['jenis_kuarters'] ?>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
                         <td class="text-center"><?= number_format($row['jumlah_permohonan']) ?></td>
                         <td class="text-center"><?= number_format($row['unit_dihuni']) ?></td>
                         <td class="text-center"><?= number_format($row['dihuni_baik']) ?></td>
@@ -257,7 +284,17 @@
                             <?php endif; ?>
                         </td>
 
-                        <td class="text-start x-small"><?= $row['id_kategori_isu'] ?? '-' ?></td>
+                       <td class="text-start x-small">
+  <td class="text-start">
+    <?php if (!empty($row['nama_kategori_isu'])): 
+        $items = explode(', ', $row['nama_kategori_isu']);
+        foreach ($items as $item): ?>
+            <span class="badge bg-info text-dark"><?= $item ?></span>
+        <?php endforeach; 
+    else: ?>
+        <span class="text-muted">-</span>
+    <?php endif; ?>
+</td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['keterangan_isu'])) ?></td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['status_tindakan'])) ?></td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['senarai_kerja'])) ?></td>

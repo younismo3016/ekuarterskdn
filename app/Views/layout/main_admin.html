@@ -1,35 +1,72 @@
-<!-- Main content -->
-
-
-<section class="content">
-
-
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Utama </h1>
-      <nav>
-
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section">
-      <div class="row">
-
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Sistem eKuarters KDN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root { --kdn-blue: #1e3a8a; --kdn-gold: #fbbf24; --sidebar-dark: #0f172a; }
+        body { background-color: #f1f5f9; font-family: 'Inter', sans-serif; }
         
+        /* Navbar & Sidebar */
+        .navbar { background-color: var(--kdn-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 3px solid var(--kdn-gold); }
+        .sidebar { background: var(--sidebar-dark); min-height: 100vh; border-right: 1px solid #dee2e6; color: white; }
+        
+        /* Nav Links */
+        .nav-link { color: #94a3b8; font-weight: 500; padding: 12px 20px; transition: 0.3s; }
+        .nav-link:hover { background: rgba(255,255,255,0.1); color: var(--kdn-gold); }
+        .nav-link.active { background: rgba(255,255,255,0.15); color: white; border-left: 4px solid var(--kdn-gold); }
+        
+        /* Cards */
+        .card-stats { background: white; border: none; border-top: 5px solid var(--kdn-blue); transition: 0.3s; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .card-stats:hover { transform: translateY(-5px); }
+        .table-responsive { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        
+        .badge-status { font-size: 0.75rem; padding: 5px 10px; }
+    </style>
+</head>
+<body>
 
-    </section>
-
-    </form>
-
-
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <i class="bi bi-shield-fill-check text-warning me-2"></i>
+            <span class="fw-bold">Sistem eKuarters KDN</span>
+        </a>
+        <div class="ms-auto d-flex align-items-center text-white">
+            <div class="text-end me-3 d-none d-md-block">
+                <p class="mb-0 small fw-bold">Bahagian Khidmat Pengurusan</p>
+                <p class="mb-0 x-small opacity-75" style="font-size: 0.7rem;">Kementerian Dalam Negeri</p>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="btn btn-warning btn-sm rounded-circle" data-bs-toggle="dropdown"><i class="bi bi-person-fill-lock"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil Admin</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Tetapan Sistem</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="index.html"><i class="bi bi-box-arrow-right me-2"></i>Log Keluar</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
+</nav>
 
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar px-0 shadow">
+            <div class="p-3 text-center border-bottom border-secondary">
+                <h6 class="text-warning fw-bold small mb-0">ADMIN</h6>
+            </div>
+            <div class="nav flex-column mt-2">
+                <a href="#" class="nav-link active"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+                <a href="statistik_bulanan_admin.html" class="nav-link"><i class="bi bi-file-earmark-bar-graph me-2"></i> Statistik Bulanan</a>
+                <a href="senarai_pengguna_admin.html" class="nav-link"><i class="bi bi-people-fill me-2"></i> Senarai Pengguna</a>
+            </div>
+        </nav>
 
-
-    <section class="section">
-
-    
+        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h4 class="fw-bold text-dark">Dashboard: Status Kuarters</h4>
@@ -117,31 +154,10 @@
                 </table>
             </div>
             
-        
-    </section>
+        </main>
+    </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- buka modal 2 -->
-
-    
-
-
-    <!-- tutup modal -->
-
-
-
-
-
-  </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -35,12 +35,12 @@ public function index()
                 ->get()
                 ->getRowArray();
 
-    // 2. Dapatkan bulan dan tahun TERKINI (status_hantar = 1)
+    // 2. Dapatkan bulan dan tahun TERKINI (status_hantar = 2)
     $latestDate = $db->table('table_report r')
                 ->select('r.bulan, r.tahun')
                 ->join('table_quarters_profile tqp', 'tqp.id_kuarters = r.id_kuarters')
                 ->where('tqp.id_agensi_induk', $id_agensi)
-                ->where('r.status_hantar', 1)
+                ->where('r.status_hantar', 2)
                 ->orderBy('r.tahun', 'DESC')
                 ->orderBy('r.bulan', 'DESC')
                 ->limit(1)
@@ -56,7 +56,7 @@ public function index()
                     ->join('table_quarters_profile tqp', 'tqp.id_kuarters = r.id_kuarters')
                     ->where([
                         'tqp.id_agensi_induk' => $id_agensi,
-                        'r.status_hantar'     => 1,
+                        'r.status_hantar'     => 2,
                         'r.bulan'             => $latestDate['bulan'],
                         'r.tahun'             => $latestDate['tahun']
                     ])
@@ -75,7 +75,7 @@ public function index()
                     ->join('adm_state s', 's.id_adm_state = tqp.id_negeri')
                     ->where([
                         'tqp.id_agensi_induk' => $id_agensi,
-                        'r.status_hantar'     => 1,
+                        'r.status_hantar'     => 2,
                         'r.bulan'             => $latestDate['bulan'],
                         'r.tahun'             => $latestDate['tahun']
                     ])
@@ -86,7 +86,7 @@ public function index()
 
   } else {
     // --- LETAK DI SINI (BAHAGIAN ELSE) ---
-    // Jika tiada data status_hantar = 1, kita bagi nilai kosong supaya View tak error
+    // Jika tiada data status_hantar = 2, kita bagi nilai kosong supaya View tak error
     $stats = ['total_unit' => 0, 'total_dihuni' => 0, 'total_kosong' => 0];
     $laporanNegeri = [];
     
@@ -133,29 +133,52 @@ public function index()
 
 
     	public function agensi_statistik_kemaskini($bulan, $tahun)
-	{
+{
+    $model = new StatistikAgensiModel();
+    $db = \Config\Database::connect();
+    $id_agensi = session()->get('id_agensi_induk');
 
-        $model = new StatistikAgensiModel();
-        $db = \Config\Database::connect();
-        $id_agensi = session()->get('id_agensi_induk');
-
-        // Ambil senarai kategori isu untuk dropdown
-        $kategori_isu = $db->table('adm_issue_category')
+    $kategori_isu = $db->table('adm_issue_category')
                        ->select('id_kategori_isu, keterangan_kategori')
                        ->get()
                        ->getResultArray();
 
+    $reports = $model->getDetailedReport($bulan, $tahun, $id_agensi);
 
-		$data = [
-                      
-			'isi'     => 'agensi/agensi_statistik_kemaskini',
-            'reports' => $model->getDetailedReport($bulan, $tahun, $id_agensi),
-            'kategori_isu' => $kategori_isu, // Hantar data kategori ke View
-            'bulan'   => $bulan,
-            'tahun'   => $tahun
-		];
-		return view('layout/v_wrapper', $data);
-	}
+    $tarikh_terakhir = null;
+    $oleh = '-';
+
+    if (!empty($reports)) {
+        // 1. Cari tarikh paling lewat & siapa yang buat (kemaskini_oleh)
+        $dates = array_column($reports, 'tarikh_kemaskini');
+        $maxDate = max($dates);
+        $index = array_search($maxDate, $dates);
+        
+        $tarikh_terakhir = $maxDate;
+        $id_user_kemaskini = $reports[$index]['kemaskini_oleh']; // Ambil ID user dari table_report
+
+        // 2. Tarik nama_penuh terus dari tbl_user guna ID tadi
+        $user = $db->table('tbl_user')
+                   ->select('nama_penuh')
+                   ->where('id_user', $id_user_kemaskini)
+                   ->get()
+                   ->getRowArray();
+
+        $oleh = $user ? $user['nama_penuh'] : '-';
+    }
+
+    $data = [
+        'isi'               => 'agensi/agensi_statistik_kemaskini',
+        'reports'           => $reports,
+        'kategori_isu'      => $kategori_isu,
+        'bulan'             => $bulan,
+        'tahun'             => $tahun,
+        'tarikh_terakhir'   => $tarikh_terakhir,
+        'oleh'              => $oleh
+    ];
+
+    return view('layout/v_wrapper', $data);
+}
 
 
 
@@ -185,6 +208,12 @@ public function simpan_kemaskini()
 
             // 2. Sediakan data untuk updateBatch table_report (buang id_kategori_isu dari array utama)
             unset($report['id_kategori_isu']);
+
+            // TAMBAH BARIS INI: Set status_hantar kepada 1 (Draf)
+            $report['status_hantar'] = 1;
+            $report['tarikh_kemaskini'] = date('Y-m-d H:i:s');
+          // Use get() to retrieve the value, not set()
+            $report['kemaskini_oleh'] = session()->get('id_user');
             
             // Sanitize field lain (contoh: tarikh)
             if (isset($report['jangkaan_pelaksanaan']) && $report['jangkaan_pelaksanaan'] === "") {
@@ -612,21 +641,36 @@ public function hantar_ke_kdn($bulan, $tahun)
 {
     $id_agensi = session()->get('id_agensi_induk'); 
     $model = new \App\Models\StatistikAgensiModel();
-    
-    $data_update = [
-        'status_hantar' => 1
-    ];
 
+    // 1. DAPATKAN SENARAI YANG TAK TALLY
+    $senarai_ralat = $model->getSenaraiTidakTally($bulan, $tahun, $id_agensi);
+
+    if (!empty($senarai_ralat)) {
+        // Bina string senarai kuarters
+        $senarai_teks = "<ul>";
+        foreach ($senarai_ralat as $r) {
+            $senarai_teks .= "<li><b>" . $r['kod_kuarters'] . "</b> - " . $r['nama_kuarters'] . "</li>";
+        }
+        $senarai_teks .= "</ul>";
+
+        session()->setFlashdata('error', '<b>Penghantaran Gagal!</b> Kuarters berikut mempunyai data tidak tally: ' . $senarai_teks . 'Sila betulkan sebelum hantar.');
+
+        return redirect()->to(base_url("index.php/agensi/agensi_statistik_kemaskini/$bulan/$tahun"));
+    }
+
+    // 2. PROSES UPDATE STATUS (Jika tiada ralat)
+    $data_update = ['status_hantar' => 2];
     $result = $model->updateStatusHantar($bulan, $tahun, $id_agensi, $data_update);
 
     if ($result) {
-        session()->setFlashdata('success', 'Rekod statistik bagi semua kuarters di bawah agensi anda telah dihantar ke KDN.');
+        session()->setFlashdata('success', 'Rekod statistik telah berjaya dihantar ke KDN.');
+        return redirect()->to(base_url('index.php/agensi/agensi_statistik_list'));
     } else {
-        session()->setFlashdata('error', 'Gagal menghantar rekod. Tiada kuarters dijumpai atau ralat sistem.');
+        session()->setFlashdata('error', 'Gagal menghantar rekod. Sila cuba lagi.');
+        return redirect()->to(base_url("index.php/agensi/agensi_statistik_kemaskini/$bulan/$tahun"));
     }
-
-    return redirect()->to(base_url('index.php/agensi/agensi_statistik_list'));
 }
+
 
 
 public function papar_individu($id_kuarters, $bulan, $tahun) {

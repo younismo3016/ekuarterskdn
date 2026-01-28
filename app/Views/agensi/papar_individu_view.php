@@ -38,11 +38,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                        <div class="p-2 bg-white bg-opacity-10 rounded-pill d-inline-block px-4">
-                            <span class="text-white small fw-bold">TEMPOH: <?= $bulan ?> / <?= $tahun ?></span>
-                        </div>
-                    </div>
+                   <div class="col-md-4 text-md-end mt-3 mt-md-0">
+    <div class="p-2 bg-white bg-opacity-10 rounded-pill d-inline-block px-4">
+        <?php 
+            $list_bulan = [
+                1=>'JANUARI', 2=>'FEBRUARI', 3=>'MAC', 4=>'APRIL', 5=>'MEI', 6=>'JUN',
+                7=>'JULAI', 8=>'OGOS', 9=>'SEPTEMBER', 10=>'OKTOBER', 11=>'NOVEMBER', 12=>'DISEMBER'
+            ];
+            $nama_bulan_dipilih = $list_bulan[(int)$bulan] ?? 'TIADA DATA';
+        ?>
+        <span class="text-white small fw-bold"> <?= $nama_bulan_dipilih ?>  <?= $tahun ?></span>
+    </div>
+</div>
                 </div>
             </div>
 

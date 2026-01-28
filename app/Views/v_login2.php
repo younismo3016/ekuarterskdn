@@ -53,7 +53,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <!-- <img src="<?= base_url() ?>assets/img/logo.png" alt=""> -->
-                  <span class="d-none d-lg-block" style="color: white; font-size: 2.5 em;">Sistem Pengurusan Kuarters</span>
+                  <span class="d-none d-lg-block" style="color: white; font-size: 2.5 em;">Sistem eKuarters KDN</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -74,18 +74,18 @@
                   
                   <?php echo form_open('auth/check_login');?>
                     <div class="col-12">
-                      <label for="email" class="form-label">email</label>
+                      <label for="email" class="form-label">E-mel</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="email" name="email" class="form-control" placeholder="Email" required>
        
                        
-                        <div class="invalid-feedback">Masukkan emel anda.</div>
+                        <div class="invalid-feedback">Masukkan e-mel anda.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Katalaluan</label>
+                      <label for="yourPassword" class="form-label">Kata Laluan</label>
                       
                       <input type="password" name="password" class="form-control" id="password" required>
                       <div class="invalid-feedback">Masukkan Katalaluan</div>
@@ -128,7 +128,7 @@
               </div>';
                         echo '</div>';
                     }
-                    ?><a href="pages-register.html">Create an account</a></p>
+                    ?></p>
                     </div>
                     <?php echo form_close(); ?> 
 
@@ -140,7 +140,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                <!-- Designed by <strong>BAHAGIAN PENGURUSAN TEKNOLOGI MAKLUMAT</strong> -->
               </div>
 
             </div>

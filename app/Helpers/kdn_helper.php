@@ -209,11 +209,11 @@ function get_peranan($value){
         $value =  "Pentadbir Sistem";
     
     }else if($value == 2){
-        $value =  "Pengurus Rekod";
+        $value =  "Urusetia Jabatan";
     }else if($value ==3){
-        $value =  "Pemohon";
+        $value =  "Agensi";
     }else if($value == 4){
-        $value =  "Penyemak";
+        $value =  "Sub Agensi";
     }
     else if($value == 6){
         $value =  "Pelaksana(PPTM)";

@@ -1,6 +1,6 @@
 <!-- ======= Sidebar 951120045400 ======= -->
 <aside id="sidebar" class="sidebar">
-<?= get_agensi(session()->get('id_agensi_induk')) ?>
+<?= get_peranan(session()->get('level')) ?>
   <ul class="sidebar-nav" id="sidebar-nav">
   <span> </span>
     <li class="nav-item">
@@ -30,6 +30,10 @@
       <a class="nav-link collapsed" href="<?= site_url('admin/list_user') ?>">
         <i class="bi bi-person"></i>
         <span>Senarai Pengguna</span>
+      </a>
+      <a class="nav-link collapsed" href="<?= site_url('kuarters/list_kuarters') ?>">
+        <i class="bi bi-person"></i>
+        <span>Senarai Kuarters</span>
       </a>
     </li><!-- End Profile Page Nav -->
 

@@ -102,7 +102,7 @@
   /* Betulkan saiz select2 dalam form-floating */
   .form-floating .select2-container--default .select2-selection--single {
     height: 58px !important; /* sama macam form-select */
-    padding: 0.6rem 0.75rem !important;
+    padding: 1.0rem 0.75rem !important;
     border: 1px solid #ced4da;
     border-radius: 0.375rem;
   }

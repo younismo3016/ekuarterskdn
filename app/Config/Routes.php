@@ -42,6 +42,7 @@ $routes->get('agensi/agensi_statistik_kemaskini/(:num)/(:num)', 'Agensi::agensi_
 $routes->post('agensi/simpan_kemaskini', 'Agensi::simpan_kemaskini');
 $routes->get('agensi/kemaskini_individu/(:num)/(:num)/(:num)', 'Agensi::kemaskini_individu/$1/$2/$3');
 $routes->post('agensi/simpan_individu', 'Agensi::simpan_individu');
+$routes->post('kuarters/list_kuarters', 'Kuarters::list_kuarters');
 
 //agensi
 //$routes->get('statistik-agensi', 'StatistikAgensi::index');

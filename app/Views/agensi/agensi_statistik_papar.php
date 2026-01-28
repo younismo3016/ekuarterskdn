@@ -14,9 +14,7 @@
         width: 100%;
     }
 
-    /* 2. TETAPAN HEADER (MENYELESAIKAN OVERLAP) */
-    
-    /* Semua TH dalam thead */
+    /* 2. TETAPAN HEADER (STICKY TOP) */
     #mainTable thead tr th {
         position: sticky;
         background-color: inherit;
@@ -25,46 +23,29 @@
         padding: 5px;
         vertical-align: middle;
         text-align: center;
-        /* Pastikan line-height konsisten */
         line-height: 1.2;
     }
 
-    /* BARIS 1 (Tinggi anggaran 40px) */
-    #mainTable thead tr:nth-child(1) th { 
-        top: 0; 
-        z-index: 120; /* Lebih tinggi dari baris 2 & 3 */
-        height: 40px;
-    }
-    
-    /* BARIS 2 (Mula selepas Baris 1) */
-    #mainTable thead tr:nth-child(2) th { 
-        top: 40px; 
-        z-index: 110;
-        height: 40px;
-    }
-    
-    /* BARIS 3 (Mula selepas Baris 2) */
-    #mainTable thead tr:nth-child(3) th { 
-        top: 80px; 
-        z-index: 100;
-        height: 35px;
-    }
+    #mainTable thead tr:nth-child(1) th { top: 0; z-index: 120; height: 40px; }
+    #mainTable thead tr:nth-child(2) th { top: 40px; z-index: 110; height: 40px; }
+    #mainTable thead tr:nth-child(3) th { top: 80px; z-index: 100; height: 35px; }
 
-    /* 3. KOD & NAMA KUARTERS (STICKY KIRI + ATAS) */
-    /* Ini adalah sel yang paling kritikal dalam imej anda */
+    /* 3. KOD & NAMA KUARTERS (STICKY LEFT) */
+    /* Header Kolum Pertama */
     #mainTable thead tr:nth-child(1) th:first-child {
         left: 0;
-        top: 0;
-        z-index: 200 !important; /* Paling tinggi untuk elak ditindih oleh sesiapa */
-        background-color: #e7cd28 !important; /* Warna kuning kod anda */
+        z-index: 200 !important;
+        background-color: #e7cd28 !important;
     }
 
-    #mainTable tbody td:first-child {
-        position: sticky;
+    /* Body Kolum Pertama (FREEZE) */
+    #mainTable tbody td.search-area {
+        position: sticky !important;
         left: 0;
         z-index: 50;
         background-color: #f8f9fa !important;
-        box-shadow: inset -3px 0 0 0 #dee2e6, inset 0 -1px 0 0 #dee2e6;
+        /* Box shadow di sebelah kanan untuk kesan depth semasa scroll */
+        box-shadow: inset -1px -1px 0 #dee2e6, 2px 0 5px rgba(0,0,0,0.1) !important;
     }
 
     /* 4. KEMASAN DATA */
@@ -74,52 +55,29 @@
         padding: 8px;
     }
 
-    /* Badge TRUE/FALSE (Slim Version) */
-    .status-badge {
-        font-size: 0.65rem !important;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 50px;
-        color: white;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 60px;
-        text-transform: uppercase;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-    .badge-true { background-color: #198754; }
-    .badge-false { background-color: #dc3545; }
-
     .x-small-text { font-size: 0.72rem; line-height: 1.2; white-space: normal !important; min-width: 200px; }
-    
+    .x-small { font-size: 0.72rem; min-width: 150px; }
+
     #mainTable tbody tr:hover td {
         background-color: #f1f8ff !important;
     }
 
-    
-</style>
-<style>
     /* Kesan warna latar bila tetikus berada di atas sel */
     .search-area:hover {
-        background-color: #f0f7ff !important; /* Biru cair */
+        background-color: #f0f7ff !important;
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
-
-    /* Memastikan teks tetap nampak kemas */
-    .search-area a.stretched-link {
-        color: inherit;
-    }
 </style>
+
 <section class="content">
     <main id="main" class="main">
 
-         <div class="pagetitle">
+        <div class="pagetitle">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h4 class="fw-bold ">Laporan Bulanan: <?= $nama_bulan ?> <?= $tahun ?></h4>
-                    <p class="text-muted small mb-0"><i class="bi bi-info-circle me-1"></i> Mod paparan sahaja. Scroll ke kanan untuk maklumat lanjut.</p>
+                    <h4 class="fw-bold">Laporan Bulanan: <?= $nama_bulan ?> <?= $tahun ?></h4>
+                    <p class="text-muted small mb-0"><i class="bi bi-info-circle me-1"></i> Mod paparan sahaja. Kolum 'Kod & Nama' akan kekal di kiri semasa skrol.</p>
                 </div>
                 <div>
                     <a href="<?= base_url('index.php/agensi/agensi_statistik_list') ?>" class="btn btn-secondary shadow-sm px-4">
@@ -196,40 +154,41 @@
                 <tbody>
                     <?php if(!empty($reports)): foreach ($reports as $row): ?>
                     <tr class="report-row">
-                       <td class="search-area position-relative p-0"> 
-                        <div class="p-3"> <a href="<?= site_url("agensi/papar_individu/{$row['id_kuarters']}/{$row['bulan']}/{$row['tahun']}") ?>" 
-                            class="text-decoration-none stretched-link">
-                                
-                                <span class="fw-bold text-primary">
-                                    <i class="bi bi-search small me-1"></i><?= $row['kod_kuarters'] ?>
-                                </span><br>
-                                
-                                <span class="text-uppercase small fw-semibold text-dark">
-                                    <?= $row['nama_kuarters'] ?>
-                                </span><br>
-                                
-                                <span class="badge bg-secondary" style="font-size: 9px;">
-                                    <?= $row['jenis_kuarters'] ?>
-                                </span>
-                            </a>
-                        </div>
-                    </td>
+                        <td class="search-area p-0"> 
+                            <div class="p-3 position-relative"> <a href="<?= site_url("agensi/papar_individu/{$row['id_kuarters']}/{$row['bulan']}/{$row['tahun']}") ?>" 
+                                   class="text-decoration-none stretched-link">
+                                    <span class="fw-bold text-primary">
+                                        <i class="bi bi-search small me-1"></i><?= $row['kod_kuarters'] ?>
+                                    </span><br>
+                                    <span class="text-uppercase small fw-semibold text-dark">
+                                        <?= $row['nama_kuarters'] ?>
+                                    </span><br>
+                                    <?php if (!empty($row['nama_kategori_kuarters'])): ?>
+                                        <span class="badge bg-info text-dark shadow-sm" style="font-size: 11px; font-weight: 600; border-radius: 20px;">
+                                            <i class="bi bi-house-door-fill me-1"></i> <?= $row['nama_kategori_kuarters'] ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary shadow-sm" style="font-size: 11px; font-weight: 600; border-radius: 20px; opacity: 0.8;">
+                                            <i class="bi bi-exclamation-circle me-1"></i> Tiada Maklumat Kelas
+                                        </span>
+                                    <?php endif; ?>
+                                </a>
+                            </div>
+                        </td>
+                        
                         <td class="text-center"><?= number_format($row['jumlah_permohonan']) ?></td>
                         <td class="text-center"><?= number_format($row['unit_dihuni']) ?></td>
                         <td class="text-center"><?= number_format($row['dihuni_baik']) ?></td>
                         <td class="text-center"><?= number_format($row['dihuni_rosak']) ?></td>
                         <td class="text-center bg-light"><?= (int)$row['dihuni_baik'] + (int)$row['dihuni_rosak'] ?></td>
-                       <td class="text-center bg-light">
-    <?php if ($row['unit_dihuni'] == ($row['dihuni_baik'] + $row['dihuni_rosak'])): ?>
-        <span class="badge rounded-pill bg-success px-3">
-            <i class="bi bi-check-circle me-1"></i> TRUE
-        </span>
-    <?php else: ?>
-        <span class="badge rounded-pill bg-danger px-3">
-            <i class="bi bi-exclamation-triangle me-1"></i> FALSE
-        </span>
-    <?php endif; ?>
-</td>
+                        <td class="text-center bg-light">
+                            <?php if ($row['unit_dihuni'] == ($row['dihuni_baik'] + $row['dihuni_rosak'])): ?>
+                                <span class="badge rounded-pill bg-success px-3">TRUE</span>
+                            <?php else: ?>
+                                <span class="badge rounded-pill bg-danger px-3">FALSE</span>
+                            <?php endif; ?>
+                        </td>
+
                         <?php 
                             $jumlah_cadangan = (int)$row['baik_diduduki'] + (int)$row['baik_guna_sama'] + 
                                                (int)$row['baik_tukar_fungsi'] + (int)$row['baik_sewaan'] + 
@@ -238,15 +197,11 @@
                                                (int)$row['rosak_roboh'];
                         ?>
                         <td class="text-center bg-light"><?= number_format($jumlah_cadangan) ?></td>
-                       <td class="text-center bg-light">
+                        <td class="text-center bg-light">
                             <?php if ((int)$row['unit_tidak_dihuni'] == $jumlah_cadangan): ?>
-                                <span class="badge rounded-pill bg-success px-3">
-                                    <i class="bi bi-check-circle me-1"></i> TRUE
-                                </span>
+                                <span class="badge rounded-pill bg-success px-3">TRUE</span>
                             <?php else: ?>
-                                <span class="badge rounded-pill bg-danger px-3">
-                                    <i class="bi bi-exclamation-triangle me-1"></i> FALSE
-                                </span>
+                                <span class="badge rounded-pill bg-danger px-3">FALSE</span>
                             <?php endif; ?>
                         </td>
                         <td class="text-center fw-bold bg-light"><?= number_format($row['unit_tidak_dihuni']) ?></td>
@@ -272,29 +227,24 @@
 
                         <td class="text-center fw-bold"><?= number_format($row['total_unit_kuarters']) ?></td>
                         <td class="text-center bg-light"><?= (int)$row['unit_dihuni'] + (int)$row['unit_tidak_dihuni'] ?></td>
-                       <td class="text-center bg-light" style="min-width: 90px;">
+                        <td class="text-center bg-light">
                             <?php if ((int)$row['total_unit_kuarters'] == ((int)$row['unit_dihuni'] + (int)$row['unit_tidak_dihuni'])): ?>
-                                <span class="badge rounded-pill shadow-sm" style="background-color: #198754; color: #fff; font-size: 0.65rem; padding: 2px 8px; display: inline-block; width: 60px;">
-                                    TRUE
-                                </span>
+                                <span class="badge rounded-pill bg-success" style="width: 60px; font-size: 0.65rem;">TRUE</span>
                             <?php else: ?>
-                                <span class="badge rounded-pill shadow-sm" style="background-color: #dc3545; color: #fff; font-size: 0.65rem; padding: 2px 8px; display: inline-block; width: 60px;">
-                                    FALSE
-                                </span>
+                                <span class="badge rounded-pill bg-danger" style="width: 60px; font-size: 0.65rem;">FALSE</span>
                             <?php endif; ?>
                         </td>
 
-                       <td class="text-start x-small">
-  <td class="text-start">
-    <?php if (!empty($row['nama_kategori_isu'])): 
-        $items = explode(', ', $row['nama_kategori_isu']);
-        foreach ($items as $item): ?>
-            <span class="badge bg-info text-dark"><?= $item ?></span>
-        <?php endforeach; 
-    else: ?>
-        <span class="text-muted">-</span>
-    <?php endif; ?>
-</td>
+                        <td class="text-start">
+                            <?php if (!empty($row['nama_kategori_isu'])): 
+                                $items = explode(', ', $row['nama_kategori_isu']);
+                                foreach ($items as $item): ?>
+                                    <span class="badge bg-info text-dark mb-1"><?= $item ?></span>
+                                <?php endforeach; 
+                            else: ?>
+                                <span class="text-muted">-</span>
+                            <?php endif; ?>
+                        </td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['keterangan_isu'])) ?></td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['status_tindakan'])) ?></td>
                         <td class="text-start x-small"><?= nl2br(htmlspecialchars($row['senarai_kerja'])) ?></td>

@@ -89,7 +89,7 @@
 
 
 
-  <div class="row g-4">
+<div class="row g-4">
     <?php 
     $sudah_ada_bulan_semasa = false;
 
@@ -101,57 +101,57 @@
             }
     ?>
     <div class="col-md-4 mb-4">
-    <div class="card month-card shadow-sm p-4 h-100">
-        <div class="d-flex justify-content-between align-items-start mb-4">
-            <div class="calendar-icon-box">
-                <div class="calendar-header"></div>
-                <div class="calendar-content">
-                    <i class="bi bi-calendar-check"></i>
+        <div class="card month-card shadow-sm p-4 h-100">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div class="calendar-icon-box">
+                    <div class="calendar-header"></div>
+                    <div class="calendar-content">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                </div>
+                
+                <div>
+                    <?php if (($row['status_hantar'] ?? 0) == 2): ?>
+                        <span class="badge badge-soft-success px-3 py-2 rounded-pill">
+                            <i class="bi bi-check-circle-fill me-1"></i> Selesai
+                        </span>
+                    <?php else: ?>
+                        <span class="badge badge-soft-warning px-3 py-2 rounded-pill">
+                            <i class="bi bi-exclamation-circle-fill me-1"></i> Belum Hantar
+                        </span>
+                    <?php endif; ?>
                 </div>
             </div>
             
-            <div>
-                <?php if (($row['status_hantar'] ?? 0) == 1): ?>
-                    <span class="badge badge-soft-success px-3 py-2 rounded-pill">
-                        <i class="bi bi-check-circle-fill me-1"></i> Selesai
-                    </span>
-                <?php else: ?>
-                    <span class="badge badge-soft-warning px-3 py-2 rounded-pill">
-                        <i class="bi bi-exclamation-circle-fill me-1"></i> Belum Hantar
-                    </span>
-                <?php endif; ?>
-            </div>
-        </div>
-        
-        <h5 class="fw-bold text-dark mb-1"><?= strtoupper($row['nama_bulan']) ?></h5>
-        <p class="text-muted small"><?= $row['tahun'] ?></p>
-        
-        <div class="bg-light rounded-4 p-3 mb-4 mt-2">
-            <div class="row text-center">
-                <div class="col-6 border-end">
-                    <small class="text-muted d-block mb-1">Dihuni</small>
-                    <span class="fs-5 fw-bold text-primary"><?= number_format($row['total_unit_dihuni']) ?></span>
-                </div>
-                <div class="col-6">
-                    <small class="text-muted d-block mb-1">Kosong</small>
-                    <span class="fs-5 fw-bold text-danger"><?= number_format($row['total_unit_tidak_dihuni']) ?></span>
+            <h5 class="fw-bold text-dark mb-1"><?= strtoupper($row['nama_bulan']) ?></h5>
+            <p class="text-muted small"><?= $row['tahun'] ?></p>
+            
+            <div class="bg-light rounded-4 p-3 mb-4 mt-2">
+                <div class="row text-center">
+                    <div class="col-6 border-end">
+                        <small class="text-muted d-block mb-1">Dihuni</small>
+                        <span class="fs-5 fw-bold text-primary"><?= number_format($row['total_unit_dihuni']) ?></span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted d-block mb-1">Kosong</small>
+                        <span class="fs-5 fw-bold text-danger"><?= number_format($row['total_unit_tidak_dihuni']) ?></span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <button class="btn btn-action w-100 <?= ($row['status_hantar'] == 1) ? 'btn-outline-primary' : 'btn-primary shadow-sm' ?>" 
-            onclick="location.href='<?= ($row['status_hantar'] == 1) 
-                ? base_url('index.php/agensi/agensi_statistik_papar/'.$row['bulan'].'/'.$row['tahun']) 
-                : base_url('index.php/agensi/agensi_statistik_kemaskini/'.$row['bulan'].'/'.$row['tahun']) ?>'">
-            
-            <?php if (($row['status_hantar'] ?? 0) == 1): ?>
-                <i class="bi bi-file-earmark-text me-2"></i>Lihat Laporan
-            <?php else: ?>
-                <i class="bi bi-pencil-square me-2"></i>Kemaskini Laporan
-            <?php endif; ?>
-        </button>
+            <button class="btn btn-action w-100 <?= ($row['status_hantar'] == 2) ? 'btn-outline-primary' : 'btn-primary shadow-sm' ?>" 
+                onclick="location.href='<?= ($row['status_hantar'] == 2) 
+                    ? base_url('index.php/agensi/agensi_statistik_papar/'.$row['bulan'].'/'.$row['tahun']) 
+                    : base_url('index.php/agensi/agensi_statistik_kemaskini/'.$row['bulan'].'/'.$row['tahun']) ?>'">
+                
+                <?php if (($row['status_hantar'] ?? 0) == 2): ?>
+                    <i class="bi bi-file-earmark-text me-2"></i>Lihat Laporan
+                <?php else: ?>
+                    <i class="bi bi-pencil-square me-2"></i>Kemaskini Laporan
+                <?php endif; ?>
+            </button>
+        </div>
     </div>
-</div>
     <?php 
         endforeach; 
     endif; 
@@ -160,7 +160,7 @@
     <?php if (!$sudah_ada_bulan_semasa): ?>
         <div class="col-md-4">
             <button class="card month-card shadow-sm p-4 w-100 btn-add-new d-flex flex-column align-items-center justify-content-center border-dashed" 
-                    style="border: 2px dashed #ccc; min-height: 250px; background: #f8f9fa;"
+                    style="border: 2px dashed #ccc; min-height: 250px; background: #f8f9fa; border-radius: 15px;"
                     onclick="location.href='<?= base_url('index.php/agensi/tambah_baru') ?>'">
                 <i class="bi bi-plus-circle-dotted mb-2 text-primary" style="font-size: 3rem;"></i>
                 <h5 class="fw-bold"><?= strtoupper($nama_bulan_sekarang) ?> <?= $tahun_sekarang ?></h5>

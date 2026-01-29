@@ -119,14 +119,14 @@
                 <tbody>
                   <?php
                   $bil = 1;
-                  if (isset($kuarters) && !empty($kuarters)) {
-                    foreach ($kuarters as $row) {
+                  if (isset($list_kuarters) && !empty($list_kuarters)) {
+                    foreach ($list_kuarters as $row) {
                   ?>
                       <tr>
                         <td width="5%"><?= $bil++ ?>.</td>
                         <td><?= $row['nama_kuarters'] ?></td>
                         <td><?= (!empty($row['kod_kuarters'])) ? $row['kod_kuarters'] : "-" ?></td>
-                        <td><?= $row['jenis_kuarters'] ?></td>
+                        <td><?= $row['senarai_kelas'] ?></td>
                         <td><?= $row['tahun_siap'] ?></td>
                       
                         <td>

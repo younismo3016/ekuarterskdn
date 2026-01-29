@@ -69,7 +69,8 @@ class Kuarters extends BaseController
 			'isi' => 'kuarters/v_list_kuarters',
 			'list_agensi' => $this->Model_Agensi->get_all_data(),
 			'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
-			'kuarters' => $this->Model_Kuarters->carian_kuarters($nama_kuarters, $kod_kuarters),
+			'list_kuarters' => $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters),
+			'kuarters' => $this->Model_Kuarters->kuarters($nama_kuarters, $kod_kuarters),
 			//'pengguna' => $this->Model_User->get_all_data(),
 
 		];

@@ -93,22 +93,67 @@ class Admin extends BaseController
 	}
 
 	public function add_user()
-	{
-		$data = [
-			'nama_penuh' => $this->request->getPost('nama_penuh'),
-			'email' => $this->request->getPost('email'),
-			'no_tel' => $this->request->getPost('no_tel'),
-			'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
-			'id_sub_agensi' => $this->request->getPost('id_sub_agensi'),
-			//'id_seksyen' => $this->request->getPost('id_seksyen'),
-			'password' =>md5($this->request->getPost('password')),
-			'level' => $this->request->getPost('level'),
+{
+    // 1. Generate password rawak (Contoh: 8 aksara)
+    $plain_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
-		];
-		$this->Model_User->add_user($data);
-		session()->setFlashdata('pesan', 'Data Berjaya Ditambahsssss');
-		return redirect()->to(site_url('Admin/list_user'));
+    $email_user = $this->request->getPost('email');
+    $nama_user = $this->request->getPost('nama_penuh');
+
+    $data = [
+        'nama_penuh'      => $nama_user,
+        'email'           => $email_user,
+        'no_tel'          => $this->request->getPost('no_tel'),
+        'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
+        'id_sub_agensi'   => $this->request->getPost('id_sub_agensi'),
+        // Menggunakan password_hash (Standard Industri)
+        'password'        => password_hash($plain_password, PASSWORD_DEFAULT),
+        'level'           => $this->request->getPost('level'),
+    ];
+
+    // 2. Simpan ke Database
+    $this->Model_User->add_user($data);
+
+    // 3. Proses Hantar Emel
+    $this->send_email_password($email_user, $nama_user, $plain_password);
+
+    session()->setFlashdata('pesan', 'Data Berjaya Ditambah. Kata laluan telah dihantar ke emel.');
+    return redirect()->to(site_url('Admin/list_user'));
 	}
+
+	private function send_email_password($to, $name, $password)
+{
+    $email = \Config\Services::email();
+
+    $email->setTo($to);
+    $email->setFrom('noreply@moha.gov.my', 'Pentadbir Sistem');
+    
+    $email->setSubject('Maklumat Akaun Baru');
+    
+    $message = "
+        <html>
+        <body>
+            <h3>Halo $name,</h3>
+            <p>Akaun anda telah didaftarkan dalam sistem. Berikut adalah maklumat log masuk anda:</p>
+            <table border='0'>
+                <tr><td><strong>Email</strong></td><td>: $to</td></tr>
+                <tr><td><strong>Kata Laluan</strong></td><td>: $password</td></tr>
+            </table>
+            <p>Sila tukar kata laluan anda selepas log masuk kali pertama.</p>
+        </body>
+        </html>
+    ";
+
+    $email->setMessage($message);
+
+    if ($email->send()) {
+        return true;
+    } else {
+        // Log ralat jika perlu
+        return false;
+    }
+	}
+
 
 	public function edit_user($id_user)
 	{

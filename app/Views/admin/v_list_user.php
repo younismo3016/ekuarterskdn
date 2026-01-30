@@ -214,7 +214,7 @@
 
                 </div>
 
-                <div class="form-control mb-3">
+                <!-- <div class="form-control mb-3">
                   <label for="floatingLevel">Sub Agensi</label>
                   <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
                     <option value="">--sila pilih--</option>
@@ -227,7 +227,7 @@
 
                   </select>
 
-                </div>
+                </div> -->
 
 
 
@@ -245,6 +245,8 @@
                   </select>
                   <label for="floatingLevel">Peranan</label>
                 </div>
+
+                
 
 
 
@@ -302,9 +304,9 @@
               <!-- Bahagian (Role) dropdown -->
               <div class="form-floating mb-3">
                 <select id="id_agensi_induk" name="id_agensi_induk" class="form-control select2" style="width: 100%;">
-                  
+
                   <option value="">--sila pilih--</option>
-                    <?php foreach ($list_agensi as $row): ?>
+                  <?php foreach ($list_agensi as $row): ?>
                     <option value="<?= $row['id_agensi_induk']  ?>"><?= $row['nama_agensi_induk'] ?></option>
 
                   <?php endforeach; ?>
@@ -313,19 +315,19 @@
                 <label for="floatingLevel">Agensi</label>
               </div>
 
-              <div class="form-floating mb-3">
+              <!-- <div class="form-floating mb-3">
                 <select id="id_sub_agensi" name="id_sub_agensi" class="form-control select2" style="width: 100%;">
-                  
+
                   <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $row): ?>
+                  <?php foreach ($list_sub_agensi as $row): ?>
                     <option value="<?= $row['id_sub_agensi']  ?>"><?= $row['nama_sub_agensi'] ?></option>
                   <?php endforeach; ?>
 
                 </select>
                 <label for="floatingLevel">Sub Agensi</label>
-              </div>
+              </div> -->
 
-             
+
 
               <!-- Peranan (Role) dropdown -->
               <div class="form-floating mb-3">
@@ -335,11 +337,15 @@
                     <option value="<?= $row['id_peranan']  ?>"><?= $row['peranan'] ?></option>
 
                   <?php endforeach; ?>
-                 
+
                 </select>
                 <label for="floatingLevel">Peranan</label>
               </div>
 
+              
+            
+
+             
 
 
               <!-- Password input with form-floating -->
@@ -406,4 +412,3 @@
   </main>
 </section>
 <!-- End Main content -->
- 

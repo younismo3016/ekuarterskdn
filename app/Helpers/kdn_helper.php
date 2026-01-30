@@ -29,19 +29,38 @@ function get_field_error($key, $label = null) {
 }
 
 
-    if (!function_exists('get_kategori_pemohon')) {
-        function get_kategori_pemohon($value)
+    if (!function_exists('get_negeri')) {
+        function get_negeri($value)
             {
                 $db = \Config\Database::connect(); // Get the database connection
                     
-                    $query = $db->table('adm_kategori_pemohon')
-                                ->select('kategori_pemohon')
-                                ->where('id_kategori_pemohon', $value)
+                    $query = $db->table('table_negeri')
+                                ->select('negeri')
+                                ->where('id_negeri', $value)
                                 ->get();
                     
                     if ($query->getNumRows() > 0) {
                                 $row = $query->getRow();
-                                return $row->kategori_pemohon;
+                                return $row->negeri;
+                        }
+                    
+                            return null; // Return null if no results are found
+            }
+    }
+
+    if (!function_exists('get_daerah')) {
+        function get_daerah($value)
+            {
+                $db = \Config\Database::connect(); // Get the database connection
+                    
+                    $query = $db->table('adm_district')
+                                ->select('district_name')
+                                ->where('id_adm_district', $value)
+                                ->get();
+                    
+                    if ($query->getNumRows() > 0) {
+                                $row = $query->getRow();
+                                return $row->district_name;
                         }
                     
                             return null; // Return null if no results are found

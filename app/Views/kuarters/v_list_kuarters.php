@@ -111,8 +111,10 @@
                     <th>Bil</th>
                     <th>Nama Kuarters</th>
                     <th>Kod Kuarters</th>
-                    <th>Jenis Kuarters</th>
+                    <th>Jenis Kuarters/Kelas</th>
                     <th>Tahun Siap</th>
+                    <th>Negeri</th>
+                    <th>Daerah</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -128,6 +130,8 @@
                         <td><?= (!empty($row['kod_kuarters'])) ? $row['kod_kuarters'] : "-" ?></td>
                         <td><?= $row['senarai_kelas'] ?></td>
                         <td><?= $row['tahun_siap'] ?></td>
+                        <td><?= $row['id_negeri'] ?></td>
+                        <td><?= $row['id_daerah'] ?></td>
                       
                         <td>
                           <div class="btn-group">
@@ -164,7 +168,7 @@
     <!-- Modal Dialog Scrollable -->
 
     <?php
-    foreach ($kuarters as $row) {
+    foreach ($list_kuarters as $row) {
     ?>
     
       <div class="modal fade" id="modalDialogScrollable<?= $row['id_kuarters'] ?>" tabindex="-1">
@@ -203,11 +207,75 @@
             <div class="form-floating mb-3">
               <input type="text" class="form-control"
                      name="jenis_kuarters"
-                     value="<?= $row['jenis_kuarters'] ?>">
+                     value="<?= $row['senarai_kelas'] ?>">
               <label>Jenis Kuarters</label>
             </div>
           </div>
               <div class="col-md-6">
+                  <div class="form-control mb-3">
+                        <label for="floatingLevel">Agensi</label>
+                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                          <option value="">--sila pilih--</option>
+                          <?php foreach ($list_agensi as $agensi): ?>
+                            <option value="<?= $agensi['id_agensi_induk'] ?>"
+                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
+                              <?= $agensi['nama_agensi_induk'] ?>
+                            </option>
+                          <?php endforeach; ?>
+
+                        </select>
+
+                  </div>
+              </div>
+               <div class="col-md-6">
+                  <div class="form-control mb-3">
+                        <label for="floatingLevel">Agensi</label>
+                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                          <option value="">--sila pilih--</option>
+                          <?php foreach ($list_agensi as $agensi): ?>
+                            <option value="<?= $agensi['id_agensi_induk'] ?>"
+                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
+                              <?= $agensi['nama_agensi_induk'] ?>
+                            </option>
+                          <?php endforeach; ?>
+
+                        </select>
+
+                  </div>
+              </div>
+               <div class="col-md-6">
+                  <div class="form-control mb-3">
+                        <label for="floatingLevel">Agensi</label>
+                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                          <option value="">--sila pilih--</option>
+                          <?php foreach ($list_agensi as $agensi): ?>
+                            <option value="<?= $agensi['id_agensi_induk'] ?>"
+                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
+                              <?= $agensi['nama_agensi_induk'] ?>
+                            </option>
+                          <?php endforeach; ?>
+
+                        </select>
+
+                  </div>
+              </div>
+               <div class="col-md-6">
+                  <div class="form-control mb-3">
+                        <label for="floatingLevel">Agensi</label>
+                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                          <option value="">--sila pilih--</option>
+                          <?php foreach ($list_agensi as $agensi): ?>
+                            <option value="<?= $agensi['id_agensi_induk'] ?>"
+                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
+                              <?= $agensi['nama_agensi_induk'] ?>
+                            </option>
+                          <?php endforeach; ?>
+
+                        </select>
+
+                  </div>
+              </div>
+               <div class="col-md-6">
                   <div class="form-control mb-3">
                         <label for="floatingLevel">Agensi</label>
                         <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
@@ -229,77 +297,6 @@
 
                 
 
-                <div class="form-control mb-3">
-                  <label for="floatingLevel">Sub Agensi</label>
-                  <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
-                    <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $sub_agensi): ?>
-                      <option value="<?= $sub_agensi['id_sub_agensi'] ?>"
-                        <?= ($row['id_sub_agensi'] ?? '') == $sub_agensi['id_sub_agensi'] ? 'selected' : '' ?>>
-                        <?= $sub_agensi['nama_sub_agensi'] ?>
-                      </option>
-                    <?php endforeach; ?>
-
-                  </select>
-
-                </div>
-
-                <div class="form-control mb-3">
-                  <label for="floatingLevel">Sub Agensi</label>
-                  <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
-                    <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $sub_agensi): ?>
-                      <option value="<?= $sub_agensi['id_sub_agensi'] ?>"
-                        <?= ($row['id_sub_agensi'] ?? '') == $sub_agensi['id_sub_agensi'] ? 'selected' : '' ?>>
-                        <?= $sub_agensi['nama_sub_agensi'] ?>
-                      </option>
-                    <?php endforeach; ?>
-
-                  </select>
-
-                </div>
-                <div class="form-control mb-3">
-                  <label for="floatingLevel">Sub Agensi</label>
-                  <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
-                    <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $sub_agensi): ?>
-                      <option value="<?= $sub_agensi['id_sub_agensi'] ?>"
-                        <?= ($row['id_sub_agensi'] ?? '') == $sub_agensi['id_sub_agensi'] ? 'selected' : '' ?>>
-                        <?= $sub_agensi['nama_sub_agensi'] ?>
-                      </option>
-                    <?php endforeach; ?>
-
-                  </select>
-
-                </div>
-                <div class="form-control mb-3">
-                  <label for="floatingLevel">Sub Agensi</label>
-                  <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
-                    <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $sub_agensi): ?>
-                      <option value="<?= $sub_agensi['id_sub_agensi'] ?>"
-                        <?= ($row['id_sub_agensi'] ?? '') == $sub_agensi['id_sub_agensi'] ? 'selected' : '' ?>>
-                        <?= $sub_agensi['nama_sub_agensi'] ?>
-                      </option>
-                    <?php endforeach; ?>
-
-                  </select>
-
-                </div>
-                <div class="form-control mb-3">
-                  <label for="floatingLevel">Sub Agensi</label>
-                  <select id="id_sub_agensi" name="id_sub_agensi" class="form-control " style="width: 100%;">
-                    <option value="">--sila pilih--</option>
-                    <?php foreach ($list_sub_agensi as $sub_agensi): ?>
-                      <option value="<?= $sub_agensi['id_sub_agensi'] ?>"
-                        <?= ($row['id_sub_agensi'] ?? '') == $sub_agensi['id_sub_agensi'] ? 'selected' : '' ?>>
-                        <?= $sub_agensi['nama_sub_agensi'] ?>
-                      </option>
-                    <?php endforeach; ?>
-
-                  </select>
-
-                </div>
 
 
 

@@ -156,6 +156,8 @@
                     </tr>
                   <?php } ?>
               </table>
+
+            </tbody>
               <!-- End Table with stripped rows -->
 
             </div>

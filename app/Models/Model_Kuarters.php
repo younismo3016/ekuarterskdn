@@ -54,10 +54,10 @@ class Model_Kuarters extends Model
             $builder->like('table_quarters_profile.kod_kuarters', $kod_kuarters, 'both');
         }
 
-        $builder->limit(1000);
+        $builder->limit(350);
     } else {
         // Papar 50 senarai yang terbaru sahaja
-        $builder->limit(1000);
+        $builder->limit(350);
     }
 
     // Jalankan query dan pulangkan hasil

@@ -69,52 +69,84 @@
                     <h5 class="fw-bold mb-0 text-primary">Status Penghantaran Laporan Agensi (Januari 2026)</h5>
                     <span class="badge bg-light text-dark border">Data dikemaskini: Hari Ini, 3:05 PM</span>
                 </div>
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>JABATAN / AGENSI</th>
-                            <th class="text-center">UNIT DIHUNI</th>
-                            <th class="text-center">UNIT KOSONG</th>
-                            <th class="text-center">JUMLAH UNIT</th>
-                            <th class="text-center">STATUS JAN 2026</th>
-                            <th>TINDAKAN</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="fw-bold">Jabatan Imigresen Malaysia (JIM)</td>
-                            <td class="text-center">12,430</td>
-                            <td class="text-center text-danger">450</td>
-                            <td class="text-center">12,880</td>
-                            <td class="text-center"><span class="badge bg-success badge-status"><i class="bi bi-check-circle me-1"></i>DITERIMA<br>19 Jan 2026</span></td>
-                            <td><button class="btn btn-sm btn-outline-primary">Semak Laporan</button></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Jabatan Penjara Malaysia</td>
-                            <td class="text-center">1,475</td>
-                            <td class="text-center text-danger">683</td>
-                            <td class="text-center">2,130</td>
-                            <td class="text-center"><span class="badge bg-warning text-dark badge-status"><i class="bi bi-clock-history me-1"></i>DRAF</span></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Polis Diraja Malaysia (PDRM)</td>
-                            <td class="text-center">92,412</td>
-                            <td class="text-center text-danger">12,890</td>
-                            <td class="text-center">112,430</td>
-                            <td class="text-center"><span class="badge bg-danger badge-status"><i class="bi bi-exclamation-triangle me-1"></i>BELUM MULA</span></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Agensi Antidadah Kebangsaan (AADK)</td>
-                            <td class="text-center">215</td>
-                            <td class="text-center text-danger">27</td>
-                            <td class="text-center">240</td>
-                            <td class="text-center"><span class="badge bg-success badge-status"><i class="bi bi-check-circle me-1"></i>DITERIMA<br>19 Jan 2026</span></td>
-                            <td><button class="btn btn-sm btn-outline-primary">Semak Laporan</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table id="example1" class="table table-bordered table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Bil</th>
+            <th>Jabatan / Agensi</th>
+            <th class="text-center">Unit Dihuni</th>
+            <th class="text-center">Unit Kosong</th>
+            <th class="text-center">Jumlah Unit</th>
+            <th class="text-center">Status </th>
+            <th class="text-center">Tindakan</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+    $bil = 1;
+    if (isset($list_agensi) && !empty($list_agensi)) {
+        foreach ($list_agensi as $row) {
+            // Padankan dengan 'status_laporan' dari hasil query anda
+           $status = $row['status_hantar']; 
+            
+            $badge_class = "bg-secondary";
+            $icon = "bi-question-circle";
+
+            if ($status == 'DITERIMA') {
+                $badge_class = "bg-success";
+                $icon = "bi-check-circle";
+            } elseif ($status == 'DRAF') {
+                $badge_class = "bg-warning text-dark";
+                $icon = "bi-clock-history";
+            } elseif ($status == 'BELUM MULA') {
+                $badge_class = "bg-danger";
+                $icon = "bi-exclamation-triangle";
+            }
+
+            
+    ?>
+            <tr>
+                <td width="5%"><?= $bil++ ?>.</td>
+                <td class="fw-bold"><?= $row['nama_jabatan'] ?></td>
+                
+                <td class="text-center"><?= number_format($row['unit_dihuni']) ?></td>
+                
+                <td class="text-center text-danger"><?= number_format($row['unit_kosong']) ?></td>
+                
+                <td class="text-center"><?= number_format($row['jumlah_unit']) ?></td>
+                
+                <td class="text-center">
+                    <span class="badge <?= $badge_class ?> p-2">
+                        <i class="bi <?= $icon ?> me-1"></i>
+                        <?= $status ?>
+                        
+                    </span>
+                </td>
+                <td class="text-center">
+                    
+                   
+    <?php if ($status == 'DITERIMA'): ?>
+        <button class="btn btn-sm btn-outline-primary" title="Semak Laporan">
+            <i class="bi bi-file-earmark-text"></i> Semak
+        </button>
+    <?php else: ?>
+        <button type="button" class="btn btn-sm btn-warning" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
+            <i class="bi bi-envelope-at"></i> Email Reminder
+        </button>
+    <?php endif; ?>
+
+                </td>
+            </tr>
+    <?php 
+        } 
+    } else { 
+    ?>
+        <tr>
+            <td colspan="7" align="center">Tiada Maklumat Dipaparkan</td>
+        </tr>
+    <?php } ?>
+</tbody>
+</table>
             </div>
             
         

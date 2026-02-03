@@ -16,96 +16,36 @@ class Model_Utama extends Model
         'unit_dihuni',
     ];
 
-    public function dashboard()
-    {
-        return $this->db->table('table_report')->orderBy('id_report', 'DESC')->get()->getResultArray();
-    }
-    public function get_rekod($id)
-    {
-        return $this->db->table('rekod')
-            ->where('id', $id)
-            ->get()
-            ->getRowArray();
-    }
-    public function get_cr($id_user)
-    {
-        
-        $builder=$this->select('*');
-        $builder->where('id_cr', $id_user);
-        return $builder->get()->getResultArray(); 
-        //return $this->db->table('tbl_surat_masuk')->get()->getResultArray();
-    }
+    
+    
+    public function get_laporan_agensi($bulan = 1, $tahun = 2026) {
+    // Matikan ONLY_FULL_GROUP_BY jika server anda ketat, tetapi cuba baiki query dahulu
+    $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
+
+    $sql = "SELECT
+            table_main_agency.nama_agensi_induk AS nama_jabatan, 
+            SUM(COALESCE(table_report.unit_dihuni, 0)) AS unit_dihuni, 
+            SUM(COALESCE(table_report.unit_tidak_dihuni, 0)) AS unit_kosong,
+            SUM(COALESCE(table_report.unit_dihuni, 0) + COALESCE(table_report.unit_tidak_dihuni, 0)) AS jumlah_unit,
+            CASE 
+                WHEN MAX(table_report.status_hantar) = 2 THEN 'DITERIMA'
+                WHEN MAX(table_report.status_hantar) IN (0, 1) THEN 'DRAF'
+                ELSE 'BELUM MULA'
+            END AS status_hantar 
+        FROM
+            table_main_agency
+            INNER JOIN table_quarters_profile ON table_quarters_profile.id_agensi_induk = table_main_agency.id_agensi_induk
+            LEFT JOIN table_report ON table_report.id_kuarters = table_quarters_profile.id_kuarters
+            AND table_report.bulan = ? 
+            AND table_report.tahun = ?
+        GROUP BY 
+            table_main_agency.nama_agensi_induk"; 
+
+    $query = $this->db->query($sql, array($bulan, $tahun));
+   return $query->getResultArray();
+}
 
     
-    function carian_nnn($perkara,$kotak,$lokasi,$bil_lampiran,$no_fail)
-    {
-
-        
-        $builder = $this->db->table('rekod'); // Initialize the query builder for the tbl_user table
-        $builder->orderBy('id', 'DESC');
-
-        if($perkara){
-            $builder->like('perkara',$perkara,'both'); //'%match%' 
-        }
-        if($kotak){
-            $builder->like('kotak',$kotak,'both'); //'%match%' 
-        }
-        if($lokasi){
-            $builder->like('lokasi',$lokasi,'both'); //'%match%' 
-        } 
-        if($bil_lampiran){
-            $builder->like('bil_lampiran',$bil_lampiran,'both'); //'%match%' 
-        }
-        if($no_fail){
-            $builder->like('no_fail',$no_fail,'both'); //'%match%' 
-        }
-
-        $builder->limit(500); // ✅ Hadkan kepada 15 rekod
-     
-        //dah pakai paginate tak payah pakai get()->getResult() dah
-        return $builder->get()->getResultArray();
-      
-
-    }
-
-    function carian_rekod($perkara,$kotak,$lokasi,$bil_lampiran,$no_fail)
-{
-     $builder = $this->db->table('rekod'); // Initialize the query builder for the tbl_user table
-    $builder->orderBy('id', 'DESC');
-
-    // Semak jika ada kriteria carian (sama ada nama ATAU email diisi)
-    if ($perkara || $kotak || $lokasi || $bil_lampiran || $no_fail) {
-        // --- BLOK INI HANYA JALAN JIKA ADA CARIAN ---
-        
-        if ($perkara) {
-            $builder->like('perkara', $perkara, 'both'); //'%match%' 
-        }
-        if ($kotak) {
-            $builder->like('kotak', $kotak, 'both'); //'%match%' 
-        }
-        if ($lokasi) {
-            $builder->like('lokasi', $lokasi, 'both'); //'%match%' 
-        }
-        if ($bil_lampiran) {
-            $builder->like('bil_lampiran', $bil_lampiran, 'both'); //'%match%' 
-        }
-        if ($no_fail) {
-            $builder->like('no_fail', $no_fail, 'both'); //'%match%' 
-        }
-
-        // Hadkan kepada 1000 keputusan untuk carian
-        $builder->limit(2000); 
-
-    } else {
-        // --- BLOK INI JALAN JIKA TIADA CARIAN (muat halaman biasa) ---
-        
-        // Papar 20 senarai yang terbaru sahaja
-        $builder->limit(30);
-    }
-
-    // Jalankan query dan pulangkan hasil
-    return $builder->get()->getResultArray();
-}
     
     public function add_rekod($data)
     {

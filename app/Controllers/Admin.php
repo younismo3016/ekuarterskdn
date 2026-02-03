@@ -7,7 +7,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\Model;
 use App\Models\Model_User;
 use App\Models\Model_Bahagian;
-use App\Models\Model_Seksyen;
+// use App\Models\Model_Seksyen;
 use App\Models\Model_Level;
 use App\Models\Model_Agensi;
 use App\Models\Model_Sub_Agensi;
@@ -20,7 +20,7 @@ class Admin extends BaseController
 		helper('form');
 		$this->Model_User = new Model_User();
 		$this->Model_Bahagian = new Model_Bahagian();
-		$this->Model_Seksyen = new Model_Seksyen();
+		//$this->Model_Seksyen = new Model_Seksyen();
 		$this->Model_Level = new Model_Level();
 		$this->Model_Agensi = new Model_Agensi();
 		$this->Model_Sub_Agensi = new Model_Sub_Agensi();
@@ -94,11 +94,21 @@ class Admin extends BaseController
 
 	public function add_user()
 {
-    // 1. Generate password rawak (Contoh: 8 aksara)
-    $plain_password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
-
     $email_user = $this->request->getPost('email');
-    $nama_user = $this->request->getPost('nama_penuh');
+    $nama_user  = $this->request->getPost('nama_penuh');
+
+    // 1. CHECK EMAIL WUJUD ATAU TIDAK
+    $check = $this->Model_User->check_email_exists($email_user);
+
+    if ($check) {
+        session()->setFlashdata('pesan', 'Email telah wujud dalam sistem. Sila guna email lain.');
+        return redirect()->back()->withInput();
+    }
+
+    // 2. Generate password rawak
+    $plain_password = substr(str_shuffle(
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    ), 0, 8);
 
     $data = [
         'nama_penuh'      => $nama_user,
@@ -106,20 +116,19 @@ class Admin extends BaseController
         'no_tel'          => $this->request->getPost('no_tel'),
         'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
         'id_sub_agensi'   => $this->request->getPost('id_sub_agensi'),
-        // Menggunakan password_hash (Standard Industri)
         'password'        => password_hash($plain_password, PASSWORD_DEFAULT),
         'level'           => $this->request->getPost('level'),
     ];
 
-    // 2. Simpan ke Database
+    // 3. Simpan Database
     $this->Model_User->add_user($data);
 
-    // 3. Proses Hantar Emel
+    // 4. Hantar Email Password
     $this->send_email_password($email_user, $nama_user, $plain_password);
 
-    session()->setFlashdata('pesan', 'Data Berjaya Ditambah. Kata laluan telah dihantar ke emel.');
+    session()->setFlashdata('pesan', 'Data berjaya ditambah. Kata laluan telah dihantar ke emel.');
     return redirect()->to(site_url('Admin/list_user'));
-	}
+}
 
 	private function send_email_password($to, $name, $password)
 {

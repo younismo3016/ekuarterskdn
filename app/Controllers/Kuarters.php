@@ -7,6 +7,8 @@ use App\Models\Model_Kuarters;
 use App\Models\Model_Agensi;
 use App\Models\Model_Sub_Agensi;
 use App\Models\Model_Level;
+use App\Models\Model_State;
+use App\Models\Model_District;
 
 
 //use App\Controllers\BaseController;
@@ -24,6 +26,8 @@ class Kuarters extends BaseController
 		$this->Model_Sub_Agensi = new Model_Sub_Agensi();
 		$this->Model_Level = new Model_Level();
 		$this->Model_User = new Model_User();
+		$this->Model_State = new Model_State();
+		$this->Model_District = new Model_District();
 	}
 	public function index()
 	{
@@ -70,6 +74,8 @@ class Kuarters extends BaseController
 			'list_agensi' => $this->Model_Agensi->get_all_data(),
 			'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
 			'list_kuarters' => $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters),
+			'list_state' => $this->Model_State->get_all_data(),
+			'list_district' => $this->Model_District->get_all_data(),
 			'kuarters' => $this->Model_Kuarters->kuarters($nama_kuarters, $kod_kuarters),
 			//'pengguna' => $this->Model_User->get_all_data(),
 
@@ -105,6 +111,23 @@ class Kuarters extends BaseController
 			];
 		return view('layout/v_wrapper', $data);
 		//return view('admin/v_list_user',$data);
+	}
+
+	public function edit_kuarters_proses($id_kuarters)
+	{
+		$data = [
+			'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
+			'kod_kuarters' => $this->request->getPost('kod_kuarters'),
+			'nama_kuarters' => $this->request->getPost('nama_kuarters'),
+			'jenis_kuarters' => $this->request->getPost('jenis_kuarters'),
+			'tahun_siap' => $this->request->getPost('tahun_siap'),
+			'id_sub_agensi' => $this->request->getPost('id_sub_agensi'),
+			'id_negeri' => $this->request->getPost('id_negeri'),
+			'id_daerah' => $this->request->getPost('id_daerah'),
+		];
+		$this->Model_Kuarters->update_kuarters($data, $id_kuarters);
+		session()->setFlashdata('pesan', 'Data Berjaya Diedit');
+		return redirect()->to(site_url('kuarters/list_kuarters'));
 	}
 
 	public function edit_user_proses($id_user)

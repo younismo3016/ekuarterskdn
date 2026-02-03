@@ -10,6 +10,7 @@ class Model_Kuarters extends Model
     protected $primaryKey = 'id_kuarters';
     protected $allowedFields = [
         'id_agensi_induk',
+        'kod_kuarters',
         'nama_kuarters',
         'jenis_kuarters',
         'tahun_siap',
@@ -20,8 +21,10 @@ class Model_Kuarters extends Model
     {
         return $this->db->table('table_quarters_profile')->orderBy('id_kuarters', 'DESC')->get()->getResultArray();
     }
-
-
+    public function update_kuarters($data, $id_kuarters)
+    {
+        $this->db->table('table_quarters_profile')->update($data, array('id_kuarters' => $id_kuarters));
+    }
 
     public function list_kuarters($nama_kuarters, $kod_kuarters)
 {
@@ -30,7 +33,7 @@ class Model_Kuarters extends Model
     // 1. Pilih kolum dan gunakan GROUP_CONCAT untuk menggabungkan kategori
     $builder->select('
         table_quarters_profile.*, 
-        GROUP_CONCAT(adm_quarters_category.keterangan_kategori_kuarters SEPARATOR ", ") as senarai_kelas
+        GROUP_CONCAT(adm_quarters_category.kelas SEPARATOR ", ") as senarai_kelas
     ');
 
     // 2. Tambah JOIN pertama (ke table perantaraan)
@@ -54,10 +57,10 @@ class Model_Kuarters extends Model
             $builder->like('table_quarters_profile.kod_kuarters', $kod_kuarters, 'both');
         }
 
-        $builder->limit(350);
+        $builder->limit(100);
     } else {
         // Papar 50 senarai yang terbaru sahaja
-        $builder->limit(350);
+        $builder->limit(100);
     }
 
     // Jalankan query dan pulangkan hasil

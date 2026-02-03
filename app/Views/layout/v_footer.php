@@ -141,6 +141,60 @@
         });
     });
   </script>
+  <script>
+$(document).ready(function () {
+
+    /* ============================================================
+       1. Select2 NORMAL (luar modal)
+       ============================================================ */
+    $('.select2-normal').select2({
+        width: '100%',
+        allowClear: true
+    });
+
+
+    /* ============================================================
+       2. Select2 MODAL (dalam modal sahaja)
+       Init bila modal dibuka supaya tidak conflict
+       ============================================================ */
+    $(document).on('shown.bs.modal', '.modal', function () {
+
+        // cari semua select2 dalam modal ini sahaja
+        $(this).find('.select2-modal').each(function () {
+
+            // elak double init bila modal buka kali kedua
+            if (!$(this).hasClass("select2-hidden-accessible")) {
+
+                $(this).select2({
+                    dropdownParent: $(this).closest('.modal'),
+                    width: '100%',
+                    allowClear: true
+                });
+
+            }
+        });
+
+    });
+
+
+    /* ============================================================
+       3. Optional Cleanup (bila modal tutup)
+       Untuk elak memory leak jika modal banyak
+       ============================================================ */
+    $(document).on('hidden.bs.modal', '.modal', function () {
+
+        $(this).find('.select2-modal').each(function () {
+
+            if ($(this).hasClass("select2-hidden-accessible")) {
+                $(this).select2('destroy');
+            }
+
+        });
+
+    });
+
+});
+</script>
   
 
  

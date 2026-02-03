@@ -183,6 +183,11 @@ class Model_User extends Model
         $this->db->table('tbl_user')->insert($data);
     }
 
+    public function check_email_exists($email)
+{
+    return $this->where('email', $email)->first();
+}
+
     public function update_user($data, $id_user)
     {
         $this->db->table('tbl_user')->update($data, array('id_user' => $id_user));

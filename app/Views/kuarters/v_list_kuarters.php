@@ -92,15 +92,15 @@
           <div class="card">
             </p>
             <div class="card-body">
-              <div class="card-body position-relative">
+              <!--<div class="card-body position-relative">
                 <button type="button" class="btn btn-success btn position-absolute top-0 end-0"
                   data-bs-toggle="modal" data-bs-target="#modal-tambah">
-                  Tambah Pegguna <i class="bi bi-person-plus"></i>
+                  Tambah Kuarters <i class="bi bi-person-plus"></i>
                 </button>
 
-                <!-- Other content inside the div -->
+                 Other content inside the div 
 
-              </div>
+              </div>-->
 
               <h4>Senarai Carian</h4>
 
@@ -181,7 +181,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <?php echo form_open('Admin/edit_kuarters/' . $row['id_kuarters']); ?>
+              <?php echo form_open('Kuarters/edit_kuarters_proses/' . $row['id_kuarters']); ?>
 
               <div class="col-md-12">
                 <!-- Name input with form-floating -->
@@ -209,26 +209,18 @@
             <div class="form-floating mb-3">
               <input type="text" class="form-control"
                      name="jenis_kuarters"
-                     value="<?= $row['senarai_kelas'] ?>">
+                     value="<?= $row['senarai_kelas'] ?>" disabled>
               <label>Jenis Kuarters</label>
             </div>
           </div>
               <div class="col-md-6">
-                  <div class="form-control mb-3">
-                        <label for="floatingLevel">Agensi</label>
-                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
-                          <option value="">--sila pilih--</option>
-                          <?php foreach ($list_agensi as $agensi): ?>
-                            <option value="<?= $agensi['id_agensi_induk'] ?>"
-                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
-                              <?= $agensi['nama_agensi_induk'] ?>
-                            </option>
-                          <?php endforeach; ?>
-
-                        </select>
-
-                  </div>
-              </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control"
+                     name="tahun_siap"
+                     value="<?= $row['tahun_siap'] ?>">
+              <label>Tahun Siap</label>
+            </div>
+          </div>
                <div class="col-md-6">
                   <div class="form-control mb-3">
                         <label for="floatingLevel">Agensi</label>
@@ -245,9 +237,10 @@
 
                   </div>
               </div>
+               
                <div class="col-md-6">
                   <div class="form-control mb-3">
-                        <label for="floatingLevel">Agensi</label>
+                        <label for="floatingLevel">Sub Agensi</label>
                         <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
                           <option value="">--sila pilih--</option>
                           <?php foreach ($list_agensi as $agensi): ?>
@@ -263,13 +256,13 @@
               </div>
                <div class="col-md-6">
                   <div class="form-control mb-3">
-                        <label for="floatingLevel">Agensi</label>
-                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                        <label for="floatingLevel">Negeri</label>
+                        <select id="id_negeri" name="id_negeri" class="form-control select2-modal" style="width: 100%;">
                           <option value="">--sila pilih--</option>
-                          <?php foreach ($list_agensi as $agensi): ?>
-                            <option value="<?= $agensi['id_agensi_induk'] ?>"
-                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
-                              <?= $agensi['nama_agensi_induk'] ?>
+                          <?php foreach ($list_state as $negeri): ?>
+                            <option value="<?= $negeri['id_adm_state'] ?>"
+                              <?= ($row['id_negeri'] ?? '') == $negeri['id_adm_state'] ? 'selected' : '' ?>>
+                              <?= $negeri['state_description'] ?>
                             </option>
                           <?php endforeach; ?>
 
@@ -277,15 +270,16 @@
 
                   </div>
               </div>
-               <div class="col-md-6">
+
+              <div class="col-md-6">
                   <div class="form-control mb-3">
-                        <label for="floatingLevel">Agensi</label>
-                        <select id="id_agensi_induk" name="id_agensi_induk" class="form-control" style="width: 100%;">
+                        <label for="floatingLevel">Daerah</label>
+                        <select id="id_daerah" name="id_daerah" class="form-control select2-modal" style="width: 100%;">
                           <option value="">--sila pilih--</option>
-                          <?php foreach ($list_agensi as $agensi): ?>
-                            <option value="<?= $agensi['id_agensi_induk'] ?>"
-                              <?= ($row['id_agensi_induk'] ?? '') == $agensi['id_agensi_induk'] ? 'selected' : '' ?>>
-                              <?= $agensi['nama_agensi_induk'] ?>
+                          <?php foreach ($list_district as $daerah): ?>
+                            <option value="<?= $daerah['id_adm_district'] ?>"
+                              <?= ($row['id_daerah'] ?? '') == $daerah['id_adm_district'] ? 'selected' : '' ?>>
+                              <?= $daerah['district_name'] ?>
                             </option>
                           <?php endforeach; ?>
 

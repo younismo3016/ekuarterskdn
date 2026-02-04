@@ -17,34 +17,90 @@ class Model_Utama extends Model
     ];
 
 
+    public function get_last_update_date()
+{
+    // Ambil tarikh paling maksimum (terkini)
+    $query = $this->db->query("SELECT MAX(tarikh_kemaskini) as last_date FROM table_report");
+    $result = $query->getRow();
+    
+    return $result->last_date; // Akan return string datetime atau NULL
+}
 
-    public function get_laporan_agensi($bulan = 1, $tahun = 2026)
-    {
-        // Matikan ONLY_FULL_GROUP_BY jika server anda ketat, tetapi cuba baiki query dahulu
-        $this->db->query("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
 
-        $sql = "SELECT
-            table_main_agency.nama_agensi_induk AS nama_jabatan, 
-            SUM(COALESCE(table_report.unit_dihuni, 0)) AS unit_dihuni, 
-            SUM(COALESCE(table_report.unit_tidak_dihuni, 0)) AS unit_kosong, 
-            SUM(COALESCE(table_report.unit_dihuni, 0) + COALESCE(table_report.unit_tidak_dihuni, 0)) AS jumlah_unit,
+
+    public function get_laporan_agensi()
+{
+    // Dapatkan bulan dan tahun semasa secara dinamik
+    $bulan_semak = date('n'); // Bulan 1-12
+    $tahun_semak = date('Y'); // Tahun cth: 2026
+
+    $sql = "
+        SELECT 
+            ma.nama_agensi_induk AS nama_jabatan,
+            
+            -- --- BAHAGIAN 1: DATA TERKINI (Latest Snapshot) ---
+            -- Mengambil data dari laporan terakhir yang pernah dihantar (status 2)
+            SUM(COALESCE(latest.unit_dihuni, 0)) AS unit_dihuni,
+            
+            -- Kiraan Kosong (Baik) Terkini
+            SUM(
+                COALESCE(latest.baik_diduduki, 0) + 
+                COALESCE(latest.baik_guna_sama, 0) + 
+                COALESCE(latest.baik_tukar_fungsi, 0) + 
+                COALESCE(latest.baik_sewaan, 0)
+            ) AS unit_kosong_baik,
+            
+            -- Kiraan Kosong (Rosak) Terkini
+            SUM(
+                COALESCE(latest.rosak_baik_pulih, 0) + 
+                COALESCE(latest.rosak_guna_sama, 0) + 
+                COALESCE(latest.rosak_tukar_fungsi, 0) + 
+                COALESCE(latest.rosak_sewaan, 0) + 
+                COALESCE(latest.rosak_roboh, 0)
+            ) AS unit_kosong_rosak,
+
+            -- Jumlah Keseluruhan Terkini
+            SUM(COALESCE(latest.total_unit_kuarters, 0)) AS jumlah_unit,
+            
+            -- --- BAHAGIAN 2: STATUS PENGHANTARAN (Bulan Semasa Sahaja) ---
+            -- Jika 'current_month' join berjaya (ada rekod), kira > 0 = DITERIMA
             CASE 
-                WHEN MAX(table_report.status_hantar) = 2 THEN 'DITERIMA'
-                WHEN MAX(table_report.status_hantar) IN (0, 1) THEN 'DRAF'
-                ELSE 'BELUM MULA'
-            END AS status_hantar 
-        FROM
-            table_main_agency
-            INNER JOIN table_quarters_profile ON table_quarters_profile.id_agensi_induk = table_main_agency.id_agensi_induk
-            LEFT JOIN table_report ON table_report.id_kuarters = table_quarters_profile.id_kuarters
-            AND table_report.bulan = ? 
-            AND table_report.tahun = ?
-        GROUP BY 
-            table_main_agency.nama_agensi_induk";
+                WHEN COUNT(current_month.id_report) > 0 THEN 'DITERIMA'
+                ELSE 'BELUM MULA' 
+            END AS status_hantar
 
-        $query = $this->db->query($sql, array($bulan, $tahun));
-        return $query->getResultArray();
-    }
+        FROM table_main_agency ma
+        JOIN table_quarters_profile q ON ma.id_agensi_induk = q.id_agensi_induk
+
+        -- JOIN A: Logic untuk dapatkan data TERKINI (Latest) tanpa mengira bulan
+        LEFT JOIN (
+            SELECT r.*
+            FROM table_report r
+            JOIN (
+                SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as max_period
+                FROM table_report
+                WHERE status_hantar = 2
+                GROUP BY id_kuarters
+            ) m ON r.id_kuarters = m.id_kuarters 
+            AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = m.max_period
+            WHERE r.status_hantar = 2
+        ) latest ON q.id_kuarters = latest.id_kuarters
+
+        -- JOIN B: Logic untuk semak status BULAN INI sahaja
+        LEFT JOIN table_report current_month ON q.id_kuarters = current_month.id_kuarters 
+            AND current_month.bulan = ? 
+            AND current_month.tahun = ? 
+            AND current_month.status_hantar = 2
+
+        GROUP BY ma.id_agensi_induk, ma.nama_agensi_induk
+        ORDER BY ma.nama_agensi_induk ASC
+    ";
+
+    // Jalankan query dengan parameter binding
+    $query = $this->db->query($sql, [$bulan_semak, $tahun_semak]);
+    
+    return $query->getResultArray();
+}
 
     public function get_dashboard()
     {        

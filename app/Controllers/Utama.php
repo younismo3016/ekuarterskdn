@@ -36,7 +36,8 @@ class Utama extends BaseController
 
 			'isi' => 'utama/v_utama',
             'list_agensi' => $this->Model_Utama->get_laporan_agensi(),
-			'list_dashboard' => $this->Model_Utama->get_dashboard(), // Gunakan nama 'list_agensi' supaya sepadan dengan View anda
+			'list_dashboard' => $this->Model_Utama->get_dashboard(),
+			'tarikh_terkini' => $this->Model_Utama->get_last_update_date(), // Gunakan nama 'list_agensi' supaya sepadan dengan View anda
 
 		];
 		return view('layout/v_wrapper', $data);

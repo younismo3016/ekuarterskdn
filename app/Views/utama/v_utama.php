@@ -79,17 +79,42 @@
 </div>
 <?php } ?>
             <div class="table-responsive shadow-sm">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold mb-0 text-primary">Status Penghantaran Laporan Agensi (Januari 2026)</h5>
-                    <span class="badge bg-light text-dark border">Data dikemaskini: Hari Ini, 3:05 PM</span>
-                </div>
+                <?php
+    // --- 1. Tetapan Bulan & Tahun Semasa (Bahasa Melayu) ---
+    $bulan_melayu = [
+        1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April',
+        5 => 'Mei', 6 => 'Jun', 7 => 'Julai', 8 => 'Ogos',
+        9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Disember'
+    ];
+    $paparan_bulan_tahun = $bulan_melayu[date('n')] . ' ' . date('Y');
+
+    // --- 2. Logik Tarikh Kemaskini Data ---
+    $db_date = $tarikh_terkini ?? date('Y-m-d H:i:s'); // Guna current time jika DB null
+    $timestamp = strtotime($db_date);
+    
+    // Semak jika tarikh sama dengan hari ini
+    $is_today = (date('Ymd') == date('Ymd', $timestamp));
+    
+    // Format paparan: "Hari Ini, 3:05 PM" atau "04/02/2026, 3:05 PM"
+    $label_tarikh = $is_today ? "Hari Ini" : date('d/m/Y', $timestamp);
+    $label_masa   = date('g:i A', $timestamp);
+?>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="fw-bold mb-0 text-primary">Status Penghantaran Laporan Agensi (<?= $paparan_bulan_tahun; ?>)</h5>
+    
+    <span class="badge bg-light text-dark border">
+        Data dikemaskini: <?= $label_tarikh . ', ' . $label_masa; ?>
+    </span>
+</div>
                 <table id="example1" class="table table-bordered table-striped align-middle">
     <thead>
         <tr>
             <th>Bil</th>
             <th>Jabatan / Agensi</th>
             <th class="text-center">Unit Dihuni</th>
-            <th class="text-center">Unit Kosong</th>
+            <th class="text-center">Unit Kosong (Baik)</th>
+            <th class="text-center">Unit Kosong (Rosak)</th>
             <th class="text-center">Jumlah Unit</th>
             <th class="text-center">Status </th>
             <th class="text-center">Tindakan</th>
@@ -106,7 +131,7 @@
             $badge_class = "bg-secondary";
             $icon = "bi-question-circle";
 
-            if ($status == 'DITERIMA') {
+            if ($status == 'HANTAR') {
                 $badge_class = "bg-success";
                 $icon = "bi-check-circle";
             } elseif ($status == 'DRAF') {
@@ -125,7 +150,9 @@
                 
                 <td class="text-center"><?= number_format($row['unit_dihuni']) ?></td>
                 
-                <td class="text-center text-danger"><?= number_format($row['unit_kosong']) ?></td>
+                <td class="text-center text-danger"><?= number_format($row['unit_kosong_baik']) ?></td>
+                
+                <td class="text-center text-danger"><?= number_format($row['unit_kosong_rosak']) ?></td>
                 
                 <td class="text-center"><?= number_format($row['jumlah_unit']) ?></td>
                 
@@ -139,14 +166,18 @@
                 <td class="text-center">
                     
                    
-    <?php if ($status == 'DITERIMA'): ?>
+    <?php if ($status == 'HANTAR'): ?>
         <button class="btn btn-sm btn-outline-primary" title="Semak Laporan">
             <i class="bi bi-file-earmark-text"></i> Semak
         </button>
-    <?php else: ?>
-        <button type="button" class="btn btn-sm btn-warning" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
-            <i class="bi bi-envelope-at"></i> Email Reminder
+        <button class="btn btn-sm btn-outline-warning" title="Reset Status">
+            <i class="bi bi-arrow-clockwise"></i>
         </button>
+    <?php else: ?>
+        <button type="button" class="btn btn-sm btn-warning" title="Email Reminder" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
+            <i class="bi bi-envelope-at"></i> 
+        </button>
+        
     <?php endif; ?>
 
                 </td>

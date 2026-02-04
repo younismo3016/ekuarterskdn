@@ -36,34 +36,48 @@
                     <p class="text-muted small">Status pemantauan kuarters merentasi semua Agensi di bawah KDN.</p>
                 </div>
             </div>
-
+ <?php
+    foreach ($list_dashboard as $row1) {
+    ?>
             <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="card card-stats p-3 shadow-sm">
-                        <span class="text-muted small fw-bold">JUMLAH KUARTERS</span>
-                        <h3 class="fw-bold text-dark">124,582</h3>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-stats p-3 shadow-sm" style="border-top-color: #198754;">
-                        <span class="text-muted small fw-bold">JUMLAH UNIT DIHUNI</span>
-                        <h3 class="fw-bold text-success">110,432</h3>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-stats p-3 shadow-sm" style="border-top-color: #dc3545;">
-                        <span class="text-muted small fw-bold">JUMLAH UNIT KOSONG</span>
-                        <h3 class="fw-bold text-danger">14,150</h3>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card card-stats p-3 shadow-sm" style="border-top-color: #0d6efd;">
-                        <span class="text-muted small fw-bold">JUMLAH KOS SELENGGARA</span>
-                        <h3 class="fw-bold text-dark">RM 45.8 Juta</h3>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-3">
+        <div class="card card-stats p-3 shadow-sm">
+            <span class="text-muted small fw-bold">JUMLAH KUARTERS</span>
+            <h3 class="fw-bold text-dark">
+                
+                <?= number_format($row1['total_kuarters'] ?? 0); ?>
+            </h3>
+        </div>
+    </div>
 
+    <div class="col-md-3">
+        <div class="card card-stats p-3 shadow-sm" style="border-top-color: #198754;">
+            <span class="text-muted small fw-bold">JUMLAH UNIT DIHUNI</span>
+            <h3 class="fw-bold text-success">
+                <?= number_format($row1['total_huni'] ?? 0); ?>
+            </h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-stats p-3 shadow-sm" style="border-top-color: #dc3545;">
+            <span class="text-muted small fw-bold">JUMLAH UNIT KOSONG (BAIK)</span>
+            <h3 class="fw-bold text-danger">
+                <?= number_format($row1['total_kosong_baik'] ?? 0); ?>
+            </h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-stats p-3 shadow-sm" style="border-top-color: #0d6efd;">
+            <span class="text-muted small fw-bold">JUMLAH UNIT KOSONG (ROSAK)</span>
+            <h3 class="fw-bold text-danger">
+                <?= number_format($row1['total_kosong_rosak'] ?? 0); ?>
+            </h3>
+        </div>
+    </div>
+</div>
+<?php } ?>
             <div class="table-responsive shadow-sm">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-bold mb-0 text-primary">Status Penghantaran Laporan Agensi (Januari 2026)</h5>

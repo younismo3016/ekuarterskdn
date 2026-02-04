@@ -7,7 +7,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\Model;
 use App\Models\Model_User;
 use App\Models\Model_Bahagian;
-use App\Models\Model_Seksyen;
+//use App\Models\Model_Seksyen;
 use App\Models\Model_Level;
 use App\Models\StatistikAgensiModel;
 
@@ -18,7 +18,7 @@ class Agensi extends BaseController
 		helper('form');
 		$this->Model_User = new Model_User();
 		$this->Model_Bahagian = new Model_Bahagian();
-		$this->Model_Seksyen = new Model_Seksyen();
+		//$this->Model_Seksyen = new Model_Seksyen();
 		$this->Model_Level = new Model_Level();
         $this->StatistikAgensiModel = new StatistikAgensiModel();
 		

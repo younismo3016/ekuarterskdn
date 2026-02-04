@@ -7,7 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Utama </h1>
+      <h1>Dashboard: Status Kuarters </h1>
       <nav>
 
       </nav>
@@ -32,7 +32,7 @@
     
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h4 class="fw-bold text-dark">Dashboard: Status Kuarters</h4>
+                    
                     <p class="text-muted small">Status pemantauan kuarters merentasi semua Agensi di bawah KDN.</p>
                 </div>
             </div>

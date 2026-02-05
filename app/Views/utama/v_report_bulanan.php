@@ -139,27 +139,11 @@
                 </div>
             </div>
 
-           <button class="btn btn-action w-100 <?= ($row['status_hantar'] == 2) ? 'btn-outline-primary' : 'btn-primary shadow-sm' ?>"
-
-                onclick="location.href='<?= ($row['status_hantar'] == 2)
-
-                    ? base_url('index.php/agensi/agensi_statistik_papar/'.$row['bulan'].'/'.$row['tahun'])
-
-                    : base_url('index.php/agensi/agensi_statistik_kemaskini/'.$row['bulan'].'/'.$row['tahun']) ?>'">
-
-               
-
-                <?php if (($row['status_hantar'] ?? 0) == 2): ?>
-
-                    <i class="bi bi-file-earmark-text me-2"></i>Lihat Laporan
-
-                <?php else: ?>
-
-                    <i class="bi bi-pencil-square me-2"></i>Kemaskini Laporan
-
-                <?php endif; ?>
-
-            </button>
+           <button class="btn btn-action w-100 btn-outline-primary"
+        onclick="location.href='<?= base_url('index.php/utama/report_bulanan_papar/'.$row['bulan'].'/'.$row['tahun']) ?>'">
+    
+    <i class="bi bi-file-earmark-text me-2"></i>Lihat Laporan
+</button>
         </div>
     </div>
     <?php 

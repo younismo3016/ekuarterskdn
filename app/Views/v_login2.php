@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Sistem eKuarters KDN</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -67,8 +67,8 @@
                 
                 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login </h5>
-                    <p class="text-center small">Masukan Emel dan katalaluan</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Log Masuk</h5>
+                    <p class="text-center small">Masukan e-mel dan kata laluan</p>
                   </div>
 
                   
@@ -77,13 +77,13 @@
                       <label for="email" class="form-label">E-mel</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        <input type="email" name="email" class="form-control"  required>
        
                        
                         <div class="invalid-feedback">Masukkan e-mel anda.</div>
                       </div>
                     </div>
-
+                      &nbsp;
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Kata Laluan</label>
                       
@@ -92,13 +92,10 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
+                      &nbsp;
                     </div>
                     <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                    <button class="btn btn-primary w-100" type="submit">Log Masuk</button>
                     </div>
                     <div class="col-12">
 </p>

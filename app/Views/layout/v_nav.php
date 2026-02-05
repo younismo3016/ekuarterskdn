@@ -11,7 +11,7 @@
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-        <a class="nav-link collapsed" href="<?= site_url('agensi/agensi_statistik_list') ?>">
+        <a class="nav-link collapsed" href="<?= site_url('admin/report_bulanan') ?>">
           <i class="bi bi-grid"></i>
           <span>Statistik Bulanan</span>
         </a>

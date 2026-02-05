@@ -146,7 +146,7 @@
     ?>
             <tr>
                 <td width="5%"><?= $bil++ ?>.</td>
-                <td class="fw-bold"><?= $row['nama_jabatan'] ?></td>
+                <td class="left"><?= $row['nama_jabatan'] ?></td>
                 
                 <td class="text-center"><?= number_format($row['unit_dihuni']) ?></td>
                 

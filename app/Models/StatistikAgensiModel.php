@@ -64,6 +64,54 @@ class StatistikAgensiModel extends Model
     return $this->db->query($sql, [$id_agensi])->getResultArray();
 }
 
+public function getStatistikByAll()
+{
+    
+
+    $sql = "
+        SELECT
+            tr.bulan,
+            CASE 
+                WHEN tr.bulan = 1 THEN 'JANUARI'
+                WHEN tr.bulan = 2 THEN 'FEBRUARI'
+                WHEN tr.bulan = 3 THEN 'MAC'
+                WHEN tr.bulan = 4 THEN 'APRIL'
+                WHEN tr.bulan = 5 THEN 'MEI'
+                WHEN tr.bulan = 6 THEN 'JUN'
+                WHEN tr.bulan = 7 THEN 'JULAI'
+                WHEN tr.bulan = 8 THEN 'OGOS'
+                WHEN tr.bulan = 9 THEN 'SEPTEMBER'
+                WHEN tr.bulan = 10 THEN 'OKTOBER'
+                WHEN tr.bulan = 11 THEN 'NOVEMBER'
+                WHEN tr.bulan = 12 THEN 'DISEMBER'
+                ELSE 'TIADA DATA'
+            END AS nama_bulan,
+            tr.tahun,
+            -- Gunakan MAX untuk pastikan nilai '2' menang berbanding '0/1'
+            MAX(tr.status_hantar) AS status_hantar,
+            CASE 
+                WHEN MAX(tr.status_hantar) = 2 THEN 'SELESAI'
+                ELSE 'BELUM HANTAR'
+            END AS status_teks,
+            COUNT(tqp.id_kuarters) AS total_reports, 
+            SUM(IFNULL(tr.unit_dihuni, 0)) AS total_unit_dihuni, 
+            SUM(IFNULL(tr.unit_tidak_dihuni, 0)) AS total_unit_tidak_dihuni
+        FROM
+            table_quarters_profile tqp
+        INNER JOIN 
+            table_report tr ON tqp.id_kuarters = tr.id_kuarters
+        
+        GROUP BY
+            tr.tahun, 
+            tr.bulan
+        ORDER BY 
+            tr.tahun ASC, 
+            tr.bulan ASC;
+    ";
+
+    return $this->db->query($sql)->getResultArray();
+}
+
 
 public function getDetailedReport($bulan, $tahun, $id_agensi)
 {

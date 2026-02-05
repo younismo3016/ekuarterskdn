@@ -34,14 +34,14 @@ function get_field_error($key, $label = null) {
             {
                 $db = \Config\Database::connect(); // Get the database connection
                     
-                    $query = $db->table('table_negeri')
-                                ->select('negeri')
-                                ->where('id_negeri', $value)
+                    $query = $db->table('adm_state')
+                                ->select('state_description')
+                                ->where('id_adm_state', $value)
                                 ->get();
                     
                     if ($query->getNumRows() > 0) {
                                 $row = $query->getRow();
-                                return $row->negeri;
+                                return $row->state_description;
                         }
                     
                             return null; // Return null if no results are found

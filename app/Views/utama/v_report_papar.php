@@ -90,12 +90,12 @@
                     <p class="text-muted small mb-0"><i class="bi bi-info-circle me-1"></i> Mod paparan sahaja. Kolum 'Kod & Nama' akan kekal di kiri semasa skrol.</p>
                 </div>
               <div class="d-flex justify-content-between align-items-center">
-    <div>
+    <!-- <div>
         <a href="<?= base_url('index.php/agensi/agensi_statistik_list') ?>" class="btn btn-secondary shadow-sm px-4">
             <i class="bi bi-arrow-left me-1"></i> Kembali
         </a>
-    </div>
-
+    </div> -->
+&nbsp;&nbsp;
  
 <div>
     <a href="<?= site_url("utama/admin_statistik_papar_excel/{$bulan}/{$tahun}") ?>" 

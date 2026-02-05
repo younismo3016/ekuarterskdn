@@ -130,8 +130,8 @@
                         <td><?= (!empty($row['kod_kuarters'])) ? $row['kod_kuarters'] : "-" ?></td>
                         <td><?= $row['senarai_kelas'] ?></td>
                         <td><?= $row['tahun_siap'] ?></td>
-                        <td><?= $row['id_negeri'] ?></td>
-                        <td><?= $row['id_daerah'] ?></td>
+                        <td><?= get_negeri($row['id_negeri']) ?></td>
+                        <td><?= get_daerah($row['id_daerah']) ?></td>
                       
                         <td>
                           <div class="btn-group">

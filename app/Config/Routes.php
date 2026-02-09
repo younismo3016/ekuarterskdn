@@ -51,6 +51,9 @@ $routes->post('kuarters/list_kuarters', 'Kuarters::list_kuarters');
 
 // Pastikan nama Controller 'Agensi' dan fungsi 'tambah_baru' adalah tepat
 $routes->get('agensi/tambah_baru', 'Agensi::tambah_baru');
+//$routes->get('admin/reset_password/(:num)', 'Admin::send_email_reset_password/$1', ['as' => 'admin.reset_password']);
+$routes->get('admin/reset_password/(:num)', 'Admin::reset_password/$1');
+
 
 
 $routes->get('/admin', 'Home::index', ['as' => 'dashboard.utama']);

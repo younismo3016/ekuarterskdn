@@ -94,68 +94,64 @@ class Auth extends BaseController
         return view('v_login2',$data);
     }
 
-    public function check_login() 
+   public function check_login() 
 {
     if ($this->validate([
-        'email'=>[
-            'label'=> 'Email',
-            'rules'=> 'required|valid_email',
+        'email' => [
+            'label' => 'Email',
+            'rules' => 'required|valid_email',
             'errors' => [
                 'required' => '{field} Wajib Diisi !!',
-                'valid_email' => '{field} Masukkan email sama !!'
+                'valid_email' => '{field} Format email salah !!'
             ]
         ],
-        'password'=>[
-            'label'=> 'Password',
-            'rules'=> 'required|min_length[5]|max_length[12]',
+        'password' => [
+            'label' => 'Password',
+            'rules' => 'required',
             'errors' => [
-                'required' => '{field} Wajib Diisi !!',
-                'min_length' => '{field} Password must have atleast 5 character in length',
-                'max_length' => '{field} Password must not more than 12 character in length!'
+                'required' => '{field} Wajib Diisi !!'
             ]
         ], 
     ])) {
-        // jika valid
+        // 1. Ambil data input
         $email = $this->request->getPost('email');
-        $password = md5($this->request->getPost('password'));
+        $password_input = $this->request->getPost('password'); // AMBIL PASSWORD ASLI (JANGAN HASH)
+        
+        // 2. Cari user berdasarkan EMAIL SAHAJA (Function model kena ubah sikit, tengok Langkah 3)
+        $check = $this->Model_Auth->login($email); 
 
-        $check = $this->Model_Auth->login($email, $password); 
-        if ($check) {
-            // simpan dalam session
+        // 3. Semak jika User wujud DAN Password Verify betul
+        if ($check && password_verify($password_input, $check['password'])) {
+            
+            // --- LOGIN BERJAYA ---
             session()->set('log', true);
-            session()->set('nama_penuh', $check['nama_penuh']);
+            session()->set('nama_penuh', $check['nama_penuh'] ?? $check['name_user']); // Pastikan nama column betul
             session()->set('email', $check['email']);
             session()->set('level', $check['level']);
-           // session()->set('id_bahagian', $check['id_bahagian']);
-            session()->set('id_agensi_induk', $check['id_agensi_induk']);
+            session()->set('id_agensi_induk', $check['id_agensi_induk'] ?? '');
             session()->set('id_user', $check['id_user']);
-            session()->set('photo_user', $check['photo_user']);
-            session()->setFlashdata('pesan', 'Login Berjaya !!, Selamat Datang Ke sistem');
+            session()->set('photo_user', $check['photo_user'] ?? '');
+            
+            session()->setFlashdata('pesan', 'Login Berjaya !!');
 
-             // Arahkan ikut level
+            // Redirect ikut level
             if ($check['level'] == 1) {
                 return redirect()->to(site_url('admin'));
             } elseif ($check['level'] == 2) {
                 return redirect()->to(site_url('agensi'));
-            }elseif ($check['level'] == 3) {
+            } elseif ($check['level'] >= 3 && $check['level'] <= 6) {
                 return redirect()->to(site_url('admin'));
-            }elseif ($check['level'] == 4) {
-                return redirect()->to(site_url('admin'));
-            }elseif ($check['level'] == 5) {
-                return redirect()->to(site_url('admin'));
-            }elseif ($check['level'] == 6) {
-                return redirect()->to(site_url('admin'));
-               
             } else {
                 return redirect()->to(site_url('home'));
             }
 
         } else {
-            session()->setFlashdata('pesan', 'Login Gagal !!, Log masuk sistem tidak sah');
+            // --- LOGIN GAGAL ---
+            session()->setFlashdata('pesan', 'Login Gagal !! Email atau Password Salah.');
             return redirect()->to(site_url('auth/login'));
         }
     } else {
-        // jika tidak valid
+        // Validation Error
         session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
         return redirect()->to(site_url('auth/login')); 
     }

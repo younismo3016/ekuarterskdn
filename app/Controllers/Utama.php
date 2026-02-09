@@ -7,6 +7,8 @@ use App\Controllers\BaseController;
 use CodeIgniter\Model;
 
 use App\Models\Model_Utama;
+use App\Models\Model_Report;
+
 use App\Models\StatistikAgensiModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -21,6 +23,7 @@ class Utama extends BaseController
 		helper('form');
 		$this->Model_Utama = new Model_Utama();
 		$this->StatistikAgensiModel = new StatistikAgensiModel();
+        $this->Model_Report = new Model_Report();
 		
 
 		
@@ -221,6 +224,20 @@ public function admin_statistik_papar_excel($bulan, $tahun)
     $writer->save('php://output');
     exit();
 }
+
+   public function update_status($id_agensi_induk,$id_bulan,$id_tahun)
+	{
+		
+    
+        $data = [
+			
+			'status_hantar' => 1,
+
+		];
+		$this->Model_Report->kemaskini_status($data,$id_agensi_induk,$id_bulan, $id_tahun);
+		session()->setFlashdata('pesan', 'Status Berjaya Dikemaskini');
+		return redirect()->to(site_url('Utama/utama')); 
+	}
 
 	
 		//return view('admin/v_list_user',$data);

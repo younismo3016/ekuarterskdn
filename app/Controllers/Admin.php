@@ -107,8 +107,8 @@ class Admin extends BaseController
 
     // 2. Generate password rawak
     $plain_password = substr(str_shuffle(
-        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    ), 0, 8);
+    'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*'
+), 0, 12);
 
     $data = [
         'nama_penuh'      => $nama_user,
@@ -124,34 +124,53 @@ class Admin extends BaseController
     $this->Model_User->add_user($data);
 
     // 4. Hantar Email Password
-    $this->send_email_password($email_user, $nama_user, $plain_password);
+    $this->send_email_password($email_user, $plain_password);
 
     session()->setFlashdata('pesan', 'Data berjaya ditambah. Kata laluan telah dihantar ke emel.');
     return redirect()->to(site_url('Admin/list_user'));
 }
 
-	private function send_email_password($to, $name, $password)
+	private function send_email_password($to, $password)
 {
     $email = \Config\Services::email();
 
     $email->setTo($to);
     $email->setFrom('noreply@moha.gov.my', 'Pentadbir Sistem');
     
-    $email->setSubject('Maklumat Akaun Baru');
-    
+    $email->setSubject('Sistem eKuarters KDN: Pendaftaran Akaun Pengguna');
     $message = "
-        <html>
-        <body>
-            <h3>Halo $name,</h3>
-            <p>Akaun anda telah didaftarkan dalam sistem. Berikut adalah maklumat log masuk anda:</p>
-            <table border='0'>
-                <tr><td><strong>Email</strong></td><td>: $to</td></tr>
-                <tr><td><strong>Kata Laluan</strong></td><td>: $password</td></tr>
-            </table>
-            <p>Sila tukar kata laluan anda selepas log masuk kali pertama.</p>
-        </body>
-        </html>
-    ";
+    <html>
+    <body style='font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;'>
+        <p><strong>Sistem eKuarters KDN: Pendaftaran Akaun Pengguna</strong></p>
+        <br>
+        <p>Tuan/Puan,</p>
+        
+        <p>Adalah dimaklumkan bahawa akaun tuan/puan bagi Sistem eKuarters KDN telah berjaya didaftarkan. Tuan/Puan kini boleh mengakses sistem tersebut dengan maklumat log masuk berikut:</p>
+        
+        <table border='0' cellpadding='5' style='margin-left: 20px;'>
+            <tr>
+                <td width='100'><strong>URL</strong></td>
+                <td>: <a href='https://ekuarters.moha.gov.my' target='_blank'>ekuarters.moha.gov.my</a></td>
+            </tr>
+            <tr>
+                <td><strong>E-mel</strong></td>
+                <td>: $to</td>
+            </tr>
+            <tr>
+                <td><strong>Kata Laluan</strong></td>
+                <td>: <strong>$password</strong></td>
+            </tr>
+        </table>
+
+        <p>Tuan/Puan dimohon untuk menukar kata laluan selepas log masuk buat kali pertama.</p>
+        
+        <br>
+        <p>Sekian, terima kasih.</p>
+        
+        <p><strong>Sistem eKuarters KDN</strong></p>
+    </body>
+    </html>
+";
 
     $email->setMessage($message);
 
@@ -163,6 +182,118 @@ class Admin extends BaseController
     }
 	}
 
+	public function reset_password($id_user)
+{
+    // 1. Panggil Model User
+    $model = new \App\Models\Model_User();
+    
+    // Cari pengguna berdasarkan id_user
+    $user = $model->find($id_user);
+
+    if ($user) {
+        // 2. Jana Kata Laluan Baru (12 Aksara: Huruf + Nombor + Simbol)
+        $plain_password = substr(str_shuffle(
+    'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*'
+), 0, 12);
+
+        // 3. Update Database
+        // PENTING: Pastikan 'allowedFields' di Model anda membenarkan update 'password'
+        
+        // Pilihan A: Jika sistem guna password_hash (Disyorkan)
+        $password_encrypted = password_hash($plain_password, PASSWORD_DEFAULT);
+        
+        // Pilihan B: Jika sistem lama guna MD5 (Sila komen atas, guna bawah jika perlu)
+        // $password_encrypted = md5($plain_password);
+
+        $data_update = [
+            'password' => $password_encrypted
+        ];
+        
+        // Kita guna update() supaya lebih spesifik update row berdasarkan ID
+        $model->update($id_user, $data_update);
+
+        // 4. Panggil Fungsi Hantar Emel (Private Function)
+        // Hantar password yang belum encrypt ($plain_password) ke emel pengguna
+        $status_email = $this->send_email_reset_password($user['email'], $plain_password);
+
+        if ($status_email) {
+            session()->setFlashdata('pesan', 'Kata laluan berjaya direset dan dihantar ke e-mel pengguna.');
+        } else {
+            session()->setFlashdata('error', 'Kata laluan direset tetapi GAGAL menghantar e-mel.');
+        }
+
+    } else {
+        session()->setFlashdata('error', 'Pengguna tidak dijumpai.');
+    }
+
+    // 5. Redirect ke List User
+    return redirect()->to(base_url('admin/list_user')); 
+}
+
+private function send_email_reset_password($to, $password)
+{
+    // 1. Panggil Servis Emel CodeIgniter
+    $email = \Config\Services::email();
+
+    // 2. Tetapan Pengirim dan Penerima
+    $email->setTo($to);
+    // Pastikan emel 'from' ini valid atau guna no-reply domain anda
+    $email->setFrom('noreply@moha.gov.my', 'Pentadbir Sistem eKuarters'); 
+    
+    // 3. Subjek Emel
+    $email->setSubject('Sistem eKuarters KDN: Reset Kata Laluan');
+
+    // 4. Isi Kandungan (HTML)
+    $message = "
+    <html>
+    <body style='font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;'>
+        <p><strong>Sistem eKuarters KDN: Reset Kata Laluan</strong></p>
+        <br>
+        <p>Tuan/Puan,</p>
+        
+        <p>Adalah dimaklumkan bahawa kata laluan tuan/puan bagi Sistem eKuarters KDN telah berjaya direset. Tuan/Puan kini boleh mengakses sistem tersebut dengan maklumat log masuk berikut:</p>
+        
+        <table border='0' cellpadding='5' style='margin-left: 20px;'>
+            <tr>
+                <td width='100'><strong>URL</strong></td>
+                <td>: <a href='https://ekuarters.moha.gov.my' target='_blank' style='color: #0d6efd; text-decoration: none;'>ekuarters.moha.gov.my</a></td>
+            </tr>
+            <tr>
+                <td><strong>E-mel</strong></td>
+                <td>: $to</td>
+            </tr>
+            <tr>
+                <td><strong>Kata Laluan</strong></td>
+                <td>: <strong style='color: #dc3545; font-size: 16px;'>$password</strong></td>
+            </tr>
+        </table>
+
+        <p>Tuan/Puan dimohon untuk menukar kata laluan segera selepas log masuk.</p>
+        
+        <br>
+        <p>Sekian, terima kasih.</p>
+        
+        <p><strong>Sistem eKuarters KDN</strong></p>
+        <hr>
+        <p style='font-size: 11px; color: #777;'>Emel ini dijana secara automatik oleh sistem. Sila jangan balas emel ini.</p>
+    </body>
+    </html>
+    ";
+
+    $email->setMessage($message);
+
+    // 5. Hantar Emel
+    if ($email->send()) {
+        return true;
+    } else {
+        // Debug: Uncomment baris di bawah jika emel gagal dihantar untuk lihat punca
+        // log_message('error', $email->printDebugger(['headers']));
+        return false;
+    }
+}
+
+
+
 
 	public function edit_user($id_user)
 	{
@@ -170,10 +301,8 @@ class Admin extends BaseController
 			'nama_penuh' => $this->request->getPost('nama_penuh'),
 			'email' => $this->request->getPost('email'),
 			'no_tel' => $this->request->getPost('no_tel'),
-			'id_bahagian' => $this->request->getPost('id_bahagian'),
-			//'id_seksyen' => $this->request->getPost('id_seksyen'),
-			//'password' =>md5($this->request->getPost('password')),
 			'level' => $this->request->getPost('level'),
+			'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
 
 		];
 		$this->Model_User->update_user($data, $id_user);

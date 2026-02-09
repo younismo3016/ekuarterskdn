@@ -37,65 +37,75 @@ class Model_Utama extends Model
     $tahun_semak = date('Y'); // Tahun cth: 2026
 
     $sql = "
-        SELECT 
-            ma.nama_agensi_induk AS nama_jabatan,
+        -- Tetapkan Bulan/Tahun Untuk Semakan Status di sini
+
+
+SELECT 
+    ma.id_agensi_induk, ma.nama_agensi_induk AS nama_jabatan,
+    
+    -- --- BAHAGIAN 1: NOMBOR DATA (Sentiasa ambil yang TERKINI / LATEST) ---
+    SUM(COALESCE(latest.unit_dihuni, 0)) AS unit_dihuni,
+    
+    -- Kiraan Kosong (Baik) Terkini
+    SUM(
+        COALESCE(latest.baik_diduduki, 0) + 
+        COALESCE(latest.baik_guna_sama, 0) + 
+        COALESCE(latest.baik_tukar_fungsi, 0) + 
+        COALESCE(latest.baik_sewaan, 0)
+    ) AS unit_kosong_baik,
+    
+    -- Kiraan Kosong (Rosak) Terkini
+    SUM(
+        COALESCE(latest.rosak_baik_pulih, 0) + 
+        COALESCE(latest.rosak_guna_sama, 0) + 
+        COALESCE(latest.rosak_tukar_fungsi, 0) + 
+        COALESCE(latest.rosak_sewaan, 0) + 
+        COALESCE(latest.rosak_roboh, 0)
+    ) AS unit_kosong_rosak,
+
+    -- Jumlah Keseluruhan Terkini
+    SUM(COALESCE(latest.total_unit_kuarters, 0)) AS jumlah_unit,
+    
+    -- --- BAHAGIAN 2: STATUS (Baca dari table ADM_STATUS) ---
+    (
+        SELECT nama_status FROM adm_status 
+        WHERE id_status = 
+        CASE 
+            -- 1. Jika ada 'Hantar' (2), ID = 2
+            WHEN SUM(CASE WHEN current_month.status_hantar = 2 THEN 1 ELSE 0 END) > 0 THEN 2
             
-            -- --- BAHAGIAN 1: DATA TERKINI (Latest Snapshot) ---
-            -- Mengambil data dari laporan terakhir yang pernah dihantar (status 2)
-            SUM(COALESCE(latest.unit_dihuni, 0)) AS unit_dihuni,
+            -- 2. Jika tiada 'Hantar', tapi ada 'Draf' (1), ID = 1
+            WHEN SUM(CASE WHEN current_month.status_hantar = 1 THEN 1 ELSE 0 END) > 0 THEN 1
             
-            -- Kiraan Kosong (Baik) Terkini
-            SUM(
-                COALESCE(latest.baik_diduduki, 0) + 
-                COALESCE(latest.baik_guna_sama, 0) + 
-                COALESCE(latest.baik_tukar_fungsi, 0) + 
-                COALESCE(latest.baik_sewaan, 0)
-            ) AS unit_kosong_baik,
-            
-            -- Kiraan Kosong (Rosak) Terkini
-            SUM(
-                COALESCE(latest.rosak_baik_pulih, 0) + 
-                COALESCE(latest.rosak_guna_sama, 0) + 
-                COALESCE(latest.rosak_tukar_fungsi, 0) + 
-                COALESCE(latest.rosak_sewaan, 0) + 
-                COALESCE(latest.rosak_roboh, 0)
-            ) AS unit_kosong_rosak,
+            -- 3. Jika tiada rekod langsung (NULL) atau status 0, default ID = 0 (Belum Mula)
+            ELSE 0 
+        END
+    ) AS status_hantar
 
-            -- Jumlah Keseluruhan Terkini
-            SUM(COALESCE(latest.total_unit_kuarters, 0)) AS jumlah_unit,
-            
-            -- --- BAHAGIAN 2: STATUS PENGHANTARAN (Bulan Semasa Sahaja) ---
-            -- Jika 'current_month' join berjaya (ada rekod), kira > 0 = DITERIMA
-            CASE 
-                WHEN COUNT(current_month.id_report) > 0 THEN 'DITERIMA'
-                ELSE 'BELUM MULA' 
-            END AS status_hantar
+FROM table_main_agency ma
+JOIN table_quarters_profile q ON ma.id_agensi_induk = q.id_agensi_induk
 
-        FROM table_main_agency ma
-        JOIN table_quarters_profile q ON ma.id_agensi_induk = q.id_agensi_induk
+-- JOIN A: Dapatkan Data TERKINI (Latest Snapshot - Status 2 Only)
+LEFT JOIN (
+    SELECT r.*
+    FROM table_report r
+    JOIN (
+        SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as max_period
+        FROM table_report
+        WHERE status_hantar = 2
+        GROUP BY id_kuarters
+    ) m ON r.id_kuarters = m.id_kuarters 
+    AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = m.max_period
+    WHERE r.status_hantar = 2
+) latest ON q.id_kuarters = latest.id_kuarters
 
-        -- JOIN A: Logic untuk dapatkan data TERKINI (Latest) tanpa mengira bulan
-        LEFT JOIN (
-            SELECT r.*
-            FROM table_report r
-            JOIN (
-                SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as max_period
-                FROM table_report
-                WHERE status_hantar = 2
-                GROUP BY id_kuarters
-            ) m ON r.id_kuarters = m.id_kuarters 
-            AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = m.max_period
-            WHERE r.status_hantar = 2
-        ) latest ON q.id_kuarters = latest.id_kuarters
+-- JOIN B: Semak Kewujudan Laporan BULAN INI (Untuk Penentuan Status)
+LEFT JOIN table_report current_month ON q.id_kuarters = current_month.id_kuarters 
+    AND current_month.bulan = $bulan_semak 
+    AND current_month.tahun = $tahun_semak
 
-        -- JOIN B: Logic untuk semak status BULAN INI sahaja
-        LEFT JOIN table_report current_month ON q.id_kuarters = current_month.id_kuarters 
-            AND current_month.bulan = ? 
-            AND current_month.tahun = ? 
-            AND current_month.status_hantar = 2
-
-        GROUP BY ma.id_agensi_induk, ma.nama_agensi_induk
-        ORDER BY ma.nama_agensi_induk ASC
+GROUP BY ma.id_agensi_induk, ma.nama_agensi_induk
+ORDER BY ma.nama_agensi_induk ASC;
     ";
 
     // Jalankan query dengan parameter binding

@@ -141,9 +141,12 @@
                             <button type="button" class="btn btn-info btn-m2" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable<?= $row['id_user'] ?>">
                               <i class="bi bi-pencil-square"></i>
                             </button>
-                            <button type="button" class="btn btn-warning btn-m2" data-bs-toggle="modal" data-bs-target="#modal-password<?= $row['id_user'] ?>">
-                              <i class="bi bi-lock"></i>
-                            </button>
+                            <a href="<?= site_url('admin/reset_password/' . $row['id_user']) ?>" 
+   class="btn btn-warning btn-sm btn-reset-password" 
+   data-email="<?= $row['email'] ?>" 
+   title="Reset Kata Laluan">
+    <i class="bi bi-lock"></i>
+</a>
                           </div>
 
                         </td>

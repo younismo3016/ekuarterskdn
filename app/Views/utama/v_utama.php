@@ -80,6 +80,8 @@
 <?php } ?>
             <div class="table-responsive shadow-sm">
                 <?php
+    $bulan_angka = date('n'); // Hasil: 1 hingga 12 (Contoh: 2)
+    $tahun_angka = date('Y'); // Hasil: 2026
     // --- 1. Tetapan Bulan & Tahun Semasa (Bahasa Melayu) ---
     $bulan_melayu = [
         1 => 'Januari', 2 => 'Februari', 3 => 'Mac', 4 => 'April',
@@ -131,13 +133,13 @@
             $badge_class = "bg-secondary";
             $icon = "bi-question-circle";
 
-            if ($status == 'HANTAR') {
+            if ($status == 'Hantar') {
                 $badge_class = "bg-success";
                 $icon = "bi-check-circle";
-            } elseif ($status == 'DRAF') {
+            } elseif ($status == 'Draf') {
                 $badge_class = "bg-warning text-dark";
                 $icon = "bi-clock-history";
-            } elseif ($status == 'BELUM MULA') {
+            } elseif ($status == 'Belum Mula') {
                 $badge_class = "bg-danger";
                 $icon = "bi-exclamation-triangle";
             }
@@ -157,28 +159,39 @@
                 <td class="text-center"><?= number_format($row['jumlah_unit']) ?></td>
                 
                 <td class="text-center">
-                    <span class="badge <?= $badge_class ?> p-2">
-                        <i class="bi <?= $icon ?> me-1"></i>
-                        <?= $status ?>
-                        
-                    </span>
+                   <a href="<?= site_url('utama/update_status/' . $row['id_agensi_induk'] . '/' . $bulan_angka . '/' . $tahun_angka) ?>" style="text-decoration: none;">
+        
+        <span class="badge <?= $badge_class ?> p-2">
+            <i class="bi <?= $icon ?> me-1"></i>
+            <?= $status ?> 
+            </span>
+
+    </a>
                 </td>
                 <td class="text-center">
                     
                    
-    <?php if ($status == 'HANTAR'): ?>
-        <button class="btn btn-sm btn-outline-primary" title="Semak Laporan">
-            <i class="bi bi-file-earmark-text"></i> Semak
-        </button>
-        <button class="btn btn-sm btn-outline-warning" title="Reset Status">
-            <i class="bi bi-arrow-clockwise"></i>
-        </button>
+    <?php if ($status == 'Hantar'): ?>
+       
+        <a href="<?= site_url('utama/update_status/' . $row['id_agensi_induk'] . '/' . $bulan_angka . '/' . $tahun_angka) ?>" 
+   class="btn-reset" 
+   style="text-decoration: none;">
+    <button type="button" class="btn btn-sm btn-outline-warning" title="Reset Status">
+        <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</a>
+        
     <?php else: ?>
         <button type="button" class="btn btn-sm btn-warning" title="Email Reminder" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
             <i class="bi bi-envelope-at"></i> 
         </button>
         
     <?php endif; ?>
+
+   
+
+
+
 
                 </td>
             </tr>

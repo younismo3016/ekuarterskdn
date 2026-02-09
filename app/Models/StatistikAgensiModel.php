@@ -64,128 +64,121 @@ class StatistikAgensiModel extends Model
     return $this->db->query($sql, [$id_agensi])->getResultArray();
 }
 
-public function getStatistikByAll()
+public function getDetailedReport($bulan, $tahun, $id_agensi, $limit = 10, $offset = 0, $keyword = null)
 {
-    
+    $builder = $this->db->table('table_report tr');
 
-    $sql = "
-        SELECT
-            tr.bulan,
-            CASE 
-                WHEN tr.bulan = 1 THEN 'JANUARI'
-                WHEN tr.bulan = 2 THEN 'FEBRUARI'
-                WHEN tr.bulan = 3 THEN 'MAC'
-                WHEN tr.bulan = 4 THEN 'APRIL'
-                WHEN tr.bulan = 5 THEN 'MEI'
-                WHEN tr.bulan = 6 THEN 'JUN'
-                WHEN tr.bulan = 7 THEN 'JULAI'
-                WHEN tr.bulan = 8 THEN 'OGOS'
-                WHEN tr.bulan = 9 THEN 'SEPTEMBER'
-                WHEN tr.bulan = 10 THEN 'OKTOBER'
-                WHEN tr.bulan = 11 THEN 'NOVEMBER'
-                WHEN tr.bulan = 12 THEN 'DISEMBER'
-                ELSE 'TIADA DATA'
-            END AS nama_bulan,
-            tr.tahun,
-            -- Gunakan MAX untuk pastikan nilai '2' menang berbanding '0/1'
-            MAX(tr.status_hantar) AS status_hantar,
-            CASE 
-                WHEN MAX(tr.status_hantar) = 2 THEN 'SELESAI'
-                ELSE 'BELUM HANTAR'
-            END AS status_teks,
-            COUNT(tqp.id_kuarters) AS total_reports, 
-            SUM(IFNULL(tr.unit_dihuni, 0)) AS total_unit_dihuni, 
-            SUM(IFNULL(tr.unit_tidak_dihuni, 0)) AS total_unit_tidak_dihuni
-        FROM
-            table_quarters_profile tqp
-        INNER JOIN 
-            table_report tr ON tqp.id_kuarters = tr.id_kuarters
-        
-        GROUP BY
-            tr.tahun, 
-            tr.bulan
-        ORDER BY 
-            tr.tahun ASC, 
-            tr.bulan ASC;
-    ";
+    $builder->select("
+        tr.*, 
+        tqp.kod_kuarters, 
+        tqp.nama_kuarters,
 
-    return $this->db->query($sql)->getResultArray();
+        (SELECT GROUP_CONCAT(ti.id_kategori_isu ORDER BY ti.id_kategori_isu ASC) 
+         FROM table_issue ti 
+         WHERE ti.id_report = tr.id_report) as id_kategori_isu,
+
+        (SELECT CONCAT('KELAS ', GROUP_CONCAT(REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') 
+            ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', '))
+         FROM table_jenis_kuarters tjk
+         JOIN adm_quarters_category aqc 
+           ON aqc.id_kategori_kuarters = tjk.id_kategori_kuarters
+         WHERE tjk.id_kuarters = tqp.id_kuarters) as nama_kategori_kuarters
+    ");
+
+    $builder->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters');
+    $builder->where('tqp.id_agensi_induk', $id_agensi);
+    $builder->where('tr.bulan', $bulan);
+    $builder->where('tr.tahun', $tahun);
+
+    // 🔍 SEARCH (SERVER SIDE)
+    if (!empty($keyword)) {
+        $builder->groupStart()
+            ->like('tqp.kod_kuarters', $keyword)
+            ->orLike('tqp.nama_kuarters', $keyword)
+        ->groupEnd();
+    }
+
+    $builder->orderBy('tqp.nama_kuarters', 'ASC');
+    $builder->limit($limit, $offset);
+
+    return $builder->get()->getResultArray();
+}
+
+public function countDetailedReport1($bulan, $tahun, $id_agensi, $keyword = null)
+{
+    $builder = $this->db->table('table_report tr');
+    $builder->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters');
+    $builder->where('tqp.id_agensi_induk', $id_agensi);
+    $builder->where('tr.bulan', $bulan);
+    $builder->where('tr.tahun', $tahun);
+
+    if (!empty($keyword)) {
+        $builder->groupStart()
+            ->like('tqp.kod_kuarters', $keyword)
+            ->orLike('tqp.nama_kuarters', $keyword)
+        ->groupEnd();
+    }
+
+    return $builder->countAllResults();
 }
 
 
-public function getDetailedReport($bulan, $tahun, $id_agensi)
+public function getDetailedReportView($bulan, $tahun, $id_agensi, $limit = null, $offset = 0, $search = null)
 {
-    return $this->db->table('table_report tr')
+    $builder = $this->db->table("{$this->table_report} tr")
         ->select("
             tr.*, 
             tqp.kod_kuarters, 
             tqp.nama_kuarters, 
-            tqp.jenis_kuarters,
-            -- 1. Ambil string ID kategori isu (untuk kegunaan Tom Select/Multiple Select)
-            (SELECT GROUP_CONCAT(ti.id_kategori_isu ORDER BY ti.id_kategori_isu ASC) 
-             FROM table_issue ti 
-             WHERE ti.id_report = tr.id_report) as id_kategori_isu,
             
-            -- 2. Ambil Kategori Kuarters dengan format 'KELAS A, B, C' (Susun A-Z)
-            (SELECT CONCAT('KELAS ', GROUP_CONCAT(REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') 
-                ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', '))
-             FROM table_jenis_kuarters tjk
-             JOIN adm_quarters_category aqc ON aqc.id_kategori_kuarters = tjk.id_kategori_kuarters
-             WHERE tjk.id_kuarters = tqp.id_kuarters) as nama_kategori_kuarters
+            GROUP_CONCAT(DISTINCT aic.keterangan_kategori ORDER BY aic.keterangan_kategori ASC SEPARATOR ', ') as nama_kategori_isu,
+            CONCAT('KELAS ', GROUP_CONCAT(DISTINCT REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', ')) as nama_kategori_kuarters
         ")
-        ->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters')
-        ->where('tqp.id_agensi_induk', $id_agensi)
-        ->where('tr.bulan', $bulan)
-        ->where('tr.tahun', $tahun)
-        
-        // 3. Susunan selari dengan view (Abjad Nama Kuarters + ID Report)
-         ->orderBy("tr.id_report", "ASC")
-        ->orderBy("tqp.nama_kuarters", "ASC")
-       
-        
-        ->get()
-        ->getResultArray();
+        ->join("{$this->table} as tqp", "tqp.id_kuarters = tr.id_kuarters")
+        ->join("table_issue ti", "ti.id_report = tr.id_report", "left")
+        ->join("adm_issue_category aic", "aic.id_kategori_isu = ti.id_kategori_isu", "left")
+        ->join("table_jenis_kuarters tjk", "tjk.id_kuarters = tqp.id_kuarters", "left")
+        ->join("adm_quarters_category aqc", "aqc.id_kategori_kuarters = tjk.id_kategori_kuarters", "left")
+        ->where('tqp.id_agensi_induk', $id_agensi) 
+        ->where("tr.bulan", $bulan)
+        ->where("tr.tahun", $tahun);
+
+    // Filter Carian
+    if ($search) {
+        $builder->groupStart()
+                ->like('tqp.kod_kuarters', $search)
+                ->orLike('tqp.nama_kuarters', $search)
+                ->groupEnd();
+    }
+
+    $builder->groupBy("tr.id_report")
+            ->orderBy("tqp.nama_kuarters", "ASC");
+
+    if ($limit !== null) {
+        return $builder->get($limit, $offset)->getResultArray();
+    }
+
+    return $builder->get()->getResultArray();
 }
 
-
-public function getDetailedReportView($bulan, $tahun, $id_agensi)
+// Fungsi tambahan untuk kira total rekod (untuk pagination)
+public function countDetailedReport($bulan, $tahun, $id_agensi, $search = null)
 {
-    return $this->db->table("{$this->table_report} tr")
-        ->select("
-            tr.*, 
-            tqp.kod_kuarters, 
-            tqp.nama_kuarters, 
-            tqp.jenis_kuarters,
-            -- Grouping Isu
-            (SELECT GROUP_CONCAT(aic.keterangan_kategori ORDER BY aic.keterangan_kategori ASC SEPARATOR ', ') 
-             FROM table_issue ti 
-             JOIN adm_issue_category aic ON aic.id_kategori_isu = ti.id_kategori_isu 
-             WHERE ti.id_report = tr.id_report) as nama_kategori_isu,
-            
-            -- Grouping Kategori Kuarters
-            (SELECT CONCAT('KELAS ', GROUP_CONCAT(REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') 
-                ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', '))
-             FROM table_jenis_kuarters tjk
-             JOIN adm_quarters_category aqc ON aqc.id_kategori_kuarters = tjk.id_kategori_kuarters
-             WHERE tjk.id_kuarters = tqp.id_kuarters) as nama_kategori_kuarters
-        ")
+    $builder = $this->db->table("{$this->table_report} tr")
         ->join("{$this->table} as tqp", "tqp.id_kuarters = tr.id_kuarters")
         ->where('tqp.id_agensi_induk', $id_agensi) 
         ->where("tr.bulan", $bulan)
-        ->where("tr.tahun", $tahun)
-        
-        // 1. Susun ikut nama kuarters (Abjad A-Z)
-        // 2. Kemudian susun ikut id_report secara menaik (ASC)
+        ->where("tr.tahun", $tahun);
 
-        ->orderBy("tr.id_report", "ASC") 
-        ->orderBy("tqp.nama_kuarters", "ASC")
-        
-        
-        ->get()
-        ->getResultArray();
+    if ($search) {
+        $builder->groupStart()
+                ->like('tqp.kod_kuarters', $search)
+                ->orLike('tqp.nama_kuarters', $search)
+                ->groupEnd();
+    }
+
+    return $builder->countAllResults();
 }
-
-
 
 public function updateStatusHantar($bulan, $tahun, $id_agensi, $data)
 {
@@ -243,6 +236,62 @@ public function getSenaraiTidakTally($bulan, $tahun, $id_agensi)
 
     return $builder->get()->getResultArray();
 }
+
+public function getAdminKdnEmails()
+{
+    // Mengambil semua emel di mana level = 1
+    $query = $this->db->table('tbl_user')
+                      ->select('email')
+                      ->where('level', 1)
+                      ->get()
+                      ->getResultArray();
+
+    // Tukarkan hasil array multidimensi ke array satu dimensi
+    // Contoh: ['admin1@moha.gov.my', 'admin2@moha.gov.my']
+    return array_column($query, 'email');
+}
+
+
+public function getNamaAgensi($id_agensi)
+{
+    $query = $this->db->table('table_main_agency')
+                      ->select('nama_agensi_induk')
+                      ->where('id_agensi_induk', $id_agensi)
+                      ->get();
+
+    $row = $query->getRow(); // Ambil satu baris sahaja
+
+    if ($row) {
+        return $row->nama_agensi_induk; // Pulangkan string nama agensi
+    }
+
+    return "Agensi Tidak Ditemui"; // Nilai default jika tiada
+}
+
+
+
+public function getStatistikByAgensiExcel($id_agensi, $bulan, $tahun)
+    {
+        return $this->db->table($this->table_report . ' as tr')
+            ->select("
+                tr.*, 
+                tqp.kod_kuarters, 
+                tqp.nama_kuarters, 
+                GROUP_CONCAT(DISTINCT aic.keterangan_kategori ORDER BY aic.keterangan_kategori ASC SEPARATOR ', ') as nama_kategori_isu,
+                CONCAT('KELAS ', GROUP_CONCAT(DISTINCT REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', ')) as nama_kategori_kuarters
+            ")
+            ->join("table_quarters_profile as tqp", "tqp.id_kuarters = tr.id_kuarters")
+            ->join("table_issue ti", "ti.id_report = tr.id_report", "left")
+            ->join("adm_issue_category aic", "aic.id_kategori_isu = ti.id_kategori_isu", "left")
+            ->join("table_jenis_kuarters tjk", "tjk.id_kuarters = tqp.id_kuarters", "left")
+            ->join("adm_quarters_category aqc", "aqc.id_kategori_kuarters = tjk.id_kategori_kuarters", "left")
+            ->where('tqp.id_agensi_induk', $id_agensi) 
+            ->where("tr.bulan", $bulan)
+            ->where("tr.tahun", $tahun)
+            ->groupBy("tr.id_report") // Penting kerana ada GROUP_CONCAT
+            ->get()
+            ->getResultArray();
+    }
 
 
 

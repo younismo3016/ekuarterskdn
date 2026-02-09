@@ -13,12 +13,13 @@ class Model_Auth extends Model
         $this->db->table('tbl_user')->insert($data);
     }
 
-    public function login($email,$password)
-    {
-        return  $this->db->table('tbl_user')->where([
-            'email'=>$email,
-            'password'=>$password,
-        ])->get()->getRowArray();
-    }
+    public function login($email)
+{
+    // Cari baris data berdasarkan email sahaja
+    return $this->db->table('tbl_user')
+        ->where('email', $email)
+        ->get()
+        ->getRowArray(); // Kita nak satu baris data array
+}
     
 }

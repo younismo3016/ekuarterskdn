@@ -139,26 +139,16 @@
                 </div>
             </div>
 
-           <button class="btn btn-action w-100 <?= ($row['status_hantar'] == 2) ? 'btn-outline-primary' : 'btn-primary shadow-sm' ?>"
-
-                onclick="location.href='<?= ($row['status_hantar'] == 2)
-
-                    ? base_url('index.php/agensi/agensi_statistik_papar/'.$row['bulan'].'/'.$row['tahun'])
-
+            <button class="btn btn-action w-100 <?= ($row['status_hantar'] == 2) ? 'btn-outline-primary' : 'btn-primary shadow-sm' ?>" 
+                onclick="location.href='<?= ($row['status_hantar'] == 2) 
+                    ? base_url('index.php/agensi/agensi_statistik_papar/'.$row['bulan'].'/'.$row['tahun']) 
                     : base_url('index.php/agensi/agensi_statistik_kemaskini/'.$row['bulan'].'/'.$row['tahun']) ?>'">
-
-               
-
+                
                 <?php if (($row['status_hantar'] ?? 0) == 2): ?>
-
                     <i class="bi bi-file-earmark-text me-2"></i>Lihat Laporan
-
                 <?php else: ?>
-
                     <i class="bi bi-pencil-square me-2"></i>Kemaskini Laporan
-
                 <?php endif; ?>
-
             </button>
         </div>
     </div>
@@ -167,17 +157,76 @@
     endif; 
     ?>
 
-    <?php if (!$sudah_ada_bulan_semasa): ?>
-        <div class="col-md-4">
-            <button class="card month-card shadow-sm p-4 w-100 btn-add-new d-flex flex-column align-items-center justify-content-center border-dashed" 
-                    style="border: 2px dashed #ccc; min-height: 250px; background: #f8f9fa; border-radius: 15px;"
-                    onclick="location.href='<?= base_url('index.php/agensi/tambah_baru') ?>'">
-                <i class="bi bi-plus-circle-dotted mb-2 text-primary" style="font-size: 3rem;"></i>
-                <h5 class="fw-bold"><?= strtoupper($nama_bulan_sekarang) ?> <?= $tahun_sekarang ?></h5>
-                <p class="small text-center text-muted">Klik untuk memulakan kemas kini data bagi bulan semasa</p>
-            </button>
-        </div>
-    <?php endif; ?>
+  <?php if (!$sudah_ada_bulan_semasa): ?>
+    <div class="col-md-4">
+        <button type="button" id="btnProsesTambah" class="card month-card shadow-sm p-4 w-100 btn-add-new d-flex flex-column align-items-center justify-content-center border-dashed" 
+                style="border: 2px dashed #ccc; min-height: 250px; background: #f8f9fa; border-radius: 15px;">
+            <i class="bi bi-plus-circle-dotted mb-2 text-primary" style="font-size: 3rem;"></i>
+            <h5 class="fw-bold"><?= strtoupper($nama_bulan_sekarang) ?> <?= $tahun_sekarang ?></h5>
+            <p class="small text-center text-muted">Klik untuk memulakan kemas kini data bagi bulan semasa</p>
+        </button>
+    </div>
+<?php endif; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#btnProsesTambah').on('click', function() {
+        Swal.fire({
+            title: 'Sahkan Tindakan',
+            text: "Salin data dari rekod bulan sebelumnya ke bulan ini?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#942eb8',
+            confirmButtonText: 'Ya, Salin Sekarang',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                
+                // 1. Papar Loader
+                Swal.fire({
+                    title: 'Memproses...',
+                    html: 'Sila tunggu sebentar, sistem sedang menyalin data.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // 2. Jalan AJAX
+                $.ajax({
+                    url: "<?= base_url('index.php/agensi/tambah_baru') ?>",
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berjaya!',
+                                text: response.message,
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                // 3. Redirect guna JavaScript
+                                window.location.href = response.redirect_url;
+                            });
+                        } else {
+                            Swal.fire('Ralat!', response.message, 'error');
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.fire('Ralat!', 'Terjadi ralat pada server. Sila cuba lagi.', 'error');
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+
+
 </div>
                 
 
@@ -196,3 +245,5 @@
 
 
   </main>
+
+

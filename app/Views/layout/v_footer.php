@@ -35,6 +35,10 @@
   <script src="<?= base_url() ?>assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="<?= base_url() ?>assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="<?= base_url() ?>assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- Template Main JS File -->
   <script src="<?= base_url() ?>assets/js/main.js"></script>
@@ -78,7 +82,66 @@
 <script src="<?= base_url() ?>assets/js/jquery-3.6.0.min.js"></script>
 <script src="<?= base_url() ?>assets/js/select2.min.js"></script>
 
+<script>
+    $('.btn-reset').on('click', function(e) {
+        e.preventDefault(); // Halang link dari terus buka
+        const href = $(this).attr('href');
 
+        Swal.fire({
+            title: 'Adakah anda pasti?',
+            text: "Status penghantaran akan di-reset!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Reset!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location.href = href; // Teruskan ke link jika confirm
+            }
+        })
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        
+        $('.btn-reset-password').on('click', function(e) {
+            e.preventDefault(); // Halang link daripada terus dibuka
+            
+            const href = $(this).attr('href');       // Ambil link controller
+            const userEmail = $(this).data('email'); // Ambil email dari data-email
+
+            Swal.fire({
+                title: 'Reset Kata Laluan?',
+                // Paparkan email dalam mesej supaya admin tahu dihantar ke mana
+                html: "Kata laluan baharu akan dijana dan dihantar ke e-mel:<br><b>" + userEmail + "</b>",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ffc107', // Warna kuning (sesuai dengan btn-warning)
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Reset!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Tunjukkan loading sekejap sebab hantar email ambil masa
+                    Swal.fire({
+                        title: 'Sedang Memproses...',
+                        text: 'Sila tunggu sebentar.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Redirect ke controller
+                    document.location.href = href;
+                }
+            });
+        });
+
+    });
+</script>
 
 
 <script>
@@ -195,6 +258,8 @@ $(document).ready(function () {
 
 });
 </script>
+
+
   
 
  

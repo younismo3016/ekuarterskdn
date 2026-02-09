@@ -68,6 +68,16 @@
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
+
+
+    .pagination .page-item .page-link {
+    cursor: pointer;
+}
+.pagination .active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
 </style>
 
 <section class="content">
@@ -79,22 +89,37 @@
                     <h4 class="fw-bold">Laporan Bulanan: <?= $nama_bulan ?> <?= $tahun ?></h4>
                     <p class="text-muted small mb-0"><i class="bi bi-info-circle me-1"></i> Mod paparan sahaja. Kolum 'Kod & Nama' akan kekal di kiri semasa skrol.</p>
                 </div>
-                <div>
-                    <a href="<?= base_url('index.php/agensi/agensi_statistik_list') ?>" class="btn btn-secondary shadow-sm px-4">
-                        <i class="bi bi-arrow-left me-1"></i> Kembali
-                    </a>
-                </div>
+              <div class="d-flex justify-content-between align-items-center">
+    <div>
+        <a href="<?= base_url('index.php/agensi/agensi_statistik_list') ?>" class="btn btn-secondary shadow-sm px-4">
+            <i class="bi bi-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
+
+ <?php /*
+<div>
+    <a href="<?= site_url("agensi/agensi_statistik_papar_excel/{$id_agensi}/{$bulan}/{$tahun}") ?>" 
+       class="btn btn-success shadow-sm px-4">
+        <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+    </a>
+</div>
+*/ ?>
+
+</div>
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="input-group shadow-sm">
-                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Cari kod atau nama kuarters...">
-                </div>
-            </div>
+      <form action="" method="GET" class="row mb-3">
+    <div class="col-md-4">
+        <div class="input-group shadow-sm">
+            <input type="text" name="q" class="form-control" placeholder="Cari kod atau nama..." value="<?= esc($search) ?>">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+            <?php if($search): ?>
+                <a href="<?= current_url() ?>" class="btn btn-outline-secondary">Reset</a>
+            <?php endif; ?>
         </div>
+    </div>
+</form>
 
         <div class="table-container shadow-sm rounded">
             <table class="table table-bordered align-middle small mb-0" id="mainTable">
@@ -258,6 +283,33 @@
                 </tbody>
             </table>
         </div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="small text-muted">
+        Paparan <?= ($totalRecords > 0) ? (($currentPage-1) * $perPage) + 1 : 0 ?> 
+        hingga <?= min($currentPage * $perPage, $totalRecords) ?> 
+        daripada <?= $totalRecords ?> rekod
+    </div>
+    
+    <nav>
+        <ul class="pagination pagination-sm mb-0">
+            <li class="page-item <?= ($currentPage <= 1) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?q=<?= $search ?>&page=1">First</a>
+            </li>
+            
+            <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
+                <li class="page-item <?= ($i == $currentPage) ? 'active' : '' ?>">
+                    <a class="page-link" href="?q=<?= $search ?>&page=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <li class="page-item <?= ($currentPage >= $totalPages) ? 'disabled' : '' ?>">
+                <a class="page-link" href="?q=<?= $search ?>&page=<?= $totalPages ?>">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
     </main>
 </section>
 
@@ -270,4 +322,82 @@
             row.style.display = text.includes(filter) ? "" : "none";
         });
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const rows = Array.from(document.querySelectorAll('.report-row'));
+    const rowsPerPage = 10; // 🔥 boleh tukar 10 / 20 / 50
+    let currentPage = 1;
+    let filteredRows = rows;
+
+    const pagination = document.getElementById('pagination');
+    const pageInfo = document.getElementById('pageInfo');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderTable() {
+        rows.forEach(row => row.style.display = 'none');
+
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        filteredRows.slice(start, end).forEach(row => {
+            row.style.display = '';
+        });
+
+        pageInfo.textContent =
+            `Paparan ${start + 1} – ${Math.min(end, filteredRows.length)} daripada ${filteredRows.length} rekod`;
+    }
+
+    function renderPagination() {
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+        if (totalPages <= 1) return;
+
+        const createItem = (label, page, disabled = false, active = false) => {
+            const li = document.createElement('li');
+            li.className = `page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}`;
+            li.innerHTML = `<a class="page-link">${label}</a>`;
+            if (!disabled) {
+                li.addEventListener('click', () => {
+                    currentPage = page;
+                    update();
+                });
+            }
+            pagination.appendChild(li);
+        };
+
+        createItem('First', 1, currentPage === 1);
+        createItem('Prev', currentPage - 1, currentPage === 1);
+
+        let start = Math.max(1, currentPage - 2);
+        let end = Math.min(totalPages, currentPage + 2);
+
+        for (let i = start; i <= end; i++) {
+            createItem(i, i, false, i === currentPage);
+        }
+
+        createItem('Next', currentPage + 1, currentPage === totalPages);
+        createItem('Last', totalPages, currentPage === totalPages);
+    }
+
+    function update() {
+        renderTable();
+        renderPagination();
+    }
+
+    // 🔍 SEARCH
+    searchInput.addEventListener('input', function () {
+        const keyword = this.value.toLowerCase();f
+        filteredRows = rows.filter(row =>
+            row.querySelector('.search-area').textContent.toLowerCase().includes(keyword)
+        );
+        currentPage = 1;
+        update();
+    });
+
+    // INIT
+    update();
+});
 </script>

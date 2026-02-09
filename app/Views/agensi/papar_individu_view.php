@@ -33,7 +33,24 @@
                                 <h3 class="mb-1 fw-bold text-white text-uppercase"><?= $data['nama_kuarters'] ?></h3>
                                 <div class="d-flex gap-3">
                                     <span class="text-white-50 small"><i class="bi bi-hash me-1"></i><?= $data['kod_kuarters'] ?></span>
-                                    <span class="text-white-50 small"><i class="bi bi-tag me-1"></i><?= $data['jenis_kuarters'] ?></span>
+                                    <span class="text-white-50 small">
+    <i class="bi bi-tag me-1"></i>
+    <?php 
+        if (!empty($senarai_kelas)) {
+            // 1. Ambil semua nilai keterangan (contoh: ["KELAS F", "KELAS E", "KELAS D"])
+            $semua_kategori = array_column($senarai_kelas, 'keterangan_kategori_kuarters');
+
+            // 2. Buang perkataan "KELAS " daripada setiap elemen untuk dapatkan huruf sahaja
+            $huruf_sahaja = array_map(fn($val) => str_replace('KELAS ', '', $val), $semua_kategori);
+
+            // 3. Susun huruf ikut abjad (A, B, C...)
+            sort($huruf_sahaja);
+
+            // 4. Paparkan perkataan KELAS diikuti dengan huruf yang digabungkan dengan koma
+            echo 'KELAS ' . implode(', ', $huruf_sahaja);
+        }
+    ?>
+</span>
                                 </div>
                             </div>
                         </div>

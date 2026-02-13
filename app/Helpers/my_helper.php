@@ -265,7 +265,7 @@ function get_kategori($value){
     
 }
 
-function get_negeri($value){
+function get_negeri_lama($value){
 	if($value == 1){
 		$value =  "JOHOR";
 	}else if($value == 2){

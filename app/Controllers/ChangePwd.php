@@ -44,14 +44,14 @@ class ChangePwd extends BaseController
     $user = $this->Model_ChangePwd->getUser($id_user);
 
     // 3. Semak katalaluan lama (MD5)
-    if (md5($old_pwd) !== $user['password']) {
+    if (!password_verify($old_pwd, $user['password'])) {
         session()->setFlashdata('errors', ['Katalaluan lama anda tidak tepat!']);
         return redirect()->back();
     }
 
     // 4. Update jika semua OK
     $data = [
-        'password' => md5($new_pwd)
+        'password' => password_hash($new_pwd, PASSWORD_DEFAULT)
     ];
 
     $this->Model_ChangePwd->updatePassword($id_user, $data);

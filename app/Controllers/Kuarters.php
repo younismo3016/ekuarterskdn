@@ -17,7 +17,7 @@ use App\Models\Model_District;
 
 class Kuarters extends BaseController
 {
-	public function __construct()
+	public function __construct() 
 	{
 		helper('form');
 		$this->Model_User = new Model_User();
@@ -41,48 +41,38 @@ class Kuarters extends BaseController
 	}
 
 	public function list_kuarters()
-	{
+{
+    // 1. Ambil data carian (Lebih kemas guna getVar)
+    $nama_kuarters = $this->request->getVar('nama_kuarters');
+    $kod_kuarters  = $this->request->getVar('kod_kuarters');
+	$id_negeri     = $this->request->getVar('id_negeri');
+    // 2. Panggil Model untuk siapkan query (tapi belum execute)
+    $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters, $id_negeri);
 
-		if ($this->request->getPost('nama_kuarters') !== "") {
-			$nama_kuarters = $this->request->getPost('nama_kuarters');
-		} else {
-			$nama_kuarters = "";
-		}
+    $data = [
+        'title'           => 'Kuarters Pengguna',
+        'isi'             => 'kuarters/v_list_kuarters',
+        
+        // --- INI BAHAGIAN PENTING ---
+        // paginate(10) akan auto set Limit 10 dan Offset ikut page
+        'list_kuarters'   => $this->Model_Kuarters->paginate(10), 
+        
+        // 'pager' menyimpan link navigasi (1, 2, Next, Prev)
+        'pager'           => $this->Model_Kuarters->pager,
+        
+        // Data sokongan lain (Dropdown filter dll)
+        'list_agensi'     => $this->Model_Agensi->get_all_data(),
+        'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
+        'list_state'      => $this->Model_State->get_all_data(),
+        'list_district'   => $this->Model_District->get_all_data(),
+        
+        // Hantar balik input carian supaya tak hilang lepas search
+        'carian_nama'     => $nama_kuarters,
+        'carian_kod'      => $kod_kuarters,
+    ];
 
-		if ($this->request->getPost('kod_kuarters') !== "") {
-			$kod_kuarters = $this->request->getPost('kod_kuarters');
-		} else {
-			$kod_kuarters = "";
-		}
-		if ($this->request->getPost('nama_penuh') !== "") {
-			$nama_penuh = $this->request->getPost('nama_penuh');
-		} else {
-			$nama_penuh = "";
-		}
-		if ($this->request->getPost('email') !== "") {
-			$email = $this->request->getPost('email');
-		} else {
-			$email = "";
-		}
-
-
-
-		
-		$data = [
-			'title' => 'Kuarters Pengguna',
-			'isi' => 'kuarters/v_list_kuarters',
-			'list_agensi' => $this->Model_Agensi->get_all_data(),
-			'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
-			'list_kuarters' => $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters),
-			'list_state' => $this->Model_State->get_all_data(),
-			'list_district' => $this->Model_District->get_all_data(),
-			'kuarters' => $this->Model_Kuarters->kuarters($nama_kuarters, $kod_kuarters),
-			//'pengguna' => $this->Model_User->get_all_data(),
-
-		];
-		return view('layout/v_wrapper', $data);
-		//return view('admin/v_list_user',$data);
-	}
+    return view('layout/v_wrapper', $data);
+}
 
 	public function add_kuarters()
 	{

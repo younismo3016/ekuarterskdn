@@ -26,45 +26,42 @@ class Model_Kuarters extends Model
         $this->db->table('table_quarters_profile')->update($data, array('id_kuarters' => $id_kuarters));
     }
 
-    public function list_kuarters($nama_kuarters, $kod_kuarters)
+    public function list_kuarters($nama_kuarters = null, $kod_kuarters = null, $id_negeri = null)
 {
-    $builder = $this->db->table('table_quarters_profile');
+    // 1. Guna $this (Model) supaya boleh sambung dengan paginate() nanti
+    // Kita set table secara spesifik jika perlu, atau guna default model table
+    $this->table('table_quarters_profile'); 
 
-    // 1. Pilih kolum dan gunakan GROUP_CONCAT untuk menggabungkan kategori
-    $builder->select('
+    // 2. Pilih kolum (Sama macam kod asal anda)
+    $this->select('
         table_quarters_profile.*, 
         GROUP_CONCAT(adm_quarters_category.kelas SEPARATOR ", ") as senarai_kelas
     ');
 
-    // 2. Tambah JOIN pertama (ke table perantaraan)
-    $builder->join('table_jenis_kuarters', 'table_jenis_kuarters.id_kuarters = table_quarters_profile.id_kuarters', 'left');
+    // 3. Join (Sama macam asal)
+    $this->join('table_jenis_kuarters', 'table_jenis_kuarters.id_kuarters = table_quarters_profile.id_kuarters', 'left');
+    $this->join('adm_quarters_category', 'adm_quarters_category.id_kategori_kuarters = table_jenis_kuarters.id_kategori_kuarters', 'left');
 
-    // 3. Tambah JOIN kedua (ke table kategori)
-    $builder->join('adm_quarters_category', 'adm_quarters_category.id_kategori_kuarters = table_jenis_kuarters.id_kategori_kuarters', 'left');
+    // 4. Group By & Order (Sama macam asal)
+    $this->groupBy('table_quarters_profile.id_kuarters');
+    $this->orderBy('table_quarters_profile.id_kuarters', 'DESC');
 
-    // 4. GROUP BY sangat penting apabila menggunakan GROUP_CONCAT
-    $builder->groupBy('table_quarters_profile.id_kuarters');
-
-    // Susun yang terbaru
-    $builder->orderBy('table_quarters_profile.id_kuarters', 'DESC');
-
-    // Logik carian
-    if ($nama_kuarters || $kod_kuarters) {
-        if ($nama_kuarters) {
-            $builder->like('table_quarters_profile.nama_kuarters', $nama_kuarters, 'both');
-        }
-        if ($kod_kuarters) {
-            $builder->like('table_quarters_profile.kod_kuarters', $kod_kuarters, 'both');
-        }
-
-        $builder->limit(100);
-    } else {
-        // Papar 50 senarai yang terbaru sahaja
-        $builder->limit(100);
+    // 5. Logik Carian
+    if ($nama_kuarters) {
+        $this->like('table_quarters_profile.nama_kuarters', $nama_kuarters, 'both');
+    }
+    if ($kod_kuarters) {
+        $this->like('table_quarters_profile.kod_kuarters', $kod_kuarters, 'both');
+    }
+    if ($id_negeri) {
+        $this->where('table_quarters_profile.id_negeri', $id_negeri);
     }
 
-    // Jalankan query dan pulangkan hasil
-    return $builder->get()->getResultArray();
+    // PENTING:
+    // 1. Kita BUANG $builder->limit(100) -> Sebab pagination akan uruskan limit.
+    // 2. Kita BUANG return $builder->get() -> Kita tak nak data lagi.
+    
+    // Kita tak perlu return apa-apa, sebab query dah disimpan dalam memory Model ($this)
 }
 
     function kuarters($nama_kuarters, $kod_kuarters)

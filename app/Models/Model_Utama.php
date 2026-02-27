@@ -162,25 +162,136 @@ public function getStatistikByAll()
     return $this->db->query($sql)->getResultArray();
 }
 
+// FUNGSI BARU: Kiraan tepat untuk 1 bulan spesifik beserta data bawaan (carry forward)
+public function getStatistikBulan($bulan, $tahun)
+{
+    // Format period jadi 'YYYYMM' (Contoh: '202503' untuk Mac 2025)
+    $period = sprintf('%04d%02d', $tahun, $bulan);
+    
+    $sql = "
+        SELECT 
+            ? AS bulan,
+            ? AS tahun,
+            
+            -- Kira berapa agensi berdaftar vs berapa yang hantar bulan ini
+            COUNT(q.id_kuarters) AS jumlah_kuarters_berdaftar,
+            SUM(CASE WHEN r.bulan = ? AND r.tahun = ? THEN 1 ELSE 0 END) AS jumlah_hantar_semasa,
+            
+            -- Jumlahkan unit berdasarkan snapshot terbaharu
+            SUM(IFNULL(r.unit_dihuni, 0)) AS total_unit_dihuni, 
+            SUM(IFNULL(r.unit_tidak_dihuni, 0)) AS total_unit_tidak_dihuni
+            
+        FROM table_quarters_profile q
+        
+        -- SUBQUERY: Cari rekod Selesai (2) paling latest SEBELUM/PADA bulan ini
+        LEFT JOIN (
+            SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period
+            FROM table_report
+            WHERE status_hantar = 2
+            AND CONCAT(tahun, LPAD(bulan, 2, '0')) <= ?
+            GROUP BY id_kuarters
+        ) latest ON q.id_kuarters = latest.id_kuarters
+        
+        -- JOIN untuk dapatkan data sebenar (Dihuni/Kosong) dari report latest itu
+        LEFT JOIN table_report r ON r.id_kuarters = latest.id_kuarters 
+            AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = latest.latest_period
+    ";
+
+    // Bind parameter untuk keselamatan SQL Injection
+    return $this->db->query($sql, [$bulan, $tahun, $bulan, $tahun, $period])->getRowArray();
+}
+
+public function getStatistikByYear($tahun)
+{
+    $sql = "
+        SELECT
+            tr.bulan,
+            CASE 
+                WHEN tr.bulan = 1 THEN 'JANUARI'
+                WHEN tr.bulan = 2 THEN 'FEBRUARI'
+                WHEN tr.bulan = 3 THEN 'MAC'
+                WHEN tr.bulan = 4 THEN 'APRIL'
+                WHEN tr.bulan = 5 THEN 'MEI'
+                WHEN tr.bulan = 6 THEN 'JUN'
+                WHEN tr.bulan = 7 THEN 'JULAI'
+                WHEN tr.bulan = 8 THEN 'OGOS'
+                WHEN tr.bulan = 9 THEN 'SEPTEMBER'
+                WHEN tr.bulan = 10 THEN 'OKTOBER'
+                WHEN tr.bulan = 11 THEN 'NOVEMBER'
+                WHEN tr.bulan = 12 THEN 'DISEMBER'
+                ELSE 'TIADA DATA'
+            END AS nama_bulan,
+            tr.tahun,
+            MAX(tr.status_hantar) AS status_hantar,
+            CASE 
+                WHEN MAX(tr.status_hantar) = 2 THEN 'SELESAI'
+                ELSE 'BELUM HANTAR'
+            END AS status_teks,
+            COUNT(tqp.id_kuarters) AS total_reports, 
+            SUM(IFNULL(tr.unit_dihuni, 0)) AS total_unit_dihuni, 
+            SUM(IFNULL(tr.unit_tidak_dihuni, 0)) AS total_unit_tidak_dihuni
+        FROM
+            table_quarters_profile tqp
+        INNER JOIN 
+            table_report tr ON tqp.id_kuarters = tr.id_kuarters
+        WHERE 
+            tr.tahun = ? -- KITA TAMBAH INI SUPAYA FOKUS 1 TAHUN SAHAJA
+        GROUP BY
+            tr.tahun, 
+            tr.bulan
+        ORDER BY 
+            tr.tahun ASC, 
+            tr.bulan ASC;
+    ";
+
+    // Bind parameter tahun untuk keselamatan
+    return $this->db->query($sql, [$tahun])->getResultArray();
+}
+
+// 1. Fungsi Paparan Utama
 public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0, $search = null)
 {
+    // Kita gunakan subquery untuk mencari report yang paling terkini (status_hantar = 2)
+    // sehingga tarikh pilihan pengguna
+    $subquery = $this->db->table('table_report')
+        ->select("id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period")
+        ->where('status_hantar', 2)
+        ->where("CONCAT(tahun, LPAD(bulan, 2, '0')) <=", sprintf('%04d%02d', $tahun, $bulan))
+        ->groupBy('id_kuarters');
+
+    // Compile subquery menjadi string SQL
+    $subquerySql = $subquery->getCompiledSelect();
+
     $builder = $this->db->table("{$this->table} tr")
         ->select("
             tr.*, 
             tqp.kod_kuarters, 
             tqp.nama_kuarters, 
             
-            GROUP_CONCAT(DISTINCT aic.keterangan_kategori ORDER BY aic.keterangan_kategori ASC SEPARATOR ', ') as nama_kategori_isu,
-            CONCAT('KELAS ', GROUP_CONCAT(DISTINCT REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', ')) as nama_kategori_kuarters
+            -- Subquery untuk Isu (Meniru kod Excel)
+            (
+                SELECT GROUP_CONCAT(CONCAT(aic.id_kategori_isu, '. ', aic.keterangan_kategori) ORDER BY aic.id_kategori_isu ASC SEPARATOR ', ')
+                FROM table_issue ti
+                JOIN adm_issue_category aic ON ti.id_kategori_isu = aic.id_kategori_isu
+                WHERE ti.id_report = tr.id_report
+            ) AS nama_kategori_isu,
+            
+            -- Subquery untuk Kelas Kuarters (Meniru kod Excel)
+            (
+                SELECT CONCAT('KELAS ', GROUP_CONCAT(cat.kelas ORDER BY cat.kelas ASC SEPARATOR ', '))
+                FROM table_jenis_kuarters tjk
+                JOIN adm_quarters_category cat ON tjk.id_kategori_kuarters = cat.id_kategori_kuarters
+                WHERE tjk.id_kuarters = tqp.id_kuarters
+            ) AS nama_kategori_kuarters
         ")
-        ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters")
-        ->join("table_issue ti", "ti.id_report = tr.id_report", "left")
-        ->join("adm_issue_category aic", "aic.id_kategori_isu = ti.id_kategori_isu", "left")
-        ->join("table_jenis_kuarters tjk", "tjk.id_kuarters = tqp.id_kuarters", "left")
-        ->join("adm_quarters_category aqc", "aqc.id_kategori_kuarters = tjk.id_kategori_kuarters", "left")
-        // ->where('tqp.id_agensi_induk', $id_agensi) 
-        ->where("tr.bulan", $bulan)
-        ->where("tr.tahun", $tahun);
+        
+        // Join dengan Subquery untuk dapatkan tempoh terkini
+        ->join("({$subquerySql}) latest", "tr.id_kuarters = latest.id_kuarters AND CONCAT(tr.tahun, LPAD(tr.bulan, 2, '0')) = latest.latest_period", "inner")
+        
+        // Join dengan jadual profil kuarters
+        ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters", "inner")
+        
+        ->where("tr.status_hantar", 2);
 
     // Filter Carian
     if ($search) {
@@ -190,8 +301,7 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
                 ->groupEnd();
     }
 
-    $builder->groupBy("tr.id_report")
-            ->orderBy("tqp.nama_kuarters", "ASC");
+    $builder->orderBy("tqp.id_kuarters", "ASC"); // Ikut susunan Excel (ASC)
 
     if ($limit !== null) {
         return $builder->get($limit, $offset)->getResultArray();
@@ -200,14 +310,22 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
     return $builder->get()->getResultArray();
 }
 
-// Fungsi tambahan untuk kira total rekod (untuk pagination)
+// 2. Fungsi Kiraan (Count) Untuk Pagination
 public function countDetailedReport($bulan, $tahun, $search = null)
 {
+    // Subquery yang sama seperti di atas
+    $subquery = $this->db->table('table_report')
+        ->select("id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period")
+        ->where('status_hantar', 2)
+        ->where("CONCAT(tahun, LPAD(bulan, 2, '0')) <=", sprintf('%04d%02d', $tahun, $bulan))
+        ->groupBy('id_kuarters');
+
+    $subquerySql = $subquery->getCompiledSelect();
+
     $builder = $this->db->table("{$this->table} tr")
-        ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters")
-        //->where('tqp.id_agensi_induk', $id_agensi) 
-        ->where("tr.bulan", $bulan)
-        ->where("tr.tahun", $tahun);
+        ->join("({$subquerySql}) latest", "tr.id_kuarters = latest.id_kuarters AND CONCAT(tr.tahun, LPAD(tr.bulan, 2, '0')) = latest.latest_period", "inner")
+        ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters", "inner")
+        ->where("tr.status_hantar", 2);
 
     if ($search) {
         $builder->groupStart()

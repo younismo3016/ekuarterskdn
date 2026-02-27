@@ -21,6 +21,12 @@
             <div class="row mb-2">
                 <div class="col-4 text-muted small">Agensi </div>
                 <div class="col-8">: <?= $user->nama_agensi_induk ?></div>
+                
+            </div>
+              <div class="row mb-2">
+                <div class="col-4 text-muted small">Peranan </div>
+                <div class="col-8">: <?= $user->peranan ?></div>
+                
             </div>
         </div>
       </div>

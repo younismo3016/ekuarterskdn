@@ -20,8 +20,9 @@ class Model_Profil extends Model
     }
         // Menggunakan Query Builder CI4
         return $this->db->table('tbl_user')
-            ->select('tbl_user.nama_penuh, tbl_user.email, tbl_user.no_tel, table_main_agency.nama_agensi_induk')
+            ->select('tbl_user.nama_penuh, tbl_user.email, tbl_user.no_tel, table_main_agency.nama_agensi_induk,tbl_peranan.peranan')
             ->join('table_main_agency', 'tbl_user.id_agensi_induk = table_main_agency.id_agensi_induk', 'left')
+            ->join('tbl_peranan', 'tbl_user.`level` = tbl_peranan.id_peranan', 'left')
             ->where('tbl_user.id_user', $id_user)
             ->get()
             ->getRow(); // Bersamaan dengan row() dalam CI3

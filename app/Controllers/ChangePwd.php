@@ -13,7 +13,7 @@ class ChangePwd extends BaseController
         $this->Model_ChangePwd = new Model_ChangePwd();
     }
 
-   public function update()
+  public function update()
 {
     // 1. Set Peraturan Validation
     $rules = [
@@ -43,13 +43,14 @@ class ChangePwd extends BaseController
     // 2. Ambil data user dari model
     $user = $this->Model_ChangePwd->getUser($id_user);
 
-    // 3. Semak katalaluan lama (MD5)
+    // 3. Semak katalaluan lama (Guna password_verify)
+    // $user['password'] mestilah hash yang dijana oleh password_hash()
     if (!password_verify($old_pwd, $user['password'])) {
         session()->setFlashdata('errors', ['Katalaluan lama anda tidak tepat!']);
         return redirect()->back();
     }
 
-    // 4. Update jika semua OK
+    // 4. Update jika semua OK (Guna password_hash)
     $data = [
         'password' => password_hash($new_pwd, PASSWORD_DEFAULT)
     ];
@@ -59,4 +60,5 @@ class ChangePwd extends BaseController
     session()->setFlashdata('pesan', 'Katalaluan berjaya ditukar!');
     return redirect()->back();
 }
+
 }

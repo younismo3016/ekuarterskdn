@@ -61,7 +61,7 @@
 
     <div class="col-md-3">
         <div class="card card-stats p-3 shadow-sm" style="border-top-color: #dc3545;">
-            <span class="text-muted small fw-bold">JUMLAH UNIT KOSONG (BAIK)</span>
+            <span class="text-muted small fw-bold">UNIT KOSONG (BAIK)</span>
             <h3 class="fw-bold text-danger">
                 <?= number_format($row1['total_kosong_baik'] ?? 0); ?>
             </h3>
@@ -70,7 +70,7 @@
 
     <div class="col-md-3">
         <div class="card card-stats p-3 shadow-sm" style="border-top-color: #0d6efd;">
-            <span class="text-muted small fw-bold">JUMLAH UNIT KOSONG (ROSAK)</span>
+            <span class="text-muted small fw-bold">UNIT KOSONG (ROSAK)</span>
             <h3 class="fw-bold text-danger">
                 <?= number_format($row1['total_kosong_rosak'] ?? 0); ?>
             </h3>
@@ -159,14 +159,13 @@
                 <td class="text-center"><?= number_format($row['jumlah_unit']) ?></td>
                 
                 <td class="text-center">
-                   <a href="<?= site_url('utama/update_status/' . $row['id_agensi_induk'] . '/' . $bulan_angka . '/' . $tahun_angka) ?>" style="text-decoration: none;">
-        
+                   
         <span class="badge <?= $badge_class ?> p-2">
             <i class="bi <?= $icon ?> me-1"></i>
             <?= $status ?> 
             </span>
 
-    </a>
+    
                 </td>
                 <td class="text-center">
                     
@@ -182,9 +181,9 @@
 </a>
         
     <?php else: ?>
-        <button type="button" class="btn btn-sm btn-warning" title="Email Reminder" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
+        <!-- <button type="button" class="btn btn-sm btn-warning" title="Email Reminder" onclick="hantarPeringatan('<?= $row['nama_jabatan'] ?>')">
             <i class="bi bi-envelope-at"></i> 
-        </button>
+        </button> -->
         
     <?php endif; ?>
 

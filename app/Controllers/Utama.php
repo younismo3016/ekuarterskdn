@@ -57,24 +57,63 @@ class Utama extends BaseController
 	// Pastikan ini berada dalam Class Controller anda
 public function report_bulanan()
 {
-    // 1. Buang kurungan '{' berlebihan di sini
-    //$model = new \App\Models\StatistikAgensiModel(); // Cadangan: Gunakan full namespace jika perlu
+    $bulan_semasa   = (int)date('m'); 
+    $tahun_sekarang = (int)date('Y');
+    
+    $list_statistik_penuh = [];
+
+    // Loop 3 bulan (2 Bulan Lepas -> Bulan Semasa)
+    for ($i = 2; $i >= 0; $i--) {
+        $b = $bulan_semasa - $i;
+        $t = $tahun_sekarang;
+        
+        if ($b <= 0) {
+            $b += 12; // Pusing ke tahun lepas
+            $t -= 1;  
+        }
+        
+        // 1. Ambil data snapshot tepat untuk bulan & tahun ini
+        $row = $this->Model_Utama->getStatistikBulan($b, $t);
+        $row['nama_bulan'] = $this->getNamaBulan($b);
+        
+        // 2. Tentukan Status Dinamik (Siapa hantar, siapa tak hantar)
+        if ($row['jumlah_kuarters_berdaftar'] > 0 && $row['jumlah_hantar_semasa'] == $row['jumlah_kuarters_berdaftar']) {
+            // SEMUA agensi hantar bulan ini
+            $row['status_teks']   = 'SELESAI';
+            $row['status_hantar'] = 2; // Badge Hijau
+            
+        } elseif ($row['jumlah_hantar_semasa'] > 0) {
+            // SEPARUH hantar bulan ni, SEPARUH guna data bawaan bulan lepas
+            $row['status_teks']   = 'SEPARUH HANTAR (ADA BAWAAN)';
+            $row['status_hantar'] = 1; // Badge Kuning
+            
+        } elseif ($row['total_unit_dihuni'] > 0 || $row['total_unit_tidak_dihuni'] > 0) {
+            // TIADA hantar bulan ni, KESEMUA guna data bawaan bulan lepas
+            $row['status_teks']   = 'BELUM HANTAR (DATA BAWAAN)';
+            $row['status_hantar'] = 0; // Badge Kuning
+            
+        } else {
+            // Memang tak wujud data langsung dalam database untuk bulan ini/sebelumnya
+            $row['status_teks']   = 'TIADA DATA';
+            $row['status_hantar'] = 0; // Badge Kelabu
+        }
+
+        $list_statistik_penuh[] = $row;
+    }
 
     $data = [
         'title'               => 'Statistik Agensi Induk',
-        // 'list_statistik'      => $model->getStatistikByAll(1),
-		'list_statistik' => $this->Model_Utama->getStatistikByAll(),
+        'list_statistik'      => $list_statistik_penuh, 
         'isi'                 => 'utama/v_report_bulanan',
-        'bulan_sekarang'      => (int)date('m'),
-        'tahun_sekarang'      => (int)date('Y'),
-        // Panggil function helper
-        'nama_bulan_sekarang' => $this->getNamaBulan(date('m')) 
+        'bulan_sekarang'      => $bulan_semasa,
+        'tahun_sekarang'      => $tahun_sekarang,
+        'nama_bulan_sekarang' => $this->getNamaBulan($bulan_semasa) 
     ];
 
     return view('layout/v_wrapper', $data);
-} // 2. Pastikan kurungan penutup ini wujud sebelum function seterusnya bermula
+}
 
-// 3. Function ini mesti berada di luar 'report_bulanan'
+// Function helper Tuan (Kekal tiada perubahan)
 private function getNamaBulan($m) 
 {
     $bulan = [
@@ -83,16 +122,15 @@ private function getNamaBulan($m)
         9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Disember'
     ];
     
-    // Pastikan $m ditukar jadi integer supaya "02" menjadi 2
     return $bulan[(int)$m] ?? 'Bulan Tidak Sah'; 
 }
 
+// Function papar detail Tuan (Kekal tiada perubahan)
 public function report_bulanan_papar($bulan, $tahun)
 {
     $model = new \App\Models\Model_Utama();
     $id_agensi = session()->get('id_agensi_induk');
     
-    // Ambil input dari query string
     $search = $this->request->getVar('q') ?? '';
     $page = $this->request->getVar('page') ?? 1;
     $perPage = 10;
@@ -110,7 +148,6 @@ public function report_bulanan_papar($bulan, $tahun)
     $data = [
         'title'        => 'Paparan Statistik Kuarters',
         'isi'          => 'utama/v_report_papar', 
-        //'id_agensi'    => $id_agensi,
         'reports'      => $reports,
         'bulan'        => $bulan,
         'tahun'        => $tahun,

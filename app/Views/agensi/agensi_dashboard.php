@@ -79,23 +79,88 @@
 <div class="card border shadow-sm rounded-4 mb-4">
     <div class="card-body p-2">
         <div class="d-flex align-items-center justify-content-between">
+
+        
             
-            <div class="d-flex align-items-center">
-                <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                    <i class="bi bi-calendar3" style="font-size: 24px;"></i>
-                </div>
-                <div>
-                    <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 11px;">Status Laporan Terkini</div>
-                    <div class="fs-5 fw-bold text-dark">
-                        <?= strtoupper($bulan_melayu[(int)$latestDate['bulan']]) ?> <span class="text-primary"><?= $latestDate['tahun'] ?></span>
-                    </div>
-                </div>
-                <div class="ms-4 border-start ps-4 d-none d-md-block">
-                    <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
-                        <i class="bi bi-check-circle-fill me-1"></i> LAPORAN TELAH DISAHKAN
-                    </span>
-                </div>
+  <?php 
+    $bulanSemasa = (int)date('m');
+    $tahunSemasa = (int)date('Y');
+    
+    // Semak jika laporan sudah dihantar untuk bulan semasa
+    $isHantarBulanSemasa = (!empty($latestDate) && 
+                            (int)$latestDate['bulan'] == $bulanSemasa && 
+                            (int)$latestDate['tahun'] == $tahunSemasa);
+
+    // Semak jika draf wujud untuk bulan semasa
+    $isDrafBulanSemasa = (!empty($latestDateDraf) && 
+                          (int)($latestDateDraf['bulan'] ?? 0) == $bulanSemasa && 
+                          (int)($latestDateDraf['tahun'] ?? 0) == $tahunSemasa);
+?>
+
+<div class="d-flex align-items-center">
+    <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+        <i class="bi bi-calendar3" style="font-size: 24px;"></i>
+    </div>
+
+   <?php if ($isHantarBulanSemasa): ?>
+    <div>
+        <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 11px;">
+           Status Laporan Terkini
+        </div>
+        <div class="d-flex align-items-center mt-1">
+            <div class="fs-5 fw-bold text-dark">
+                <?= strtoupper($bulan_melayu[$bulanSemasa]) ?> <span class="text-primary"><?= $tahunSemasa ?></span>
             </div>
+            
+            <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle ms-3 d-flex align-items-center" 
+                  style="font-size: 10px; font-weight: 700; padding: 4px 10px; letter-spacing: 0.3px;">
+                <i class="bi bi-check-circle-fill me-1" style="font-size: 11px;"></i> 
+                TELAH DIHANTAR
+            </span>
+        </div>
+    </div>
+
+    <?php else: ?>
+        <div>
+            <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 11px;">Laporan Terakhir Dihantar</div>
+            <?php if (!empty($latestDate)): ?>
+                <div class="fs-5 fw-bold text-dark">
+                    <?= strtoupper($bulan_melayu[(int)$latestDate['bulan']]) ?> <span class="text-primary"><?= $latestDate['tahun'] ?></span>
+                </div>
+            <?php else: ?>
+                <div class="fs-5 fw-bold text-muted">TIADA REKOD</div>
+            <?php endif; ?>
+        </div>
+
+        <div class="border-start mx-4 d-none d-md-block" style="height: 35px; border-color: #dee2e6 !important;"></div>
+
+        <div>
+            <div class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px; font-size: 11px;">
+                Status Laporan 
+                <span class="text-primary fw-black ms-1" style="font-size: 14px;">
+                    <?= strtoupper($bulan_melayu[$bulanSemasa] ?? 'SEMASA') ?> 
+                    <span class="text-dark"><?= $tahunSemasa ?></span>
+                </span>
+            </div>
+            
+            <div class="d-flex align-items-center mt-1">
+                <?php if ($isDrafBulanSemasa): ?>
+                    <?php 
+                        $status_val = (int)($latestDateDraf['status'] ?? 0);
+                        $status_class = ($status_val === 2) ? 'success' : 'warning';
+                    ?>
+                    <span class="badge bg-<?= $status_class ?>-subtle text-<?= $status_class ?> border border-<?= $status_class ?>-subtle px-3 py-1 rounded-pill small text-uppercase">
+                        <?= $latestDateDraf['status_label'] ?? 'DRAF' ?>
+                    </span>
+                <?php else: ?>
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-3 small text-uppercase">
+                        <i class="bi bi-exclamation-circle me-1"></i> Belum Dimulakan
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
 
             <div class="me-2" style="width: 300px;">
                 <div class="input-group">

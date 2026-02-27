@@ -43,6 +43,8 @@
 <body class="bg-login">
 
   <main>
+
+  <canvas id="marbleCanvas"></canvas>
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -186,6 +188,97 @@
             }, 3500); // 5.5 seconds (slightly longer to allow fade-out animation to complete)
         });
     });
+</script>
+<canvas id="marbleCanvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('marbleCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let particles = [];
+  const particleCount = 40; // Jumlah guli
+  const connectionDistance = 140; // Jarak garisan muncul
+  let mouse = { x: null, y: null };
+
+  // Track pergerakan mouse
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+
+  function init() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = [];
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 12 + 4,
+        dx: (Math.random() - 0.5) * 0.8,
+        dy: (Math.random() - 0.5) * 0.8,
+        opacity: Math.random() * 0.3 + 0.1
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = 0; i < particles.length; i++) {
+      let p = particles[i];
+
+      // Logik Mouse: Guli akan "lari" sikit bila mouse dekat
+      let dxM = mouse.x - p.x;
+      let dyM = mouse.y - p.y;
+      let distM = Math.sqrt(dxM * dxM + dyM * dyM);
+      if (distM < 100) {
+        if (mouse.x > p.x) p.x -= 2; else p.x += 2;
+        if (mouse.y > p.y) p.y -= 2; else p.y += 2;
+      }
+
+      // Lukis Garisan Sambungan
+      for (let j = i + 1; j < particles.length; j++) {
+        let p2 = particles[j];
+        let dx = p.x - p2.x;
+        let dy = p.y - p2.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectionDistance) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist/connectionDistance * 0.2})`;
+          ctx.lineWidth = 0.6;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+
+      // Lukis Biji Guli (Glass Effect)
+      let grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+      grad.addColorStop(0, `rgba(255, 255, 255, ${p.opacity + 0.2})`);
+      grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Gerakkan guli
+      p.x += p.dx;
+      p.y += p.dy;
+
+      // Pantulan dinding
+      if (p.x > canvas.width || p.x < 0) p.dx *= -1;
+      if (p.y > canvas.height || p.y < 0) p.dy *= -1;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', init);
+  init();
+  draw();
 </script>
 
 </body>

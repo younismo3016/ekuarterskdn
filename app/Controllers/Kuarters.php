@@ -46,8 +46,9 @@ class Kuarters extends BaseController
     $nama_kuarters = $this->request->getVar('nama_kuarters');
     $kod_kuarters  = $this->request->getVar('kod_kuarters');
 	$id_negeri     = $this->request->getVar('id_negeri');
+	$id_agensi_induk = $this->request->getVar('id_agensi_induk');
     // 2. Panggil Model untuk siapkan query (tapi belum execute)
-    $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters, $id_negeri);
+     $this->Model_Kuarters->list_kuarters($nama_kuarters, $kod_kuarters, $id_negeri, $id_agensi_induk);
 
     $data = [
         'title'           => 'Kuarters Pengguna',
@@ -65,10 +66,13 @@ class Kuarters extends BaseController
         'list_sub_agensi' => $this->Model_Sub_Agensi->get_all_data(),
         'list_state'      => $this->Model_State->get_all_data(),
         'list_district'   => $this->Model_District->get_all_data(),
+		'list_kategori'   => $this->Model_Kuarters->get_senarai_kelas(),
         
         // Hantar balik input carian supaya tak hilang lepas search
         'carian_nama'     => $nama_kuarters,
         'carian_kod'      => $kod_kuarters,
+		'carian_agensi'   => $id_agensi_induk,
+		'carian_negeri'   => $id_negeri,
     ];
 
     return view('layout/v_wrapper', $data);
@@ -109,7 +113,7 @@ class Kuarters extends BaseController
 			'id_agensi_induk' => $this->request->getPost('id_agensi_induk'),
 			'kod_kuarters' => $this->request->getPost('kod_kuarters'),
 			'nama_kuarters' => $this->request->getPost('nama_kuarters'),
-			'jenis_kuarters' => $this->request->getPost('jenis_kuarters'),
+			//'jenis_kuarters' => $this->request->getPost('jenis_kuarters'),
 			'tahun_siap' => $this->request->getPost('tahun_siap'),
 			'id_sub_agensi' => $this->request->getPost('id_sub_agensi'),
 			'id_negeri' => $this->request->getPost('id_negeri'),
@@ -120,19 +124,32 @@ class Kuarters extends BaseController
 		return redirect()->to(site_url('kuarters/list_kuarters'));
 	}
 
-	public function edit_user_proses($id_user)
-	{
-		$data = [
-			'nama_penuh' => $this->request->getPost('nama_penuh'),
-			'email' => $this->request->getPost('email'),
-			'no_tel' => $this->request->getPost('no_tel'),
-			'password' =>md5($this->request->getPost('password')),
-			'level' => $this->request->getPost('level'),
-			'id_bahagian' => $this->request->getPost('id_bahagian'),
+	
+public function update_kelas_process($id_kuarters)
+{
+    $kategori_ids = $this->request->getPost('kategori_kuarters'); // Ini akan jadi array
 
-		];
-		$this->Model_User->update_user($data, $id_user);
-		session()->setFlashdata('pesan', 'Data Berjaya Diedit');
-		return redirect()->to(base_url('Admin/list_user'));
-	}
+    $db = \Config\Database::connect();
+    $builder = $db->table('table_jenis_kuarters');
+
+    // 1. Padam data lama untuk kuarters ini
+    $builder->where('id_kuarters', $id_kuarters)->delete();
+
+    // 2. Masukkan data baru jika ada pilihan
+    if (!empty($kategori_ids)) {
+        $data_insert = [];
+        foreach ($kategori_ids as $id_kat) {
+            $data_insert[] = [
+                'id_kuarters' => $id_kuarters,
+                'id_kategori_kuarters' => $id_kat
+            ];
+        }
+        $builder->insertBatch($data_insert);
+    }
+
+    session()->setFlashdata('pesan', 'Jenis Kuarters Berjaya Dikemaskini');
+    return redirect()->back();
+}
+
+
 }

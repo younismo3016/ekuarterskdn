@@ -1,6 +1,8 @@
 <!-- Main content -->
 
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
 <section class="content">
 
 
@@ -45,43 +47,59 @@
                 <div class="row">
                   <!-- kiri Peranan (Role) dropdown -->
                   <div class="col-md-6">
-        <div class="form-floating mb-3">
-            <select class="form-select" id="floatingNegeri" name="id_negeri" aria-label="Pilih Negeri">
-                <option value="">-- Semua Negeri --</option>
-                <?php if (isset($list_state) && !empty($list_state)) : ?>
-                    <?php foreach ($list_state as $state) : ?>
-                        <option value="<?= $state['id_adm_state'] ?>" <?= (isset($carian_negeri) && $carian_negeri == $state['id_adm_state']) ? 'selected' : '' ?>>
-                            <?= $state['state_description'] ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-            <label for="floatingNegeri">Negeri</label>
-        </div>
-    </div>
-                <div class="row">
-
-
-                </div>
-                <!-- kanan  -->
-
-
-
-
-
-                <!-- Button positioned at the bottom -->
-                <div class="row">
-                  <div class="col-md-12 text-end">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="bi bi-search me-1"></i>Cari
-                    </button>
+                    <div class="form-floating mb-3">
+                      <select class="form-select" id="floatingNegeri" name="id_negeri" aria-label="Pilih Negeri">
+                        <option value="">-- Semua Negeri --</option>
+                        <?php if (isset($list_state) && !empty($list_state)) : ?>
+                          <?php foreach ($list_state as $state) : ?>
+                            <option value="<?= $state['id_adm_state'] ?>" <?= (isset($carian_negeri) && $carian_negeri == $state['id_adm_state']) ? 'selected' : '' ?>>
+                              <?= $state['state_description'] ?>
+                            </option>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </select>
+                      <label for="floatingNegeri">Negeri</label>
+                    </div>
                   </div>
-                </div>
 
+                  <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                      <select class="form-select" id="floatingNegeri" name="id_agensi_induk" aria-label="Pilih Agensi">
+                        <option value="">-- Semua Agensi --</option>
+                        <?php if (isset($list_agensi) && !empty($list_agensi)) : ?>
+                          <?php foreach ($list_agensi as $agensi) : ?>
+                            <option value="<?= $agensi['id_agensi_induk'] ?>" <?= (isset($carian_agensi) && $carian_agensi == $agensi['id_agensi_induk']) ? 'selected' : '' ?>>
+                              <?= $agensi['nama_agensi_induk'] ?>
+                            </option>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </select>
+                      <label for="floatingNegeri">Agensi</label>
+                    </div>
+                  </div>
+                  <div class="row">
+
+
+                  </div>
+                  <!-- kanan  -->
+
+
+
+
+
+                  <!-- Button positioned at the bottom -->
+                  <div class="row">
+                    <div class="col-md-12 text-end">
+                      <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search me-1"></i>Cari
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
           </div>
         </div>
-      </div>
     </section>
 
     </form>
@@ -154,17 +172,17 @@
 
                         <td class="text-center">
                           <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm" title="Lihat">
-                              <i class="fa fa-sticky-note-o"></i>
-                            </button>
+                            <button type="button" class="btn btn-success btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modal-kelas<?= $row['id_kuarters'] ?>"
+                              title="Kemaskini Jenis Kuarters">
+                              <i class="bi bi-tag"></i> </button>
 
                             <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable<?= $row['id_kuarters'] ?>" title="Edit">
                               <i class="bi bi-pencil-square"></i>
                             </button>
 
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modal-password<?= $row['id_kuarters'] ?>" title="Tukar Password">
-                              <i class="bi bi-lock"></i>
-                            </button>
+                            
                           </div>
                         </td>
                       </tr>
@@ -182,35 +200,35 @@
 
 
               <div class="row mt-3 align-items-center">
-    
-    <div class="col-md-6 col-sm-12 text-muted">
-        <?php
-            // 1. Dapatkan info dari object Pager
-            $total    = $pager->getTotal();         // Jumlah semua data (contoh: 50)
-            $perPage  = $pager->getPerPage();       // Data per page (contoh: 10)
-            $current  = $pager->getCurrentPage();   // Page sekarang (contoh: 2)
 
-            // 2. Kira 'Dari' (Start)
-            // Kalau total 0, start mesti 0. Kalau tak, kira: (Page-1 * 10) + 1
-            $start = ($total == 0) ? 0 : (($current - 1) * $perPage) + 1;
+                <div class="col-md-6 col-sm-12 text-muted">
+                  <?php
+                  // 1. Dapatkan info dari object Pager
+                  $total    = $pager->getTotal();         // Jumlah semua data (contoh: 50)
+                  $perPage  = $pager->getPerPage();       // Data per page (contoh: 10)
+                  $current  = $pager->getCurrentPage();   // Page sekarang (contoh: 2)
 
-            // 3. Kira 'Hingga' (End)
-            $end   = $current * $perPage;
+                  // 2. Kira 'Dari' (Start)
+                  // Kalau total 0, start mesti 0. Kalau tak, kira: (Page-1 * 10) + 1
+                  $start = ($total == 0) ? 0 : (($current - 1) * $perPage) + 1;
 
-            // 4. Kalau 'Hingga' lebih besar dari Total, set jadi Total
-            if ($end > $total) {
-                $end = $total;
-            }
-        ?>
+                  // 3. Kira 'Hingga' (End)
+                  $end   = $current * $perPage;
 
-        Memaparkan <b><?= $start ?></b> hingga <b><?= $end ?></b> daripada <b><?= number_format($total) ?></b> rekod
-    </div>
+                  // 4. Kalau 'Hingga' lebih besar dari Total, set jadi Total
+                  if ($end > $total) {
+                    $end = $total;
+                  }
+                  ?>
 
-    <div class="col-md-6 col-sm-12 d-flex justify-content-end">
-        <?= $pager->links('default', 'bootstrap_pagination') ?>
-    </div>
+                  Memaparkan <b><?= $start ?></b> hingga <b><?= $end ?></b> daripada <b><?= number_format($total) ?></b> rekod
+                </div>
 
-</div>
+                <div class="col-md-6 col-sm-12 d-flex justify-content-end">
+                  <?= $pager->links('default', 'bootstrap_pagination') ?>
+                </div>
+
+              </div>
 
               </tbody>
               <!-- End Table with stripped rows -->
@@ -375,6 +393,82 @@
       <?php echo form_close(); ?>
     <?php } ?>
 
+
+    <?php foreach ($list_kuarters as $row) { ?>
+
+  <div class="modal fade" id="modal-kelas<?= $row['id_kuarters'] ?>" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> <div class="modal-content">
+        
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">
+              <i class="bi bi-tags me-2"></i>Kemaskini Jenis Kuarters
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <?= form_open('Kuarters/update_kelas_process/' . $row['id_kuarters']); ?>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="mb-3">
+                <label class="form-label text-muted">Nama Kuarters</label>
+                <input type="text" class="form-control" value="<?= $row['nama_kuarters'] ?>" readonly disabled>
+              </div>
+
+         <div class="mb-3">
+    <label class="form-label fw-bold">Pilih Jenis Kuarters (Kelas)</label>
+    
+   <?php 
+    // Tukar string "1,2" kepada array [1, 2]
+    $current_selected_ids = !empty($row['selected_ids']) ? explode(',', $row['selected_ids']) : []; 
+?>
+
+<select name="kategori_kuarters[]" class="tom-select" multiple>
+    <?php if (isset($list_kategori) && !empty($list_kategori)) : ?>
+        <?php foreach ($list_kategori as $kategori) : ?>
+            <?php 
+                // 1. Ambil huruf sahaja dari "A - KELAS A"
+                $parts = explode(' - ', $kategori['kelas']);
+                $label_huruf = trim($parts[0]);
+
+                // 2. Bersihkan keterangan dari perkataan "KELAS" dan "Huruf" itu sendiri
+                $cari = ['KELAS', $label_huruf]; 
+                $keterangan_bersih = trim(str_ireplace($cari, '', $kategori['keterangan_kategori_kuarters']));
+            ?>
+            <option value="<?= $kategori['id_kategori_kuarters'] ?>" 
+                <?= in_array($kategori['id_kategori_kuarters'], $current_selected_ids) ? 'selected' : '' ?>>
+                
+                <?= esc($label_huruf) ?> 
+                <?php if (!empty($keterangan_bersih)): ?>
+                    - <?= esc($keterangan_bersih) ?>
+                <?php endif; ?>
+
+            </option>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</select>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-success">
+              <i class="bi bi-save me-1"></i> Simpan Perubahan
+          </button>
+        </div>
+
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+
+<?php } ?>
+
     <div class="modal fade" id="modal-tambah" tabindex="-1">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -458,9 +552,64 @@
     </div>
     <?php echo form_close(); ?>
 
+<script>
+$(document).ready(function() {
+    // Kita guna event 'shown.bs.modal' supaya Select2 dimulakan 
+    // HANYA selepas modal muncul sepenuhnya.
+    $('.modal').on('shown.bs.modal', function () {
+        var modalId = $(this).attr('id');
+        $(this).find('.select2-khas').select2({
+            theme: 'bootstrap-5', // Jika anda guna Bootstrap 5
+            placeholder: "Sila pilih...",
+            allowClear: true,
+            width: '100%',
+            dropdownParent: $('#' + modalId) // WAJIB ada supaya dropdown muncul di atas modal
+        });
+    });
+});
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Objek untuk menyimpan instance TomSelect supaya tidak berlaku duplicate init
+    var tomInstances = {};
 
+    // Apabila modal kelas dibuka
+    $('.modal[id^="modal-kelas"]').on('shown.bs.modal', function () {
+        var modal = $(this);
+        var selectEl = modal.find('.tom-select')[0];
+        
+        if (selectEl && !selectEl.tomselect) {
+            new TomSelect(selectEl, {
+                plugins: ['remove_button'],
+                create: false,
+                placeholder: 'Sila pilih kelas...',
+                hideSelected: true,
+                dropdownParent: 'body' // Supaya menu tidak terpotong oleh modal
+            });
+        }
+    });
+});
+</script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Cari semua element dengan class tom-select
+    document.querySelectorAll('.tom-select').forEach((el) => {
+        new TomSelect(el, {
+            plugins: ['remove_button'],
+            create: false,
+            persist: false,
+            placeholder: 'Sila pilih kelas...',
+            hideSelected: true,
+        });
+    });
+});
+
+// Jika anda guna Bootstrap Modal, kadangkala TomSelect perlu re-init 
+// tapi biasanya kod di atas sudah memadai jika modal di-render dalam loop.
+</script>
 
   </main>
 </section>

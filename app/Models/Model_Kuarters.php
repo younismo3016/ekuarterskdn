@@ -26,27 +26,22 @@ class Model_Kuarters extends Model
         $this->db->table('table_quarters_profile')->update($data, array('id_kuarters' => $id_kuarters));
     }
 
-    public function list_kuarters($nama_kuarters = null, $kod_kuarters = null, $id_negeri = null)
+    public function list_kuarters($nama_kuarters = null, $kod_kuarters = null, $id_negeri = null, $id_agensi_induk = null)
 {
-    // 1. Guna $this (Model) supaya boleh sambung dengan paginate() nanti
-    // Kita set table secara spesifik jika perlu, atau guna default model table
     $this->table('table_quarters_profile'); 
 
-    // 2. Pilih kolum (Sama macam kod asal anda)
     $this->select('
         table_quarters_profile.*, 
-        GROUP_CONCAT(adm_quarters_category.kelas SEPARATOR ", ") as senarai_kelas
-    ');
+        GROUP_CONCAT(DISTINCT adm_quarters_category.kelas SEPARATOR ", ") as senarai_kelas,
+        GROUP_CONCAT(DISTINCT adm_quarters_category.id_kategori_kuarters) as selected_ids
+    '); // <--- PENTING: Tambah selected_ids di sini
 
-    // 3. Join (Sama macam asal)
     $this->join('table_jenis_kuarters', 'table_jenis_kuarters.id_kuarters = table_quarters_profile.id_kuarters', 'left');
     $this->join('adm_quarters_category', 'adm_quarters_category.id_kategori_kuarters = table_jenis_kuarters.id_kategori_kuarters', 'left');
 
-    // 4. Group By & Order (Sama macam asal)
     $this->groupBy('table_quarters_profile.id_kuarters');
     $this->orderBy('table_quarters_profile.id_kuarters', 'DESC');
 
-    // 5. Logik Carian
     if ($nama_kuarters) {
         $this->like('table_quarters_profile.nama_kuarters', $nama_kuarters, 'both');
     }
@@ -56,12 +51,9 @@ class Model_Kuarters extends Model
     if ($id_negeri) {
         $this->where('table_quarters_profile.id_negeri', $id_negeri);
     }
-
-    // PENTING:
-    // 1. Kita BUANG $builder->limit(100) -> Sebab pagination akan uruskan limit.
-    // 2. Kita BUANG return $builder->get() -> Kita tak nak data lagi.
-    
-    // Kita tak perlu return apa-apa, sebab query dah disimpan dalam memory Model ($this)
+    if ($id_agensi_induk) {
+        $this->where('table_quarters_profile.id_agensi_induk', $id_agensi_induk);
+    }
 }
 
     function kuarters($nama_kuarters, $kod_kuarters)
@@ -97,4 +89,25 @@ class Model_Kuarters extends Model
         // Jalankan query dan pulangkan hasil
         return $builder->get()->getResultArray();
     }
+
+
+public function get_kuarters_with_kelas()
+{
+    return $this->select('table_kuarters.*, 
+                 GROUP_CONCAT(DISTINCT table_jenis_kuarters.id_kategori_kuarters) as selected_ids')
+                ->join('table_jenis_kuarters', 'table_jenis_kuarters.id_kuarters = table_kuarters.id_kuarters', 'left')
+                ->groupBy('table_kuarters.id_kuarters');
+}
+
+// Fail: app/Models/Model_Kuarters.php
+
+public function get_senarai_kelas() 
+{
+    // Kita gunakan REPLACE terus dalam SQL query
+    return $this->db->table('adm_quarters_category')
+                    ->select('id_kategori_kuarters, REPLACE(kelas, "KELAS ", "") as kelas, keterangan_kategori_kuarters')
+                    ->get()
+                    ->getResultArray(); 
+}
+
 }

@@ -118,7 +118,7 @@
 
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title d-flex align-items-center">
-            <i class="bi bi-shield-lock me-2"></i> Tukar Katalaluan
+            <i class="bi bi-shield-lock me-2"></i> Tukar Kata laluan
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -127,34 +127,43 @@
           <?= csrf_field() ?>
           <div class="modal-body p-4">
 
-            <p class="text-muted small mb-4">Pastikan katalaluan anda selamat dan sukar diteka oleh orang lain.</p>
+            <p class="text-muted small mb-4">Pastikan kata laluan anda selamat dan sukar diteka oleh orang lain.</p>
 
             <div class="mb-4">
-              <label class="form-label fw-bold text-secondary small">KATALALUAN LAMA</label>
+              <label class="form-label fw-bold text-secondary small">KATA LALUAN LAMA</label>
               <div class="input-group">
                 <span class="input-group-text bg-light border-end-0"><i class="bi bi-key text-muted"></i></span>
-                <input type="password" name="old_password" class="form-control border-start-0 bg-light" placeholder="Masukkan katalaluan asal" required>
+                <input type="password" name="old_password" class="form-control border-start-0 bg-light" placeholder="Masukkan kata laluan lama" required>
               </div>
             </div>
 
             <hr class="text-black-50 my-4">
 
-            <div class="mb-3">
-              <label class="form-label fw-bold text-secondary small">KATALALUAN BARU</label>
-              <div class="input-group">
-                <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
-                <input type="password" name="new_password" class="form-control border-start-0 bg-light" placeholder="Minimum 8 aksara" minlength="8" required>
-              </div>
-              <div id="passwordHelp" class="form-text small"><i class="bi bi-info-circle me-1"></i> Gunakan gabungan huruf dan nombor.</div>
-            </div>
+<div class="mb-3">
+    <label class="form-label fw-bold text-secondary small">KATA LALUAN BAHARU</label>
+    <div class="input-group">
+        <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+        <input type="password" id="new_password" name="new_password" class="form-control border-start-0 bg-light" placeholder="Minimum 12 aksara" required>
+    </div>
+    <div id="password-requirements" class="small mt-2">
+        <div id="req-length" class="text-danger"><i class="bi bi-x-circle me-1"></i> Minimum 12 aksara</div>
+        <div id="req-upper" class="text-danger"><i class="bi bi-x-circle me-1"></i> Huruf besar (A-Z)</div>
+        <div id="req-lower" class="text-danger"><i class="bi bi-x-circle me-1"></i> Huruf kecil (a-z)</div>
+        <div id="req-number" class="text-danger"><i class="bi bi-x-circle me-1"></i> Nombor (0-9)</div>
+        <div id="req-symbol" class="text-danger"><i class="bi bi-x-circle me-1"></i> Simbol (@$!%*?&)</div>
+    </div>
+</div>
 
-            <div class="mb-2">
-              <label class="form-label fw-bold text-secondary small">SAHKAN KATALALUAN BARU</label>
-              <div class="input-group">
-                <span class="input-group-text bg-light border-end-0"><i class="bi bi-check-all text-muted"></i></span>
-                <input type="password" name="confirm_password" class="form-control border-start-0 bg-light" placeholder="Taip semula katalaluan baru" required>
-              </div>
-            </div>
+<div class="mb-2">
+  <label class="form-label fw-bold text-secondary small">SAHKAN KATA LALUAN BAHARU</label>
+  <div class="input-group">
+    <span class="input-group-text bg-light border-end-0"><i class="bi bi-check-all text-muted"></i></span>
+    <input type="password" id="confirm_password" name="confirm_password" class="form-control border-start-0 bg-light" placeholder="Taip semula kata laluan baharu" required>
+  </div>
+  <div id="match-error" class="small mt-2 d-none">
+    <span class="text-danger"><i class="bi bi-exclamation-circle me-1"></i> Kata laluan tidak sepadan.</span>
+  </div>
+</div>
 
           </div>
 
@@ -169,6 +178,66 @@
     </div>
   </div>
 
+<script>
+const passwordInput = document.getElementById('new_password');
+const confirmInput = document.getElementById('confirm_password');
+const matchError = document.getElementById('match-error');
 
+// Objek Kriteria (dari kod sebelum ini)
+const requirements = {
+    length: { el: document.getElementById('req-length'), regex: /.{12,}/ },
+    upper:  { el: document.getElementById('req-upper'),  regex: /[A-Z]/ },
+    lower:  { el: document.getElementById('req-lower'),  regex: /[a-z]/ },
+    number: { el: document.getElementById('req-number'), regex: /[0-9]/ },
+    symbol: { el: document.getElementById('req-symbol'), regex: /[@$!%*?&]/ }
+};
+
+function validateAll() {
+    const passVal = passwordInput.value;
+    const confirmVal = confirmInput.value;
+    let isComplexityValid = true;
+
+    // 1. Semak Kompleksiti (12 aksara, simbol, dll)
+    for (const key in requirements) {
+        const item = requirements[key];
+        const isValid = item.regex.test(passVal);
+        
+        if (isValid) {
+            item.el.classList.replace('text-danger', 'text-success');
+            item.el.querySelector('i').classList.replace('bi-x-circle', 'bi-check-circle');
+        } else {
+            item.el.classList.replace('text-success', 'text-danger');
+            item.el.querySelector('i').classList.replace('bi-check-circle', 'bi-x-circle');
+            isComplexityValid = false;
+        }
+    }
+
+    // 2. Semak Padanan (Matching)
+    if (confirmVal === "") {
+        matchError.classList.add('d-none');
+        confirmInput.setCustomValidity("Sila sahkan kata laluan");
+    } else if (passVal !== confirmVal) {
+        matchError.classList.remove('d-none');
+        confirmInput.classList.add('is-invalid');
+        confirmInput.setCustomValidity("Kata laluan tidak sepadan");
+    } else {
+        matchError.classList.add('d-none');
+        confirmInput.classList.remove('is-invalid');
+        confirmInput.classList.add('is-valid');
+        confirmInput.setCustomValidity("");
+    }
+
+    // Halang submit jika kompleksiti tidak lepas
+    if (!isComplexityValid) {
+        passwordInput.setCustomValidity("Katalaluan tidak memenuhi syarat");
+    } else {
+        passwordInput.setCustomValidity("");
+    }
+}
+
+// Jalankan fungsi setiap kali pengguna menaip
+passwordInput.addEventListener('input', validateAll);
+confirmInput.addEventListener('input', validateAll);
+</script>
   
   <?= view_cell('\App\Cells\UserCell::paparkanProfil') ?>

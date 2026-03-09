@@ -10,13 +10,16 @@ class Model_Level extends Model
     protected $primaryKey = 'id_peranan';
     protected $allowedFields = [
         'peranan',
-        'id_peranan',  
-       
+        'id_peranan',
+
     ];
 
     public function get_all_data()
     {
-        return $this->db->table('tbl_peranan')->get()->getResultArray();
+        return $this->db->table('tbl_peranan')
+            ->orderBy('peranan', 'DESC') // DESC untuk susunan Z-A
+            ->get()
+            ->getResultArray();
     }
 
     public function add_level($data)
@@ -33,5 +36,4 @@ class Model_Level extends Model
     {
         $this->db->table('tbl_peranan')->update($data, array('id_peranan' => $id_peranan));
     }
-
 }

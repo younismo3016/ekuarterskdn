@@ -272,7 +272,7 @@
       <?php echo form_close(); ?>
     <?php } ?>
 
-    <div class="modal fade" id="modal-tambah" tabindex="-1">
+    <div class="modal fade" id="modal-tambah" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -282,92 +282,100 @@
 
 
 
-          <div class="modal-body">
-            <?php echo form_open('Admin/add_user'); ?>
+          <?php $errors = session()->getFlashdata('errors'); ?>
 
-            <div class="col-md-12">
-              <!-- Name input with form-floating -->
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingName" name="nama_penuh" value="" placeholder="Nama">
-                <label for="floatingName">Nama</label>
-              </div>
+<div class="modal-body">
+    <?php echo form_open('Admin/add_user'); ?>
 
-              <!-- Email input with form-floating -->
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingEmail" name="email" value="" placeholder="Email">
-                <label for="floatingEmail">Email</label>
-              </div>
-
-              <!-- No HP input with form-floating -->
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingNoHp" name="no_tel" value="" placeholder="No HP">
-                <label for="floatingNoHp">No HP</label>
-              </div>
-
-              <!-- Bahagian (Role) dropdown -->
-              <div class="form-floating mb-3">
-                <select id="id_agensi_induk" name="id_agensi_induk" class="form-control select2" style="width: 100%;">
-
-                  <option value="">--sila pilih--</option>
-                  <?php foreach ($list_agensi as $row): ?>
-                    <option value="<?= $row['id_agensi_induk']  ?>"><?= $row['nama_agensi_induk'] ?></option>
-
-                  <?php endforeach; ?>
-
-                </select>
-                <label for="floatingLevel">Agensi</label>
-              </div>
-
-              <!-- <div class="form-floating mb-3">
-                <select id="id_sub_agensi" name="id_sub_agensi" class="form-control select2" style="width: 100%;">
-
-                  <option value="">--sila pilih--</option>
-                  <?php foreach ($list_sub_agensi as $row): ?>
-                    <option value="<?= $row['id_sub_agensi']  ?>"><?= $row['nama_sub_agensi'] ?></option>
-                  <?php endforeach; ?>
-
-                </select>
-                <label for="floatingLevel">Sub Agensi</label>
-              </div> -->
-
-
-
-              <!-- Peranan (Role) dropdown -->
-              <div class="form-floating mb-3">
-                <select id="floatingLevel" name="level" id="level" class="form-select">
-                  <option value="">--Sila Pilih--</option>
-                  <?php foreach ($list_level as $row): ?>
-                    <option value="<?= $row['id_peranan']  ?>"><?= $row['peranan'] ?></option>
-
-                  <?php endforeach; ?>
-
-                </select>
-                <label for="floatingLevel">Peranan</label>
-              </div>
-
-              
-            
-
-             
-
-
-              <!-- Password input with form-floating -->
-
+    <div class="col-md-12">
+        
+        <div class="form-floating mb-3">
+            <input type="text" 
+                   class="form-control <?= isset($errors['nama_penuh']) ? 'is-invalid' : '' ?>" 
+                   id="floatingName" 
+                   name="nama_penuh" 
+                   value="<?= old('nama_penuh') ?>" 
+                   placeholder="Nama">
+            <label for="floatingName">Nama</label>
+            <div class="invalid-feedback">
+                <?= $errors['nama_penuh'] ?? '' ?>
             </div>
-
-            <!-- Modal footer with submit button -->
-
-
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </div>
         </div>
-      </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" 
+                   class="form-control <?= isset($errors['email']) ? 'is-invalid' : '' ?>" 
+                   id="floatingEmail" 
+                   name="email" 
+                   value="<?= old('email') ?>" 
+                   placeholder="Email">
+            <label for="floatingEmail">Email</label>
+            <div class="invalid-feedback">
+                <?= $errors['email'] ?? '' ?>
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" 
+                   class="form-control <?= isset($errors['no_tel']) ? 'is-invalid' : '' ?>" 
+                   id="floatingNoHp" 
+                   name="no_tel" 
+                   value="<?= old('no_tel') ?>" 
+                   placeholder="No HP">
+            <label for="floatingNoHp">No HP</label>
+            <div class="invalid-feedback">
+                <?= $errors['no_tel'] ?? '' ?>
+            </div>
+        </div>
+
+        
+
+        <div class="form-floating mb-3">
+            <select id="floatingLevel" 
+                    name="level" 
+                    class="form-select <?= isset($errors['level']) ? 'is-invalid' : '' ?>">
+                <option value="">--Sila Pilih--</option>
+                <?php foreach ($list_level as $row): ?>
+                    <option value="<?= $row['id_peranan'] ?>" <?= old('level') == $row['id_peranan'] ? 'selected' : '' ?>>
+                        <?= $row['peranan'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <label for="floatingLevel">Peranan</label>
+            <div class="invalid-feedback">
+                <?= $errors['level'] ?? '' ?>
+            </div>
+        </div>
+        
+
+        <div class="form-floating mb-3">
+            <select id="floatingAgensi" 
+                    name="id_agensi_induk" 
+                    class="form-select select <?= isset($errors['id_agensi_induk']) ? 'is-invalid' : '' ?>">
+                <option value="">--sila pilih--</option>
+                <?php foreach ($list_agensi as $row): ?>
+                    <option value="<?= $row['id_agensi_induk'] ?>" <?= old('id_agensi_induk') == $row['id_agensi_induk'] ? 'selected' : '' ?>>
+                        <?= $row['nama_agensi_induk'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <label for="id_agensi_induk">Agensi</label>
+            <div class="invalid-feedback">
+                <?= $errors['id_agensi_induk'] ?? '' ?>
+            </div>
+        </div>
+
     </div>
+
+    <div class="modal-footer px-0 pb-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+
     <?php echo form_close(); ?>
+</div>
+
+
 
 
     <?php
@@ -414,4 +422,5 @@
 
   </main>
 </section>
+
 <!-- End Main content -->

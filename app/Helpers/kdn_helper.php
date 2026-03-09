@@ -228,11 +228,11 @@ function get_peranan($value){
         $value =  "Pentadbir Sistem";
     
     }else if($value == 2){
-        $value =  "Urusetia Jabatan";
+        $value =  "Pentadbir Agensi";
     }else if($value ==3){
-        $value =  "Agensi";
+        $value =  "Pengguna Biasa";
     }else if($value == 4){
-        $value =  "Sub Agensi";
+        $value =  "Admin Agensi";
     }
     else if($value == 6){
         $value =  "Pelaksana(PPTM)";

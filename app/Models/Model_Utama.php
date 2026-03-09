@@ -30,86 +30,89 @@ class Model_Utama extends Model
 
 
 
-    public function get_laporan_agensi()
+   public function get_laporan_agensi()
 {
-    // Dapatkan bulan dan tahun semasa secara dinamik
-    $bulan_semak = date('n'); // Bulan 1-12
-    $tahun_semak = date('Y'); // Tahun cth: 2026
+    // 1. Dapatkan tarikh semasa (Pastikan ia nombor/integer)
+    $bulan_semak = (int)date('n'); 
+    $tahun_semak = (int)date('Y'); 
 
+    // 2. Dapatkan data dari Session
+    $peranan   = session()->get('level'); 
+    $id_agensi = (int)session()->get('id_agensi_induk'); // Pastikan integer untuk keselamatan
+
+    // 3. Bina Asas SQL (Masukkan terus nilai bulan & tahun ke dalam string)
     $sql = "
-        -- Tetapkan Bulan/Tahun Untuk Semakan Status di sini
-
-
-SELECT 
-    ma.id_agensi_induk, ma.nama_agensi_induk AS nama_jabatan,
-    
-    -- --- BAHAGIAN 1: NOMBOR DATA (Sentiasa ambil yang TERKINI / LATEST) ---
-    SUM(COALESCE(latest.unit_dihuni, 0)) AS unit_dihuni,
-    
-    -- Kiraan Kosong (Baik) Terkini
-    SUM(
-        COALESCE(latest.baik_diduduki, 0) + 
-        COALESCE(latest.baik_guna_sama, 0) + 
-        COALESCE(latest.baik_tukar_fungsi, 0) + 
-        COALESCE(latest.baik_sewaan, 0)
-    ) AS unit_kosong_baik,
-    
-    -- Kiraan Kosong (Rosak) Terkini
-    SUM(
-        COALESCE(latest.rosak_baik_pulih, 0) + 
-        COALESCE(latest.rosak_guna_sama, 0) + 
-        COALESCE(latest.rosak_tukar_fungsi, 0) + 
-        COALESCE(latest.rosak_sewaan, 0) + 
-        COALESCE(latest.rosak_roboh, 0)
-    ) AS unit_kosong_rosak,
-
-    -- Jumlah Keseluruhan Terkini
-    SUM(COALESCE(latest.total_unit_kuarters, 0)) AS jumlah_unit,
-    
-    -- --- BAHAGIAN 2: STATUS (Baca dari table ADM_STATUS) ---
-    (
-        SELECT nama_status FROM adm_status 
-        WHERE id_status = 
-        CASE 
-            -- 1. Jika ada 'Hantar' (2), ID = 2
-            WHEN SUM(CASE WHEN current_month.status_hantar = 2 THEN 1 ELSE 0 END) > 0 THEN 2
+        SELECT 
+            ma.id_agensi_induk, ma.nama_agensi_induk AS nama_jabatan,
             
-            -- 2. Jika tiada 'Hantar', tapi ada 'Draf' (1), ID = 1
-            WHEN SUM(CASE WHEN current_month.status_hantar = 1 THEN 1 ELSE 0 END) > 0 THEN 1
+            -- --- BAHAGIAN 1: NOMBOR DATA (Sentiasa ambil yang TERKINI) ---
+            SUM(COALESCE(latest.unit_dihuni, 0)) AS unit_dihuni,
             
-            -- 3. Jika tiada rekod langsung (NULL) atau status 0, default ID = 0 (Belum Mula)
-            ELSE 0 
-        END
-    ) AS status_hantar
+            SUM(
+                COALESCE(latest.baik_diduduki, 0) + 
+                COALESCE(latest.baik_guna_sama, 0) + 
+                COALESCE(latest.baik_tukar_fungsi, 0) + 
+                COALESCE(latest.baik_sewaan, 0)
+            ) AS unit_kosong_baik,
+            
+            SUM(
+                COALESCE(latest.rosak_baik_pulih, 0) + 
+                COALESCE(latest.rosak_guna_sama, 0) + 
+                COALESCE(latest.rosak_tukar_fungsi, 0) + 
+                COALESCE(latest.rosak_sewaan, 0) + 
+                COALESCE(latest.rosak_roboh, 0)
+            ) AS unit_kosong_rosak,
 
-FROM table_main_agency ma
-JOIN table_quarters_profile q ON ma.id_agensi_induk = q.id_agensi_induk
+            SUM(COALESCE(latest.total_unit_kuarters, 0)) AS jumlah_unit,
+            
+            -- --- BAHAGIAN 2: STATUS ---
+            (
+                SELECT nama_status FROM adm_status 
+                WHERE id_status = 
+                CASE 
+                    WHEN SUM(CASE WHEN current_month.status_hantar = 2 THEN 1 ELSE 0 END) > 0 THEN 2
+                    WHEN SUM(CASE WHEN current_month.status_hantar = 1 THEN 1 ELSE 0 END) > 0 THEN 1
+                    ELSE 0 
+                END
+            ) AS status_hantar
 
--- JOIN A: Dapatkan Data TERKINI (Latest Snapshot - Status 2 Only)
-LEFT JOIN (
-    SELECT r.*
-    FROM table_report r
-    JOIN (
-        SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as max_period
-        FROM table_report
-        WHERE status_hantar = 2
-        GROUP BY id_kuarters
-    ) m ON r.id_kuarters = m.id_kuarters 
-    AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = m.max_period
-    WHERE r.status_hantar = 2
-) latest ON q.id_kuarters = latest.id_kuarters
+        FROM table_main_agency ma
+        JOIN table_quarters_profile q ON ma.id_agensi_induk = q.id_agensi_induk
 
--- JOIN B: Semak Kewujudan Laporan BULAN INI (Untuk Penentuan Status)
-LEFT JOIN table_report current_month ON q.id_kuarters = current_month.id_kuarters 
-    AND current_month.bulan = $bulan_semak 
-    AND current_month.tahun = $tahun_semak
+        -- JOIN A: Dapatkan Data TERKINI
+        LEFT JOIN (
+            SELECT r.*
+            FROM table_report r
+            JOIN (
+                SELECT id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as max_period
+                FROM table_report
+                WHERE status_hantar = 2
+                GROUP BY id_kuarters
+            ) m ON r.id_kuarters = m.id_kuarters 
+            AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = m.max_period
+            WHERE r.status_hantar = 2
+        ) latest ON q.id_kuarters = latest.id_kuarters
 
-GROUP BY ma.id_agensi_induk, ma.nama_agensi_induk
-ORDER BY ma.nama_agensi_induk ASC;
+        -- JOIN B: Suntikan Pembolehubah Terus (Direct Injection)
+        LEFT JOIN table_report current_month ON q.id_kuarters = current_month.id_kuarters 
+            AND current_month.bulan = $bulan_semak 
+            AND current_month.tahun = $tahun_semak
     ";
 
-    // Jalankan query dengan parameter binding
-    $query = $this->db->query($sql, [$bulan_semak, $tahun_semak]);
+    // 4. LOGIK PENAPISAN MENGIKUT PERANAN (Role = 3)
+    if ($peranan == 3) {
+        // Masukkan terus ID Agensi
+        $sql .= " WHERE ma.id_agensi_induk = $id_agensi ";
+    }
+
+    // 5. Tutup SQL dengan GROUP BY & ORDER BY
+    $sql .= "
+        GROUP BY ma.id_agensi_induk, ma.nama_agensi_induk
+        ORDER BY ma.nama_agensi_induk ASC
+    ";
+
+    // 6. Jalankan query biasa tanpa array bindings
+    $query = $this->db->query($sql);
     
     return $query->getResultArray();
 }
@@ -249,10 +252,14 @@ public function getStatistikByYear($tahun)
 }
 
 // 1. Fungsi Paparan Utama
+// 1. Fungsi Paparan Utama
 public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0, $search = null)
 {
-    // Kita gunakan subquery untuk mencari report yang paling terkini (status_hantar = 2)
-    // sehingga tarikh pilihan pengguna
+    // Dapatkan data dari Session
+    $peranan   = session()->get('level'); 
+    $id_agensi = (int)session()->get('id_agensi_induk');
+
+    // Subquery untuk mencari report yang paling terkini (status_hantar = 2)
     $subquery = $this->db->table('table_report')
         ->select("id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period")
         ->where('status_hantar', 2)
@@ -268,7 +275,7 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
             tqp.kod_kuarters, 
             tqp.nama_kuarters, 
             
-            -- Subquery untuk Isu (Meniru kod Excel)
+            -- Subquery untuk Isu
             (
                 SELECT GROUP_CONCAT(CONCAT(aic.id_kategori_isu, '. ', aic.keterangan_kategori) ORDER BY aic.id_kategori_isu ASC SEPARATOR ', ')
                 FROM table_issue ti
@@ -276,7 +283,7 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
                 WHERE ti.id_report = tr.id_report
             ) AS nama_kategori_isu,
             
-            -- Subquery untuk Kelas Kuarters (Meniru kod Excel)
+            -- Subquery untuk Kelas Kuarters
             (
                 SELECT CONCAT('KELAS ', GROUP_CONCAT(cat.kelas ORDER BY cat.kelas ASC SEPARATOR ', '))
                 FROM table_jenis_kuarters tjk
@@ -284,14 +291,16 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
                 WHERE tjk.id_kuarters = tqp.id_kuarters
             ) AS nama_kategori_kuarters
         ")
-        
-        // Join dengan Subquery untuk dapatkan tempoh terkini
         ->join("({$subquerySql}) latest", "tr.id_kuarters = latest.id_kuarters AND CONCAT(tr.tahun, LPAD(tr.bulan, 2, '0')) = latest.latest_period", "inner")
-        
-        // Join dengan jadual profil kuarters
         ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters", "inner")
-        
         ->where("tr.status_hantar", 2);
+
+    // ==========================================
+    // LOGIK PENAPISAN MENGIKUT PERANAN (Role = 3)
+    // ==========================================
+    if ($peranan == 3) {
+        $builder->where('tqp.id_agensi_induk', $id_agensi);
+    }
 
     // Filter Carian
     if ($search) {
@@ -301,7 +310,7 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
                 ->groupEnd();
     }
 
-    $builder->orderBy("tqp.id_kuarters", "ASC"); // Ikut susunan Excel (ASC)
+    $builder->orderBy("tqp.id_kuarters", "ASC");
 
     if ($limit !== null) {
         return $builder->get($limit, $offset)->getResultArray();
@@ -310,10 +319,14 @@ public function getDetailedReportView($bulan, $tahun, $limit = null, $offset = 0
     return $builder->get()->getResultArray();
 }
 
+
 // 2. Fungsi Kiraan (Count) Untuk Pagination
 public function countDetailedReport($bulan, $tahun, $search = null)
 {
-    // Subquery yang sama seperti di atas
+    // Dapatkan data dari Session
+    $peranan   = session()->get('level'); 
+    $id_agensi = (int)session()->get('id_agensi_induk');
+
     $subquery = $this->db->table('table_report')
         ->select("id_kuarters, MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period")
         ->where('status_hantar', 2)
@@ -327,6 +340,13 @@ public function countDetailedReport($bulan, $tahun, $search = null)
         ->join("{$this->table_qp} as tqp", "tqp.id_kuarters = tr.id_kuarters", "inner")
         ->where("tr.status_hantar", 2);
 
+    // ==========================================
+    // LOGIK PENAPISAN MENGIKUT PERANAN (Role = 3)
+    // ==========================================
+    if ($peranan == 3) {
+        $builder->where('tqp.id_agensi_induk', $id_agensi);
+    }
+
     if ($search) {
         $builder->groupStart()
                 ->like('tqp.kod_kuarters', $search)
@@ -338,50 +358,69 @@ public function countDetailedReport($bulan, $tahun, $search = null)
 }
 
     public function get_dashboard()
-    {        
+{        
+    // 1. Dapatkan data dari Session
+    $peranan   = session()->get('level'); 
+    $id_agensi = (int)session()->get('id_agensi_induk'); // Pastikan integer untuk keselamatan
 
-        $sql = "
+    // 2. Bina Asas SQL
+    $sql = "
+        SELECT 
+            -- 1. Jumlah Keseluruhan
+            SUM(r.total_unit_kuarters) AS total_kuarters,
+            
+            -- 2. Jumlah Huni
+            SUM(r.unit_dihuni) AS total_huni,
+            
+            -- 3. Jumlah Kosong (Baik)
+            SUM(
+                COALESCE(r.baik_diduduki, 0) + 
+                COALESCE(r.baik_guna_sama, 0) + 
+                COALESCE(r.baik_tukar_fungsi, 0) + 
+                COALESCE(r.baik_sewaan, 0)
+            ) AS total_kosong_baik,
+            
+            -- 4. Jumlah Kosong (Rosak)
+            SUM(
+                COALESCE(r.rosak_baik_pulih, 0) + 
+                COALESCE(r.rosak_guna_sama, 0) + 
+                COALESCE(r.rosak_tukar_fungsi, 0) + 
+                COALESCE(r.rosak_sewaan, 0) + 
+                COALESCE(r.rosak_roboh, 0)
+            ) AS total_kosong_rosak
+
+        FROM table_report r
+
+        -- TAMBAHAN: JOIN dengan table_quarters_profile untuk kenal pasti Agensi
+        JOIN table_quarters_profile q ON r.id_kuarters = q.id_kuarters
+
+        JOIN (
+            -- Subquery: Cari tahun & bulan PALING TERKINI
             SELECT 
-                -- 1. Jumlah Keseluruhan
-                SUM(r.total_unit_kuarters) AS total_kuarters,
-                
-                -- 2. Jumlah Huni
-                SUM(r.unit_dihuni) AS total_huni,
-                
-                -- 3. Jumlah Kosong (Baik)
-                SUM(
-                    COALESCE(r.baik_diduduki, 0) + 
-                    COALESCE(r.baik_guna_sama, 0) + 
-                    COALESCE(r.baik_tukar_fungsi, 0) + 
-                    COALESCE(r.baik_sewaan, 0)
-                ) AS total_kosong_baik,
-                
-                -- 4. Jumlah Kosong (Rosak)
-                SUM(
-                    COALESCE(r.rosak_baik_pulih, 0) + 
-                    COALESCE(r.rosak_guna_sama, 0) + 
-                    COALESCE(r.rosak_tukar_fungsi, 0) + 
-                    COALESCE(r.rosak_sewaan, 0) + 
-                    COALESCE(r.rosak_roboh, 0)
-                ) AS total_kosong_rosak
+                id_kuarters, 
+                MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period
+            FROM table_report
+            WHERE status_hantar = 2
+            GROUP BY id_kuarters
+        ) latest ON r.id_kuarters = latest.id_kuarters 
+          AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = latest.latest_period
+          
+        WHERE r.status_hantar = 2
+    ";
 
-            FROM table_report r
-            JOIN (
-                -- Subquery: Cari tahun & bulan PALING TERKINI
-                SELECT 
-                    id_kuarters, 
-                    MAX(CONCAT(tahun, LPAD(bulan, 2, '0'))) as latest_period
-                FROM table_report
-                WHERE status_hantar = 2
-                GROUP BY id_kuarters
-            ) latest ON r.id_kuarters = latest.id_kuarters 
-              AND CONCAT(r.tahun, LPAD(r.bulan, 2, '0')) = latest.latest_period
-            WHERE r.status_hantar = 2
-        ";
-
-        $query = $this->db->query($sql);
-        return $query->getResultArray();
+    // 3. LOGIK PENAPISAN MENGIKUT PERANAN (Role = 3)
+    if ($peranan == 3) {
+        // Tapis hanya data kuarters di bawah agensi yang sedang login
+        $sql .= " AND q.id_agensi_induk = $id_agensi ";
     }
+
+    // 4. Jalankan Query
+    $query = $this->db->query($sql);
+    
+    // Bergantung kepada Controller Tuan, biasaya dashboard perlukan 1 baris (Row) sahaja. 
+    // Tapi saya kekalkan getResultArray() ikut kod asal Tuan.
+    return $query->getResultArray(); 
+}
 
    public function getStatistikByAgensiExcel($bulan, $tahun)
 {

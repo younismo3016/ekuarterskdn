@@ -79,10 +79,12 @@
                     </div>
                     <div class="col-md-3">
                         <label class="form-label small fw-bold text-primary">Jum. Cadangan (B)</label>
-                        <?php 
-                            $fields = ['baik_diduduki', 'baik_guna_sama', 'baik_tukar_fungsi', 'baik_sewaan', 'rosak_baik_pulih', 'rosak_guna_sama', 'rosak_tukar_fungsi', 'rosak_sewaan', 'rosak_roboh'];
-                            $total_cadangan = 0;
-                            foreach($fields as $f) { $total_cadangan += (int)$row[$f]; }
+                        <?php
+                        $fields = ['baik_diduduki', 'baik_guna_sama', 'baik_tukar_fungsi', 'baik_sewaan', 'rosak_baik_pulih', 'rosak_guna_sama', 'rosak_tukar_fungsi', 'rosak_sewaan', 'rosak_roboh'];
+                        $total_cadangan = 0;
+                        foreach ($fields as $f) {
+                            $total_cadangan += (int)$row[$f];
+                        }
                         ?>
                         <input type="text" id="total_cadangan" class="form-control form-control-sm bg-light fw-bold text-center text-primary" value="<?= $total_cadangan ?>" readonly>
                     </div>
@@ -93,54 +95,120 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-12">
+                        <h6 class="text-dark fw-bold border-bottom pb-2 small text-center text-uppercase bg-light p-2 mb-3">
+                            <i class="bi bi-info-circle me-1"></i>CADANGAN TINDAKAN MENGIKUT KEADAAN KUARTERS
+                        </h6>
+                    </div>
+                </div>
+
                 <div class="row g-4">
                     <div class="col-md-6 border-end">
-                        <h6 class="text-success fw-bold border-bottom pb-2 small"><i class="bi bi-check-circle me-1"></i>CADANGAN (BAIK)</h6>
+                        <h6 class="text-success fw-bold small mb-3"><i class="bi bi-check-circle me-1"></i>1. KUARTERS TIDAK DIHUNI BERKEADAAN BAIK</h6>
+
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Diduduki</div>
-                            <div class="col-8"><input type="number" name="baik_diduduki" class="form-control form-control-sm calc-cadangan" value="<?= $row['baik_diduduki'] ?>"></div>
+                            <div class="col-4 small">
+                                Diduduki
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Dihuni"></i>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" name="baik_diduduki" class="form-control form-control-sm calc-cadangan" value="<?= $row['baik_diduduki'] ?>">
+                            </div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Guna Sama</div>
+                             <div class="col-4 small">
+                                Gunasama
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Dibuka untuk kegunaan agensi lain"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="baik_guna_sama" class="form-control form-control-sm calc-cadangan" value="<?= $row['baik_guna_sama'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_baik_guna_sama" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_baik_guna_sama'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Tukar Fungsi</div>
+                            <div class="col-4 small">
+                                Tukar Fungsi
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Fungsi kuarters ditukar untuk kegunaan lain seperti stor, pejabat, bilik fail dan lain-lain"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="baik_tukar_fungsi" class="form-control form-control-sm calc-cadangan" value="<?= $row['baik_tukar_fungsi'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_baik_tukar_fungsi" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_baik_tukar_fungsi'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Sewaan</div>
+                             <div class="col-4 small">
+                                Sewaan
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Dibuka untuk sewaan pihak ketiga/ swasta"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="baik_sewaan" class="form-control form-control-sm calc-cadangan" value="<?= $row['baik_sewaan'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_baik_sewaan" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_baik_sewaan'] ?>"></div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <h6 class="text-danger fw-bold border-bottom pb-2 small"><i class="bi bi-x-circle me-1"></i>CADANGAN (ROSAK)</h6>
+                        <h6 class="text-danger fw-bold small mb-3"><i class="bi bi-x-circle me-1"></i>2. KUARTERS TIDAK DIHUNI BERKEADAAN ROSAK</h6>
+
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Baik Pulih</div>
+                             <div class="col-4 small">
+                                Baik Pulih
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Pembaikan "></i>
+                            </div>
                             <div class="col-3"><input type="number" name="rosak_baik_pulih" class="form-control form-control-sm calc-cadangan" value="<?= $row['rosak_baik_pulih'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_rosak_baik_pulih" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_rosak_baik_pulih'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Guna Sama</div>
+                               <div class="col-4 small">
+                                Gunasama
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Dibuka untuk kegunaan agensi lain"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="rosak_guna_sama" class="form-control form-control-sm calc-cadangan" value="<?= $row['rosak_guna_sama'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_rosak_guna_sama" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_rosak_guna_sama'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Tukar Fungsi</div>
+                            <div class="col-4 small">
+                                Tukar Fungsi
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Fungsi kuarters ditukar untuk kegunaan lain seperti stor, pejabat, bilik fail dan lain-lain"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="rosak_tukar_fungsi" class="form-control form-control-sm calc-cadangan" value="<?= $row['rosak_tukar_fungsi'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_rosak_tukar_fungsi" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_rosak_tukar_fungsi'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Sewaan</div>
+                           <div class="col-4 small">
+                                Sewaan
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Dibuka untuk sewaan pihak ketiga/ swasta"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="rosak_sewaan" class="form-control form-control-sm calc-cadangan" value="<?= $row['rosak_sewaan'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_rosak_sewaan" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_rosak_sewaan'] ?>"></div>
                         </div>
                         <div class="row g-2 mb-2 align-items-center">
-                            <div class="col-4 small">Roboh</div>
+                             <div class="col-4 small">
+                                Roboh
+                                <i class="bi bi-info-circle text-muted ms-1"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title=" Disyorkan untuk roboh kerana terlalu uzur/ tidak selamat untuk diduduki"></i>
+                            </div>
                             <div class="col-3"><input type="number" name="rosak_roboh" class="form-control form-control-sm calc-cadangan" value="<?= $row['rosak_roboh'] ?>"></div>
                             <div class="col-5"><input type="text" name="ket_rosak_roboh" class="form-control form-control-sm" placeholder="Keterangan..." value="<?= $row['ket_rosak_roboh'] ?>"></div>
                         </div>
@@ -173,8 +241,8 @@
                 <div class="col-md-6">
                     <label class="form-label small fw-bold">Isu Pengoperasian (U)</label>
                     <select name="id_kategori_isu[]" id="isu-select" class="tom-select" multiple>
-                        <?php 
-                        $selected_array = !empty($row['selected_issues']) ? explode(',', $row['selected_issues']) : []; 
+                        <?php
+                        $selected_array = !empty($row['selected_issues']) ? explode(',', $row['selected_issues']) : [];
                         foreach ($kategori_isu as $isu): ?>
                             <option value="<?= $isu['id_kategori_isu'] ?>" <?= in_array($isu['id_kategori_isu'], $selected_array) ? 'selected' : '' ?>>
                                 <?= $isu['keterangan_kategori'] ?>
@@ -205,7 +273,7 @@
                     <label class="form-label small fw-bold">Jangkaan Tahun Pelaksanaan</label>
                     <select name="jangkaan_pelaksanaan" class="form-select form-select-sm">
                         <option value="">-- Pilih Tahun --</option>
-                        <?php 
+                        <?php
                         $tahun_sekarang = (int) date('Y');
                         for ($y = $tahun_sekarang - 5; $y <= $tahun_sekarang + 10; $y++): ?>
                             <option value="<?= $y ?>" <?= ($row['jangkaan_pelaksanaan'] == $y) ? 'selected' : '' ?>><?= $y ?></option>
@@ -232,52 +300,52 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    // 1. Initialize TomSelect
-    new TomSelect("#isu-select", {
-        plugins: ['remove_button'],
-        maxItems: 5
-    });
-
-    // 2. Main Calculation Logic
-    $('.form-control, .form-select').on('input change', function() {
-        // A. Kira Pengiraan Dihuni (H+I)
-        let G = parseInt($('#G').val()) || 0;
-        let H = parseInt($('#H').val()) || 0;
-        let I = parseInt($('#I').val()) || 0;
-        let totalHI = H + I;
-        $('#total_HI').val(totalHI);
-        
-        if (G === totalHI) {
-            $('#status').val('TRUE').removeClass('text-danger').addClass('text-success');
-        } else {
-            $('#status').val('FALSE').removeClass('text-success').addClass('text-danger');
-        }
-
-        // B. Kira Jumlah Cadangan
-        let sumCadangan = 0;
-        $('.calc-cadangan').each(function() {
-            sumCadangan += parseInt($(this).val()) || 0;
+    $(document).ready(function() {
+        // 1. Initialize TomSelect
+        new TomSelect("#isu-select", {
+            plugins: ['remove_button'],
+            maxItems: 5
         });
-        $('#total_cadangan').val(sumCadangan);
 
-        let unitKosong = parseInt($('#unit_tidak_dihuni').val()) || 0;
-        if(unitKosong === sumCadangan) {
-            $('#status_cadangan').val('TRUE').removeClass('text-danger').addClass('text-success');
-        } else {
-            $('#status_cadangan').val('FALSE').removeClass('text-success').addClass('text-danger');
-        }
+        // 2. Main Calculation Logic
+        $('.form-control, .form-select').on('input change', function() {
+            // A. Kira Pengiraan Dihuni (H+I)
+            let G = parseInt($('#G').val()) || 0;
+            let H = parseInt($('#H').val()) || 0;
+            let I = parseInt($('#I').val()) || 0;
+            let totalHI = H + I;
+            $('#total_HI').val(totalHI);
 
-        // C. Kira Total Kuarters (Dihuni + Tidak Dihuni)
-        let totalKira = G + unitKosong;
-        $('#kira_kuarters').val(totalKira);
+            if (G === totalHI) {
+                $('#status').val('TRUE').removeClass('text-danger').addClass('text-success');
+            } else {
+                $('#status').val('FALSE').removeClass('text-success').addClass('text-danger');
+            }
 
-        let totalFail = parseInt($('#total_unit_kuarters').val()) || 0;
-        if(totalFail === totalKira) {
-            $('#status_kuarters').val('TRUE').removeClass('text-danger').addClass('text-success');
-        } else {
-            $('#status_kuarters').val('FALSE').removeClass('text-success').addClass('text-danger');
-        }
+            // B. Kira Jumlah Cadangan
+            let sumCadangan = 0;
+            $('.calc-cadangan').each(function() {
+                sumCadangan += parseInt($(this).val()) || 0;
+            });
+            $('#total_cadangan').val(sumCadangan);
+
+            let unitKosong = parseInt($('#unit_tidak_dihuni').val()) || 0;
+            if (unitKosong === sumCadangan) {
+                $('#status_cadangan').val('TRUE').removeClass('text-danger').addClass('text-success');
+            } else {
+                $('#status_cadangan').val('FALSE').removeClass('text-success').addClass('text-danger');
+            }
+
+            // C. Kira Total Kuarters (Dihuni + Tidak Dihuni)
+            let totalKira = G + unitKosong;
+            $('#kira_kuarters').val(totalKira);
+
+            let totalFail = parseInt($('#total_unit_kuarters').val()) || 0;
+            if (totalFail === totalKira) {
+                $('#status_kuarters').val('TRUE').removeClass('text-danger').addClass('text-success');
+            } else {
+                $('#status_kuarters').val('FALSE').removeClass('text-success').addClass('text-danger');
+            }
+        });
     });
-});
 </script>

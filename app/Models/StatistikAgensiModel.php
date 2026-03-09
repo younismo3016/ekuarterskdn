@@ -10,7 +10,7 @@ class StatistikAgensiModel extends Model
     protected $table_report = 'table_report';
     protected $primaryKey = 'id_report';
 
-  public function getStatistikByAgensi()
+public function getStatistikByAgensi()
 {
     $id_agensi = session()->get('id_agensi_induk');
 
@@ -38,8 +38,12 @@ class StatistikAgensiModel extends Model
                 ELSE 'TIADA DATA'
             END AS nama_bulan,
             tr.tahun,
-            -- Gunakan MAX untuk pastikan nilai '2' menang berbanding '0/1'
+            -- Gunakan MAX untuk status_hantar
             MAX(tr.status_hantar) AS status_hantar,
+            
+            -- TAMBAH INI: Ambil nilai status_reset (MAX supaya 1 menang)
+            MAX(tr.status_reset) AS status_reset,
+
             CASE 
                 WHEN MAX(tr.status_hantar) = 2 THEN 'SELESAI'
                 ELSE 'BELUM HANTAR'
@@ -64,19 +68,34 @@ class StatistikAgensiModel extends Model
     return $this->db->query($sql, [$id_agensi])->getResultArray();
 }
 
-public function getDetailedReport($bulan, $tahun, $id_agensi, $limit = 10, $offset = 0, $keyword = null)
+public function getDetailedReport($bulan, $tahun, $id_agensi, $limit = 10, $offset = 0, $keyword = null, $status_tally = 'SEMUA')
 {
     $builder = $this->db->table('table_report tr');
+
+    // Formula SQL yang lebih "solid" (elak isu null)
+    $sql_total_cadangan = "(
+        COALESCE(tr.baik_diduduki, 0) + COALESCE(tr.baik_guna_sama, 0) + 
+        COALESCE(tr.baik_tukar_fungsi, 0) + COALESCE(tr.baik_sewaan, 0) + 
+        COALESCE(tr.rosak_baik_pulih, 0) + COALESCE(tr.rosak_guna_sama, 0) + 
+        COALESCE(tr.rosak_tukar_fungsi, 0) + COALESCE(tr.rosak_sewaan, 0) + 
+        COALESCE(tr.rosak_roboh, 0)
+    )";
+    
+    $cond_huni     = "COALESCE(tr.unit_dihuni, 0) = (COALESCE(tr.dihuni_baik, 0) + COALESCE(tr.dihuni_rosak, 0))";
+    $cond_cadangan = "COALESCE(tr.unit_tidak_dihuni, 0) = $sql_total_cadangan";
+    $cond_total    = "COALESCE(tr.total_unit_kuarters, 0) = (COALESCE(tr.unit_dihuni, 0) + COALESCE(tr.unit_tidak_dihuni, 0))";
+    
+    // Gabungan 3 syarat utama
+    $all_tally_sql = "($cond_huni AND $cond_cadangan AND $cond_total)";
 
     $builder->select("
         tr.*, 
         tqp.kod_kuarters, 
         tqp.nama_kuarters,
-
+        $sql_total_cadangan AS total_cadangan_calc,
         (SELECT GROUP_CONCAT(ti.id_kategori_isu ORDER BY ti.id_kategori_isu ASC) 
          FROM table_issue ti 
          WHERE ti.id_report = tr.id_report) as id_kategori_isu,
-
         (SELECT CONCAT('KELAS ', GROUP_CONCAT(REPLACE(aqc.keterangan_kategori_kuarters, 'KELAS ', '') 
             ORDER BY aqc.keterangan_kategori_kuarters ASC SEPARATOR ', '))
          FROM table_jenis_kuarters tjk
@@ -90,7 +109,14 @@ public function getDetailedReport($bulan, $tahun, $id_agensi, $limit = 10, $offs
     $builder->where('tr.bulan', $bulan);
     $builder->where('tr.tahun', $tahun);
 
-    // 🔍 SEARCH (SERVER SIDE)
+    // Filter Logic
+    if ($status_tally === 'TALLY') {
+        $builder->where($all_tally_sql, null, false);
+    } elseif ($status_tally === 'TIDAK_TALLY') {
+        // Guna HAVING atau WHERE yang merangkumi salah satu ralat
+        $builder->where("NOT ($cond_huni AND $cond_cadangan AND $cond_total)", null, false);
+    }
+
     if (!empty($keyword)) {
         $builder->groupStart()
             ->like('tqp.kod_kuarters', $keyword)
@@ -98,20 +124,41 @@ public function getDetailedReport($bulan, $tahun, $id_agensi, $limit = 10, $offs
         ->groupEnd();
     }
 
-    $builder->orderBy('tqp.nama_kuarters', 'ASC');
-    $builder->limit($limit, $offset);
-
-    return $builder->get()->getResultArray();
+    return $builder->orderBy('tqp.id_kuarters', 'ASC')->limit($limit, $offset)->get()->getResultArray();
 }
 
-public function countDetailedReport1($bulan, $tahun, $id_agensi, $keyword = null)
+public function countDetailedReport1($bulan, $tahun, $id_agensi, $keyword = null, $status_tally = 'SEMUA')
 {
     $builder = $this->db->table('table_report tr');
+
+    // Formula SQL yang konsisten dengan getDetailedReport
+    $sql_total_cadangan = "(
+        COALESCE(tr.baik_diduduki, 0) + COALESCE(tr.baik_guna_sama, 0) + 
+        COALESCE(tr.baik_tukar_fungsi, 0) + COALESCE(tr.baik_sewaan, 0) + 
+        COALESCE(tr.rosak_baik_pulih, 0) + COALESCE(tr.rosak_guna_sama, 0) + 
+        COALESCE(tr.rosak_tukar_fungsi, 0) + COALESCE(tr.rosak_sewaan, 0) + 
+        COALESCE(tr.rosak_roboh, 0)
+    )";
+    
+    $cond_huni     = "COALESCE(tr.unit_dihuni, 0) = (COALESCE(tr.dihuni_baik, 0) + COALESCE(tr.dihuni_rosak, 0))";
+    $cond_cadangan = "COALESCE(tr.unit_tidak_dihuni, 0) = $sql_total_cadangan";
+    $cond_total    = "COALESCE(tr.total_unit_kuarters, 0) = (COALESCE(tr.unit_dihuni, 0) + COALESCE(tr.unit_tidak_dihuni, 0))";
+    
+    $all_tally_sql = "($cond_huni AND $cond_cadangan AND $cond_total)";
+
     $builder->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters');
     $builder->where('tqp.id_agensi_induk', $id_agensi);
     $builder->where('tr.bulan', $bulan);
     $builder->where('tr.tahun', $tahun);
 
+    // Filter Logic yang sama
+    if ($status_tally === 'TALLY') {
+        $builder->where($all_tally_sql, null, false);
+    } elseif ($status_tally === 'TIDAK_TALLY') {
+        $builder->where("NOT ($all_tally_sql)", null, false);
+    }
+
+    // Search Keyword
     if (!empty($keyword)) {
         $builder->groupStart()
             ->like('tqp.kod_kuarters', $keyword)
@@ -121,7 +168,6 @@ public function countDetailedReport1($bulan, $tahun, $id_agensi, $keyword = null
 
     return $builder->countAllResults();
 }
-
 
 public function getDetailedReportView($bulan, $tahun, $id_agensi, $limit = null, $offset = 0, $search = null)
 {
@@ -147,12 +193,12 @@ public function getDetailedReportView($bulan, $tahun, $id_agensi, $limit = null,
     if ($search) {
         $builder->groupStart()
                 ->like('tqp.kod_kuarters', $search)
-                ->orLike('tqp.nama_kuarters', $search)
+                ->orLike('tqp.id_kuarters', $search)
                 ->groupEnd();
     }
 
     $builder->groupBy("tr.id_report")
-            ->orderBy("tqp.nama_kuarters", "ASC");
+            ->orderBy("tqp.id_kuarters", "ASC");
 
     if ($limit !== null) {
         return $builder->get($limit, $offset)->getResultArray();
@@ -210,29 +256,36 @@ public function updateStatusHantar($bulan, $tahun, $id_agensi, $data)
 
 public function getSenaraiTidakTally($bulan, $tahun, $id_agensi)
 {
-    $builder = $this->db->table($this->table_report);
-    // Pastikan column nama_kuarters dan kod_kuarters diambil dari table profile
-    $builder->select('table_quarters_profile.kod_kuarters, table_quarters_profile.nama_kuarters');
-    $builder->join('table_quarters_profile', 'table_quarters_profile.id_kuarters = table_report.id_kuarters');
+    $builder = $this->db->table('table_report tr');
 
-    $builder->where('table_report.bulan', $bulan);
-    $builder->where('table_report.tahun', $tahun);
-    $builder->where('table_quarters_profile.id_agensi_induk', $id_agensi); 
+    // 1. Definisikan formula yang sama dengan getDetailedReport
+    $sql_total_cadangan = "(
+        COALESCE(tr.baik_diduduki, 0) + COALESCE(tr.baik_guna_sama, 0) + 
+        COALESCE(tr.baik_tukar_fungsi, 0) + COALESCE(tr.baik_sewaan, 0) + 
+        COALESCE(tr.rosak_baik_pulih, 0) + COALESCE(tr.rosak_guna_sama, 0) + 
+        COALESCE(tr.rosak_tukar_fungsi, 0) + COALESCE(tr.rosak_sewaan, 0) + 
+        COALESCE(tr.rosak_roboh, 0)
+    )";
+    
+    $cond_huni     = "COALESCE(tr.unit_dihuni, 0) = (COALESCE(tr.dihuni_baik, 0) + COALESCE(tr.dihuni_rosak, 0))";
+    $cond_cadangan = "COALESCE(tr.unit_tidak_dihuni, 0) = $sql_total_cadangan";
+    $cond_total    = "COALESCE(tr.total_unit_kuarters, 0) = (COALESCE(tr.unit_dihuni, 0) + COALESCE(tr.unit_tidak_dihuni, 0))";
+    
+    // Gabungan semua syarat (Tally jika ketiga-tiga benar)
+    $all_tally_sql = "($cond_huni AND $cond_cadangan AND $cond_total)";
 
-    // Syarat ketidak-tally-an (Logik yang sama)
-    $builder->where(" (
-        (table_report.unit_dihuni != (table_report.dihuni_baik + table_report.dihuni_rosak)) 
-        OR 
-        (table_report.unit_tidak_dihuni != (
-            table_report.baik_diduduki + table_report.baik_guna_sama + 
-            table_report.baik_tukar_fungsi + table_report.baik_sewaan + 
-            table_report.rosak_baik_pulih + table_report.rosak_guna_sama + 
-            table_report.rosak_tukar_fungsi + table_report.rosak_sewaan + 
-            table_report.rosak_roboh
-        )) 
-        OR 
-        (table_report.total_unit_kuarters != (table_report.unit_dihuni + table_report.unit_tidak_dihuni))
-    ) ");
+    // 2. Pilih column yang diperlukan
+    $builder->select('tqp.kod_kuarters, tqp.nama_kuarters, tr.*');
+    $builder->join('table_quarters_profile tqp', 'tqp.id_kuarters = tr.id_kuarters');
+
+    // 3. Filter asas
+    $builder->where('tr.bulan', $bulan);
+    $builder->where('tr.tahun', $tahun);
+    $builder->where('tqp.id_agensi_induk', $id_agensi); 
+
+    // 4. Syarat TIDAK TALLY (Guna NOT pada logik tally asal)
+    // Ini memastikan jika salah satu ralat, ia akan masuk dalam list ini
+    $builder->where("NOT ($all_tally_sql)", null, false);
 
     return $builder->get()->getResultArray();
 }
@@ -293,6 +346,27 @@ public function getStatistikByAgensiExcel($id_agensi, $bulan, $tahun)
             ->getResultArray();
     }
 
+public function getKuartersBelumAda($id_agensi_induk, $bulan, $tahun)
+{
+    $db = \Config\Database::connect();
+    
+    // 1. Subquery: Ambil ID kuarters yang DAH ADA dalam laporan bulan/tahun tersebut
+    $subQuery = $db->table('table_report')
+                   ->select('id_kuarters')
+                   ->where('bulan', $bulan)
+                   ->where('tahun', $tahun);
+                   // Kolum id_agensi tiada dalam table_report, jadi kita tak tapis kat sini
 
+    // 2. Query Utama: Ambil profil kuarters milik agensi login, KECUALI yang dah ada di atas
+    $builder = $db->table('table_quarters_profile');
+    
+    // Tapis kuarters milik agensi induk
+    $builder->where('id_agensi_induk', $id_agensi_induk); 
+    
+    // Tapis supaya tidak keluar kuarters yang dah ada dalam table_report
+    $builder->whereNotIn('id_kuarters', $subQuery);
+    
+    return $builder->get()->getResultArray();
+}
 
 }//last

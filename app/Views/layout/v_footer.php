@@ -358,4 +358,25 @@ $(document).ready(function() {
 
 </script>
 
+vvvv
+
+<script>
+    $(document).ready(function() {
+        // 1. Semak jika terdapat sebarang mesej ralat (errors) dari Controller
+        <?php if (session()->getFlashdata('errors')) : ?>
+            
+            // 2. Jika ada, arahkan sistem untuk buka semula modal ini
+            $('#modal-tambah').modal('show');
+            
+            // (Pilihan Tambahan) 3. Jika Tuan guna plugin Select2, kita initialize semula
+            // supaya paparan dropdown tak lari bila modal automatik terbuka
+            $('#modal-tambah').find('.select2').select2({
+                dropdownParent: $('#modal-tambah'),
+                theme: 'bootstrap-5', // atau 'classic' ikut tema Tuan
+                width: '100%'
+            });
+
+        <?php endif; ?>
+    });
+</script>
 </html>

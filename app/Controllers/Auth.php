@@ -140,7 +140,7 @@ class Auth extends BaseController
             } elseif ($check['level'] == 2) {
                 return redirect()->to(site_url('agensi'));
             } elseif ($check['level'] >= 3 && $check['level'] <= 6) {
-                return redirect()->to(site_url('admin'));
+                return redirect()->to(site_url('agensi'));
             } else {
                 return redirect()->to(site_url('home'));
             }

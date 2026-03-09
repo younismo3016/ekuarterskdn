@@ -161,81 +161,90 @@ class Agensi extends BaseController
 
 
     public function agensi_statistik_kemaskini($bulan, $tahun)
-    {
-        $model = new StatistikAgensiModel();
-        $db = \Config\Database::connect();
-        $id_agensi = session()->get('id_agensi_induk');
+{
+    $model = new StatistikAgensiModel();
+    $db = \Config\Database::connect();
+    $id_agensi = session()->get('id_agensi_induk');
 
-        $page   = (int)($this->request->getGet('page') ?? 1);
-        $page   = ($page < 1) ? 1 : $page;
-        $limit  = 10;
-        $offset = ($page - 1) * $limit;
+    $page    = (int)($this->request->getGet('page') ?? 1);
+    $page    = ($page < 1) ? 1 : $page;
+    $limit   = 10;
+    $offset  = ($page - 1) * $limit;
 
-        $keyword = $this->request->getGet('q');
+    $keyword = $this->request->getGet('q');
+    
+    // ✨ 1. TANGKAP INPUT STATUS TALLY DARI DROPDOWN
+    $status_tally = $this->request->getGet('status_tally') ?? 'SEMUA';
 
-        $reports = $model->getDetailedReport(
-            $bulan,
-            $tahun,
-            $id_agensi,
-            $limit,
-            $offset,
-            $keyword
-        );
+    // ✨ 2. HANTAR $status_tally KE MODEL
+    $reports = $model->getDetailedReport(
+        $bulan,
+        $tahun,
+        $id_agensi,
+        $limit,
+        $offset,
+        $keyword,
+        $status_tally // Parameter baru
+    );
 
-        $totalRows = $model->countDetailedReport1(
-            $bulan,
-            $tahun,
-            $id_agensi,
-            $keyword
-        );
+    // ✨ 3. HANTAR $status_tally KE COUNT JUGA
+    $totalRows = $model->countDetailedReport1(
+        $bulan,
+        $tahun,
+        $id_agensi,
+        $keyword,
+        $status_tally // Parameter baru
+    );
 
-        $totalPages = ceil($totalRows / $limit);
+    $totalPages = ceil($totalRows / $limit);
 
-        $kategori_isu = $db->table('adm_issue_category')
-            ->select('id_kategori_isu, keterangan_kategori')
-            ->get()
-            ->getResultArray();
+    $kategori_isu = $db->table('adm_issue_category')
+        ->select('id_kategori_isu, keterangan_kategori')
+        ->get()
+        ->getResultArray();
+
+    $tarikh_terakhir = null;
+    $oleh = '-';
+
+   if (!empty($reports)) {
+    $dates = array_column($reports, 'tarikh_kemaskini');
+    $maxDate = max($dates);
+    $index = array_search($maxDate, $dates);
+
+    $tarikh_terakhir = $maxDate;
+    $id_user_kemaskini = $reports[$index]['kemaskini_oleh'];
+
+    $user = $db->table('tbl_user')
+        ->select('nama_penuh')
+        ->where('id_user', $id_user_kemaskini)
+        ->get()
+        ->getRowArray();
+
+    // Jika user ditemui, masukkan nama, jika tidak, kekalkan null
+    $oleh = $user ? $user['nama_penuh'] : null;
+}
 
 
-        $tarikh_terakhir = null;
-        $oleh = '-';
+    $kuarters_tersedia = $model->getKuartersBelumAda($id_agensi, $bulan, $tahun);
 
-        if (!empty($reports)) {
-            // 1. Cari tarikh paling lewat & siapa yang buat (kemaskini_oleh)
-            $dates = array_column($reports, 'tarikh_kemaskini');
-            $maxDate = max($dates);
-            $index = array_search($maxDate, $dates);
+    $data = [
+        'isi'               => 'agensi/agensi_statistik_kemaskini',
+        'reports'           => $reports,
+        'kategori_isu'      => $kategori_isu,
+        'bulan'             => $bulan,
+        'tahun'             => $tahun,
+        'page'              => $page,
+        'totalPages'        => $totalPages,
+        'keyword'           => $keyword,
+        'status_tally'      => $status_tally, // ✨ 4. HANTAR KE VIEW SUPAYA DROPDOWN TAK ERROR
+        'totalRows'         => $totalRows,
+        'tarikh_terakhir'   => $tarikh_terakhir,
+        'kuarters_tersedia' => $kuarters_tersedia,
+        'oleh'              => $oleh
+    ];
 
-            $tarikh_terakhir = $maxDate;
-            $id_user_kemaskini = $reports[$index]['kemaskini_oleh']; // Ambil ID user dari table_report
-
-            // 2. Tarik nama_penuh terus dari tbl_user guna ID tadi
-            $user = $db->table('tbl_user')
-                ->select('nama_penuh')
-                ->where('id_user', $id_user_kemaskini)
-                ->get()
-                ->getRowArray();
-
-            $oleh = $user ? $user['nama_penuh'] : '-';
-        }
-
-        $data = [
-            'isi'               => 'agensi/agensi_statistik_kemaskini',
-            'reports'           => $reports,
-            'kategori_isu'      => $kategori_isu,
-            'bulan'             => $bulan,
-            'tahun'             => $tahun,
-            'page'              => $page,
-            'totalPages'        => $totalPages,
-            'keyword'           => $keyword,
-            'totalRows'         => $totalRows,
-            'tarikh_terakhir'   => $tarikh_terakhir,
-            'oleh'              => $oleh
-        ];
-
-        return view('layout/v_wrapper', $data);
-    }
-
+    return view('layout/v_wrapper', $data);
+}
 
     // Proses simpan data
 
@@ -868,7 +877,7 @@ class Agensi extends BaseController
             $senarai_teks .= "</ol>";
 
             session()->setFlashdata('error', '<b>Penghantaran Gagal!</b> Sila betulkan data berikut: ' . $senarai_teks);
-            return redirect()->to(base_url("index.php/agensi/agensi_statistik_kemaskini/$bulan/$tahun"));
+            return redirect()->to(base_url("index.php/agensi/agensi_statistik_kemaskini/$bulan/$tahun?status_tally=TIDAK_TALLY&bulan=$bulan&tahun=$tahun"));
         }
 
         // 2. PROSES UPDATE STATUS
@@ -1294,4 +1303,183 @@ class Agensi extends BaseController
         $writer->save('php://output');
         exit();
     }
+
+
+public function simpan_kuarters_baru()
+{
+    $db = \Config\Database::connect();
+    $id_agensi_induk = session()->get('id_agensi_induk');
+    $id_user = session()->get('id_user'); // Ambil ID user yang login
+    
+    // Ambil data dari form
+    $bulan = $this->request->getPost('bulan');
+    $tahun = $this->request->getPost('tahun');
+    $kuarters_dipilih = $this->request->getPost('kuarters_baru'); // Ini adalah array ID kuarters
+
+    if (!empty($kuarters_dipilih)) {
+        $builder = $db->table('table_report');
+        
+        $dataToInsert = [];
+        foreach ($kuarters_dipilih as $id_kuarters) {
+            $dataToInsert[] = [
+                'id_kuarters'         => $id_kuarters,
+                'bulan'               => $bulan,
+                'tahun'               => $tahun,
+                // --- Semua column ditetapkan kepada NULL ---
+                'jumlah_permohonan'   => null,
+                'unit_dihuni'         => null,
+                'dihuni_baik'         => null,
+                'dihuni_rosak'        => null,
+                'unit_tidak_dihuni'   => null,
+                'baik_diduduki'       => null,
+                'baik_guna_sama'      => null,
+                'ket_baik_guna_sama'  => null,
+                'baik_tukar_fungsi'   => null,
+                'ket_baik_tukar_fungsi'=> null,
+                'baik_sewaan'         => null,
+                'ket_baik_sewaan'     => null,
+                'rosak_baik_pulih'    => null,
+                'ket_rosak_baik_pulih'=> null,
+                'rosak_guna_sama'     => null,
+                'ket_rosak_guna_sama' => null,
+                'rosak_tukar_fungsi'  => null,
+                'ket_rosak_tukar_fungsi'=> null,
+                'rosak_sewaan'        => null,
+                'ket_rosak_sewaan'    => null,
+                'rosak_roboh'         => null,
+                'ket_rosak_roboh'     => null,
+                'total_unit_kuarters' => null,
+                'keterangan_isu'      => null,
+                'status_tindakan'     => null,
+                'senarai_kerja'       => null,
+                'jangkaan_pelaksanaan'=> null,
+                'kos_rm'              => null,
+                'status_hantar'       => null, // Atau set 'DRAF' jika perlu
+                'catatan'             => null,
+                'tarikh_kemaskini'    => date('Y-m-d H:i:s'),
+                'kemaskini_oleh'      => $id_user,
+            ];
+        }
+        
+        // Insert Batch untuk jimat query
+        $builder->insertBatch($dataToInsert);
+        
+        return redirect()->back()->with('success', 'Kuarters berjaya ditambah ke laporan.');
+    } else {
+        return redirect()->back()->with('error', 'Sila pilih sekurang-kurangnya satu kuarters.');
+    }
+}
+public function proses_mohon_reset($bulan, $tahun)
+{
+    if (session()->get('level') != 2) {
+        return redirect()->back();
+    }
+
+     $model = new StatistikAgensiModel();
+    $db = \Config\Database::connect();
+    $id_agensi_induk = session()->get('id_agensi_induk'); 
+   // $nama_agensi = session()->get('nama_agensi'); // Pastikan nama agensi ada dalam session
+    $nama_agensi = $model->getNamaAgensi($id_agensi_induk);
+    // 1. Dapatkan ID Kuarters
+    $list_kuarters = $db->table('table_quarters_profile') 
+        ->select('id_kuarters')
+        ->where('id_agensi_induk', $id_agensi_induk)
+        ->get()->getResultArray();
+
+    $ids = array_column($list_kuarters, 'id_kuarters');
+
+    if (!empty($ids)) {
+        $bulan_db = str_pad($bulan, 2, "0", STR_PAD_LEFT);
+
+        // 2. Update status_reset
+        $builder = $db->table('table_report');
+        $builder->whereIn('id_kuarters', $ids)
+                ->where('tahun', $tahun)
+                ->where('bulan', $bulan_db)
+                ->where('status_hantar', 2);
+
+        $builder->update(['status_reset' => 1]);
+
+        if ($db->affectedRows() > 0) {
+            
+            // 3. LOGIK HANTAR EMEL KEPADA ADMIN
+            $this->hantar_emel_ke_admin($nama_agensi, $bulan_db, $tahun);
+
+            session()->setFlashdata('swal_icon', 'success');
+            session()->setFlashdata('swal_title', 'Berjaya!');
+            session()->setFlashdata('swal_text', 'Permohonan reset dihantar & Emel makluman telah dihantar kepada KDN.');
+        } else {
+            session()->setFlashdata('swal_icon', 'info');
+            session()->setFlashdata('swal_title', 'Tiada Perubahan');
+            session()->setFlashdata('swal_text', 'Laporan tidak dijumpai atau permohonan sudah dibuat.');
+        }
+    }
+    return redirect()->back();
+}
+
+// FUNGSI PRIVATE UNTUK HANTAR EMEL
+private function hantar_emel_ke_admin($nama_agensi, $bulan, $tahun)
+{
+    $db = \Config\Database::connect();
+    $email_service = \Config\Services::email();
+
+    // A. Ambil semua emel admin (Level 1)
+    $admins = $db->table('tbl_user')
+                 ->select('email')
+                 ->where('level', 1)
+                 ->get()->getResultArray();
+
+    $admin_emails = array_column($admins, 'email');
+
+    if (!empty($admin_emails)) {
+        $email_service->setTo($admin_emails);
+        $email_service->setFrom('noreply@moha.gov.my', 'Sistem eKuarters KDN');
+        $email_service->setSubject('PERMOHONAN RESET LAPORAN - ' . $nama_agensi);
+        
+        // Design Emel yang lebih 'Lawa'
+        $message = "
+        <div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;'>
+            <div style='background-color: #003366; color: #ffffff; padding: 20px; text-align: center;'>
+                <h2 style='margin: 0;'>Sistem eKuarters KDN</h2>
+            </div>
+            
+            <div style='padding: 25px;'>
+                <h3 style='color: #003366; border-bottom: 2px solid #eee; padding-bottom: 10px;'>Makluman Permohonan Reset Laporan</h3>
+                
+                <p>Terdapat satu permohonan baru untuk menetap semula (reset) laporan agensi berikut:</p>
+                
+                <table style='width: 100%; border-collapse: collapse; margin: 20px 0;'>
+                    <tr>
+                        <td style='padding: 10px; background: #f9f9f9; font-weight: bold; width: 30%; border: 1px solid #eee;'>Agensi</td>
+                        <td style='padding: 10px; border: 1px solid #eee;'>$nama_agensi</td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 10px; background: #f9f9f9; font-weight: bold; border: 1px solid #eee;'>Bulan / Tahun</td>
+                        <td style='padding: 10px; border: 1px solid #eee;'>$bulan / $tahun</td>
+                    </tr>
+                </table>
+                
+                <p>Sila log masuk ke dalam sistem untuk tindakan kelulusan selanjutnya.</p>
+                
+                <div style='text-align: center; margin-top: 30px;'>
+                    <a href='".base_url()."' style='background-color: #d9534f; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>Log Masuk Sistem</a>
+                </div>
+            </div>
+            
+            <div style='background-color: #f4f4f4; color: #777; padding: 15px; text-align: center; font-size: 12px;'>
+                <p>Ini adalah emel automatik daripada <strong>Kementerian Dalam Negeri</strong>. Sila jangan balas emel ini.</p>
+                <p>&copy; ".date('Y')." Sistem eKuarters KDN</p>
+            </div>
+        </div>
+        ";
+
+        $email_service->setMessage($message);
+        
+        // Pastikan mail type adalah HTML
+        $email_service->setMailType('html');
+        
+        return $email_service->send();
+    }
+}
+
 } //lastclose

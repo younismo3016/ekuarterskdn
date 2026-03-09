@@ -136,7 +136,7 @@ class Model_User extends Model
             }
             $builder->limit(200); 
         } else {
-            $builder->limit(20);
+            $builder->limit(200);
         }
         return $builder->get()->getResultArray();
     }

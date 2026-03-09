@@ -1206,3 +1206,35 @@ h6 {
 .bg-login .card {
   background-color: #ffffff;
 }
+/*--------------------------------------------------------------
+# Latar Belakang Halaman Log Masuk (Versi Guli Interaktif)
+--------------------------------------------------------------*/
+.bg-login {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/login_kuarters.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Memastikan kad login berada di atas kesan guli */
+.bg-login .card {
+  background-color: #ffffff;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Canvas untuk Guli & Garisan */
+#marbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Di depan gambar, di belakang kad */
+  pointer-events: none; /* Supaya mouse boleh tembus ke butang login */
+}

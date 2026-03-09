@@ -94,21 +94,57 @@ class Admin extends BaseController
 
 	public function add_user()
 {
+    // 1. TETAPKAN SYARAT VALIDATION 
+    // Nota Penting: Sila tukar 'table_user' di bawah kepada nama jadual (table) database Tuan yang sebenar
+    $rules = [
+        'nama_penuh'      => [
+            'rules'  => 'required',
+            'errors' => ['required' => 'Sila masukkan nama penuh.']
+        ],
+        'email'           => [
+            // is_unique akan semak database secara automatik ganti manual check Tuan
+            'rules'  => 'required|valid_email|is_unique[tbl_user.email]', 
+            'errors' => [
+                'required'    => 'Sila masukkan e-mel.',
+                'valid_email' => 'Format e-mel tidak sah.',
+                'is_unique'   => 'Email telah wujud dalam sistem. Sila guna email lain.' // Mesej asal Tuan
+            ]
+        ],
+        'no_tel'          => [
+            'rules'  => 'required|regex_match[/^0+[0-9]{9,11}$/]',
+            'errors' => [
+                'required'    => 'Sila masukkan nombor telefon.',
+                'regex_match' => 'Format nombor telefon tidak sah. Contoh: 0123456789'
+            ]
+        ],
+        'id_agensi_induk' => [
+            'rules'  => 'required',
+            'errors' => ['required' => 'Sila pilih agensi.']
+        ],
+        'level'           => [
+            'rules'  => 'required',
+            'errors' => ['required' => 'Sila pilih peranan.']
+        ]
+    ];
+
+    // 2. JALANKAN VALIDATION
+    if (!$this->validate($rules)) {
+        // Jika borang tak lengkap ATAU e-mel dah wujud, patah balik ke Modal
+        // membawa mesej error supaya kotak jadi merah
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+
+    // =======================================================
+    // 3. JIKA LULUS VALIDATION, TERUSKAN PROSES ASAL TUAN
+    // =======================================================
+    
     $email_user = $this->request->getPost('email');
     $nama_user  = $this->request->getPost('nama_penuh');
 
-    // 1. CHECK EMAIL WUJUD ATAU TIDAK
-    $check = $this->Model_User->check_email_exists($email_user);
-
-    if ($check) {
-        session()->setFlashdata('pesan', 'Email telah wujud dalam sistem. Sila guna email lain.');
-        return redirect()->back()->withInput();
-    }
-
-    // 2. Generate password rawak
+    // Generate password rawak (Kod asal Tuan)
     $plain_password = substr(str_shuffle(
-    'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*'
-), 0, 12);
+        'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*'
+    ), 0, 12);
 
     $data = [
         'nama_penuh'      => $nama_user,
@@ -120,12 +156,13 @@ class Admin extends BaseController
         'level'           => $this->request->getPost('level'),
     ];
 
-    // 3. Simpan Database
+    // Simpan Database
     $this->Model_User->add_user($data);
 
-    // 4. Hantar Email Password
+    // Hantar Email Password
     $this->send_email_password($email_user, $plain_password);
 
+    // Mesej berjaya
     session()->setFlashdata('pesan', 'Data berjaya ditambah. Kata laluan telah dihantar ke emel.');
     return redirect()->to(site_url('Admin/list_user'));
 }
